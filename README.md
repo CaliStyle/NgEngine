@@ -1,4 +1,7 @@
 # Proxy Engine NG
+
+[![Build status][ci-image]][ci-url]
+
 A Angular CLI, Universal, and Trails/Proxy Engine Boiler Plate.
 
 ## Trails server
@@ -27,3 +30,6 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+[ci-image]: https://img.shields.io/circleci/project/github/CaliStyle/proxy-engine-ng/master.svg
+[ci-url]: https://circleci.com/gh/CaliStyle/proxy-engine-ng/tree/master
