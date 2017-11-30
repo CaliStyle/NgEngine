@@ -1,10 +1,18 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
-    "outDir": "../out-tsc/app",
+    "outDir": "../out-tsc/server",
     "baseUrl": "./",
     "module": "commonjs",
-    "types": []
+    "moduleResolution": "node",
+    "target": "es6",
+    "types": [
+      "node"
+    ],
+    "lib": [
+      "es6",
+      "dom"
+    ]
   },
   "exclude": [
     "test.ts",

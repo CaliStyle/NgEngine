@@ -47,10 +47,10 @@ export const routes = [
   },
 
   // Proxy Router
-  {
-    method: [ 'GET' ],
-    path: '/api/v1/proxy/*',
-    handler: 'ViewController.proxyRouter',
-    config: {}
-  }
+  // {
+  //   method: [ 'GET' ],
+  //   path: '/api/v1/proxy/*',
+  //   handler: 'ViewController.proxyRouter',
+  //   config: {}
+  // }
 ]

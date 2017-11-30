@@ -1,6 +1,4 @@
 import { Request, Response } from 'express'
-// import { Controller } from 'trails-api'
-
 const Controller = require('trails/controller')
 
 /**
@@ -11,11 +9,13 @@ const Controller = require('trails/controller')
  * @this TrailsApp
  */
 
-export class DefaultController extends Controller {
+class DefaultController extends Controller {
   /**
    * Return some info about this application
    */
-  info(req: Request, res: Response ) {
+  info(req: Request, res: Response) {
     res.status(200).json(this.app.services.DefaultService.getApplicationInfo())
   }
 }
+
+export default DefaultController

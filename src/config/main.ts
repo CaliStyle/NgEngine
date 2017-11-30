@@ -15,7 +15,7 @@ export const main = {
    * requirements.
    */
   packs: [
-    // require('trailpack-repl'),
+    require('trailpack-repl'),
     require('trailpack-router'),
     require('trailpack-express'),
     // require('trailpack-proxy-cart'),
@@ -28,9 +28,7 @@ export const main = {
     // require('trailpack-proxy-notifications'),
     // require('trailpack-proxy-router'),
     // require('trailpack-proxy-sequelize'),
-    // require('trailpack-proxy-sitemap'),
-    // require('trailpack-treefrog'),
-    // require('../trailpacks/vc-upload')
+    // require('trailpack-proxy-sitemap')
   ],
 
   /**

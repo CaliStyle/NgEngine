@@ -4,9 +4,8 @@ import { enableProdMode } from '@angular/core'
 
 enableProdMode()
 
-// import { TrailsApp } from 'trails-api'
 const TrailsApp = require('trails')
-const trails = require('./trails')
+const trails = require('./trailsConfig')
 const server = new TrailsApp(trails)
 
 server

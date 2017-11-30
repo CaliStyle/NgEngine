@@ -6,9 +6,11 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "run-s build:client build:aot build:server",
+    "build:prod": "run-s build:client:prod build:aot build:server",
     "build:client": "ng build -prod --build-optimizer --app 0",
+    "build:client:prod": "ng build -prod --build-optimizer --app 0",
     "build:aot": "ng build --aot --app 1",
-    "build:server": "webpack -p",
+    "build:server": "webpack",
     "test": "ng test",
     "lint": "ng lint --fix",
     "e2e": "ng e2e"
@@ -46,6 +48,8 @@
     "@types/node": "~8.0.47",
     "@types/winston": "^2.2.20-alpha",
     "codelyzer": "^4.0.1",
+    "eslint": "^3.0.0",
+    "eslint-config-trails": "^2.0.0",
     "jasmine-core": "~2.8.0",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~1.7.1",
@@ -66,5 +70,14 @@
   "engines": {
     "node": ">= 6.0.0 < 7.0.0",
     "npm": ">= 3"
+  },
+  "eslintConfig": {
+    "extends": "trails",
+    "env": {
+      "mocha": true
+    },
+    "rules": {
+      "nomen": 0
+    }
   }
 }

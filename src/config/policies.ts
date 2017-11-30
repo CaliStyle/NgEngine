@@ -17,7 +17,7 @@ export const policies = {
     // Handles Passport authentication per route
     // 'Passport.sessionAuth',
     // Checks ACL for routes
-    'CheckPermissions.checkRoute'
+    // 'CheckPermissions.checkRoute'
   ],
   DefaultController: {
     info: [ ]
