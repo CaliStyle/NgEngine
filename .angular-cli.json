@@ -8,10 +8,9 @@
       "root": "src",
       "outDir": "dist/browser",
       "assets": [
-        "assets",
-        "favicon.ico"
+        "assets"
       ],
-      "index": "index.html",
+      "index": "index.ng.html",
       "main": "main.ts",
       "polyfills": "polyfills.ts",
       "test": "test.ts",
@@ -26,6 +25,7 @@
       "environments": {
         "dev": "config/app.ts",
         "staging": "config/env/staging/app.ts",
+        "testing": "config/env/testing/app.ts",
         "prod": "config/env/production/app.ts"
       }
     },
@@ -44,6 +44,7 @@
       "environments": {
         "dev": "config/app.ts",
         "staging": "config/env/staging/app.ts",
+        "testing": "config/env/testing/app.ts",
         "prod": "config/env/production/app.ts"
       }
     }

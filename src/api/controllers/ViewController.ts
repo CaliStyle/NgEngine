@@ -14,7 +14,7 @@ export class ViewController extends Controller {
    * @param res
    */
   index(req: Request, res: Response) {
-    console.log('I WAS CALLED')
-    res.render('index', { req })
+    this.app.log.debug(`ssr: ${req.originalUrl }`)
+    res.render('index', { req, res })
   }
 }

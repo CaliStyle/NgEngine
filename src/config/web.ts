@@ -1,6 +1,7 @@
 import 'zone.js/dist/zone-node'
 import 'reflect-metadata'
 import { renderModuleFactory } from '@angular/platform-server'
+import { ngExpressEngine } from '@nguniversal/express-engine'
 import * as express from 'express'
 
 import { join } from 'path'
@@ -8,7 +9,6 @@ import { readFileSync } from 'fs'
 
 const DIST_FOLDER = join(process.cwd(), 'dist')
 
-const template = readFileSync(join(DIST_FOLDER, 'browser', 'index.html')).toString()
 const { AppServerModuleNgFactory } = require('main.server')
 
 const cookieParser = require('cookie-parser')
@@ -110,7 +110,7 @@ export const web = {
       }
       next()
     },
-    static: express.static(join(DIST_FOLDER, 'browser'))
+    static: express.static(join(DIST_FOLDER, 'browser'), {index: false})
 
   },
 
@@ -142,13 +142,11 @@ export const web = {
    */
   views: {
     engines: {
-      'html': (_, options, callback) => {
-        const opts = { document: template, url: options.req.url }
-        renderModuleFactory(AppServerModuleNgFactory, opts)
-          .then(html => callback(null, html))
-      }
+      'ng.html': ngExpressEngine({
+        bootstrap: AppServerModuleNgFactory
+      })
     },
-    path: join(DIST_FOLDER, 'browser')
+    path: join('dist', 'browser')
   }
 
   /**
