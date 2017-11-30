@@ -11,7 +11,8 @@
     "build:client:prod": "ng build -prod --build-optimizer --app 0",
     "build:aot": "ng build --aot --app 1",
     "build:server": "webpack",
-    "test": "ng test",
+    "test": "ng test --watch=false",
+    "test:watch": "ng test",
     "lint": "ng lint --fix",
     "e2e": "ng e2e"
   },
