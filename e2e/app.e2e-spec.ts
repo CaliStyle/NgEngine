@@ -8,7 +8,7 @@ describe('proxy-engine-ng App', () => {
   })
 
   it('should display welcome message', () => {
-    page.navigateTo()
-    expect(page.getParagraphText()).toEqual('Welcome to Proxy Engine with Angular!')
+    page.navigateTo('/')
+    expect(page.getElementText('app-root h1')).toEqual('Welcome to Proxy Engine with Angular!')
   })
 })
