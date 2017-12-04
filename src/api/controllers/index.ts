@@ -1,6 +1,2 @@
-// export { DefaultController } from './DefaultController'
-// export { ViewController } from './ViewController'
-
-// exports.ViewController = require('./ViewController')
-
+export { DefaultController } from './DefaultController'
 export { ViewController } from './ViewController'

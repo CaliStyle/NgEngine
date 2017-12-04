@@ -1,6 +1,4 @@
 import { Request, Response } from 'express'
-// import { Controller } from 'trails-api'
-
 const Controller = require('trails/controller')
 
 /**
