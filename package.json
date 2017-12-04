@@ -11,7 +11,7 @@
     "build:client:prod": "ng build -prod --build-optimizer --app 0",
     "build:aot": "ng build --aot --app 1",
     "build:server": "webpack",
-    "test": "npm run test:ng && npm run test:e2e && npm run build && mocha",
+    "test": "npm run test:ng && npm run build && mocha",
     "test:ng": "ng test --watch=false",
     "test:e2e": "ng e2e",
     "test:ng:watch": "ng test",
