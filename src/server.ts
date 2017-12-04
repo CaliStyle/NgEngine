@@ -1,3 +1,7 @@
+/**
+ * Exports the Trails Server
+ */
+
 import 'reflect-metadata'
 import 'zone.js/dist/zone-node'
 import { enableProdMode } from '@angular/core'
@@ -5,7 +9,7 @@ import { enableProdMode } from '@angular/core'
 enableProdMode()
 
 const TrailsApp = require('trails')
-const trails = require('./trailsConfig')
+const trails = require('./trails.server')
 const server = new TrailsApp(trails)
 
 server

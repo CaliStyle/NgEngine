@@ -1,6 +1,6 @@
 'use strict'
 const path = require('path')
-const DIST_FOLDER = path.join(process.cwd(), 'dist', 'test')
+const DIST_FOLDER = path.join(process.cwd(), 'dist', 'server.test')
 const TrailsApp = require('trails')
 
 before(() => {
