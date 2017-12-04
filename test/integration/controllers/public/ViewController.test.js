@@ -20,7 +20,6 @@ describe('Public ViewController', () => {
   it('should get home page', (done) => {
     publicUser
       .get('/')
-      .set('Accept', 'application/json') //set header for this test
       .expect(200)
       .end((err, res) => {
         done(err)
