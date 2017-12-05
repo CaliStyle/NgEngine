@@ -9,9 +9,11 @@
   "exclude": [
     "test.ts",
     "**/*.spec.ts",
-    "server.ts"
+    "server.ts",
+    "server.test.ts",
+    "trails.server.ts"
   ],
   "angularCompilerOptions": {
-    "entryModule": "app/app.module#AppModule"
+    "entryModule": "app/root/app.module#AppModule"
   }
 }

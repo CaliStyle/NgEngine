@@ -3,9 +3,12 @@ import { HttpClientModule } from '@angular/common/http'
 import { NgModule } from '@angular/core'
 import { RouterModule } from '@angular/router'
 
-import { AppComponent } from './app.component'
+// Routing Module
 import { AppRoutingModule } from './app.routing.module'
-
+// Root Component
+import { AppComponent } from './app.component'
+// Shared Module
+import { SharedModule } from '../shared/shared.module'
 
 
 
@@ -20,7 +23,8 @@ import { AppRoutingModule } from './app.routing.module'
     HttpClientModule,
     BrowserTransferStateModule,
     RouterModule,
-    AppRoutingModule
+    AppRoutingModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: [ AppComponent ]

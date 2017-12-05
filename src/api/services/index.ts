@@ -1,1 +1,1 @@
-export { }
+export { DefaultService } from './DefaultService'
