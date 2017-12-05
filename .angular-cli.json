@@ -8,9 +8,10 @@
       "root": "src",
       "outDir": "dist/browser",
       "assets": [
-        "assets"
+        "assets",
+        "views"
       ],
-      "index": "index.ng.html",
+      "index": "views/index.ng.html",
       "main": "main.ts",
       "polyfills": "polyfills.ts",
       "test": "test.ts",

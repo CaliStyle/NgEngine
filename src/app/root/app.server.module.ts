@@ -2,9 +2,15 @@ import { NgModule } from '@angular/core'
 import { ServerModule, ServerTransferStateModule } from '@angular/platform-server'
 import { RouterModule } from '@angular/router'
 
-import { AppComponent } from './app.component'
+// Root Module
 import { AppModule } from './app.module'
+// Root Component
+import { AppComponent } from './app.component'
+// Route Module
 import { AppRoutingModule } from './app.routing.module'
+// Shared Module
+import { SharedModule } from '../shared/shared.module'
+
 
 @NgModule({
   imports: [
@@ -12,7 +18,8 @@ import { AppRoutingModule } from './app.routing.module'
     ServerModule,
     ServerTransferStateModule,
     RouterModule,
-    AppRoutingModule
+    AppRoutingModule,
+    SharedModule
   ],
   bootstrap: [
     AppComponent

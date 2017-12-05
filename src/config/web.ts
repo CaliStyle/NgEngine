@@ -146,7 +146,7 @@ export const web = {
         bootstrap: AppServerModuleNgFactory
       })
     },
-    path: join('dist', 'browser')
+    path: join('dist', 'browser', 'views')
   }
 
   /**
