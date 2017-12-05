@@ -11,7 +11,7 @@
     "**/*.spec.ts",
     "server.ts",
     "server.test.ts",
-    "trails.server.ts"
+    "trails.config.ts"
   ],
   "angularCompilerOptions": {
     "entryModule": "app/root/app.module#AppModule"
