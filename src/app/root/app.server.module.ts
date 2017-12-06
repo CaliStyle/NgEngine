@@ -5,7 +5,7 @@ import { StoreModule } from '@ngrx/store'
 import { StoreDevtoolsModule } from '@ngrx/store-devtools'
 import { ModuleMapLoaderModule } from '@nguniversal/module-map-ngfactory-loader'
 
-import { NgPack } from './ng-pack'
+// NgEngine for NgPacks
 import { NgEngine } from './ng-engine'
 
 // Root Module

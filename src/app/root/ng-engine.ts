@@ -1,3 +1,6 @@
+import { packs } from '../packs/main'
+import { NgPack } from './ng-pack'
+
 export class NgEngine {
   public packs: {}
   public routes: {}
@@ -28,11 +31,11 @@ export class NgEngine {
       }
     })
 
-    const packs = []
+    // const packs = []
 
-    packs.forEach(Pack => {
+    packs.forEach(p => {
       try {
-        const pack = new Pack(this)
+        const pack = new NgPack(this, p)
         this.packs[pack.name] = pack
         // this.config.merge(pack.config)
         this.mergePack(pack)
@@ -46,11 +49,13 @@ export class NgEngine {
     })
   }
 
-  private mergePack (pack = {routes: {}, models: {}, effects: {}, reducers: {}, actions: {}}) {
-    Object.assign(this.routes, pack.routes)
-    Object.assign(this.models, pack.models)
-    Object.assign(this.effects, pack.effects)
-    Object.assign(this.reducers, pack.reducers)
+  // private mergePack (pack = {routes: {}, models: {}, effects: {}, reducers: {}, actions: {}}) {
+  private mergePack (pack) {
+
     Object.assign(this.actions, pack.actions)
+    Object.assign(this.effects, pack.effects)
+    Object.assign(this.models, pack.models)
+    Object.assign(this.reducers, pack.reducers)
+    Object.assign(this.routes, pack.routes)
   }
 }

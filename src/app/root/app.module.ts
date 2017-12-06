@@ -2,12 +2,12 @@ import { BrowserModule, BrowserTransferStateModule} from '@angular/platform-brow
 import { HttpClientModule } from '@angular/common/http'
 import { NgModule } from '@angular/core'
 import { RouterModule } from '@angular/router'
-import { ModuleMapLoaderModule } from '@nguniversal/module-map-ngfactory-loader'
+// import { ModuleMapLoaderModule } from '@nguniversal/module-map-ngfactory-loader'
 import { StoreModule } from '@ngrx/store'
 import { StoreDevtoolsModule } from '@ngrx/store-devtools'
 
+// NgEngine for NgPacks
 import { NgEngine } from './ng-engine'
-
 // Routing Module
 import { AppRoutingModule } from './app.routing.module'
 // Root Component
@@ -31,7 +31,7 @@ import { reducers, metaReducers } from '../shared/reducers/reducers'
     BrowserTransferStateModule,
     RouterModule,
     AppRoutingModule,
-    ModuleMapLoaderModule,
+    // ModuleMapLoaderModule,
     StoreModule.forRoot(reducers),
     // Note that you must instrument after importing StoreModule (config is optional)
     StoreDevtoolsModule.instrument({

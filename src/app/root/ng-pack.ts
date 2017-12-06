@@ -6,9 +6,9 @@ export class NgPack {
 /**
  * @constructor
  * @param app NgEngine instance
- * @param pack.api The api entities defined in this ngPack (api/ folder)
  * @param pack.config The ngPack configuration (config/ folder)
- * @param pack.pkg The ngPack package.json
+ * @param pack.routes
+ * @param pack.actions
  *
  * Instantiate the ngPack and set some initial properties. All ngPacks
  * should implement their own constructors, and call super(app, pack) with
@@ -16,12 +16,16 @@ export class NgPack {
  * constructor is not recommended.
  */
 
- constructor (app, { pkg, config = { }, api = { } }) {
+// constructor (app, {config = { }, routes = [], actions = [], reducers = [], effects = [] }) {
+  constructor (app, config: any) {
     Object.defineProperties(this, {
       app: {
         enumerable: false,
         writable: false,
         value: app
+      },
+      name: {
+        value: config.config.name
       },
       // pkg: {
       //   value: Object.freeze(pkg),
@@ -49,6 +53,9 @@ export class NgPack {
         enumerable: false
       }
     })
+  }
+  get name() {
+    return this.name
   }
 
   getActions () {
