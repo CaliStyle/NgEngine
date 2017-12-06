@@ -1,6 +1,4 @@
 import * as env from './env'
-
-export { environment } from './app'
 // export { bootstrap } from './bootstrap'
 export { database } from './database'
 export { env }

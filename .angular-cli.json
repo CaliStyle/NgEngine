@@ -22,12 +22,12 @@
         "scss/styles.scss"
       ],
       "scripts": [],
-      "environmentSource": "config/app.ts",
+      "environmentSource": "appConfig/app.ts",
       "environments": {
-        "dev": "config/app.ts",
-        "staging": "config/env/staging/app.ts",
-        "testing": "config/env/testing/app.ts",
-        "prod": "config/env/production/app.ts"
+        "dev": "appConfig/app.ts",
+        "staging": "appConfig/env/staging/app.ts",
+        "testing": "appConfig/env/testing/app.ts",
+        "prod": "appConfig/env/production/app.ts"
       }
     },
     {
@@ -41,12 +41,12 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "scripts": [],
-      "environmentSource": "config/app.ts",
+      "environmentSource": "appConfig/app.ts",
       "environments": {
-        "dev": "config/app.ts",
-        "staging": "config/env/staging/app.ts",
-        "testing": "config/env/testing/app.ts",
-        "prod": "config/env/production/app.ts"
+        "dev": "appConfig/app.ts",
+        "staging": "appConfig/env/staging/app.ts",
+        "testing": "appConfig/env/testing/app.ts",
+        "prod": "appConfig/env/production/app.ts"
       }
     }
   ],

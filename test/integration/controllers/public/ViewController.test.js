@@ -25,4 +25,22 @@ describe('Public ViewController', () => {
         done(err)
       })
   })
+
+  it('should get 404 page', (done) => {
+    publicUser
+      .get('/404')
+      .expect(200)
+      .end((err, res) => {
+        done(err)
+      })
+  })
+
+  it('should get 500 page', (done) => {
+    publicUser
+      .get('/500')
+      .expect(200)
+      .end((err, res) => {
+        done(err)
+      })
+  })
 })

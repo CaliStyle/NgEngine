@@ -7,7 +7,7 @@ describe('PacksModule', () => {
     packsModule = new PacksModule()
   })
 
-  it('should create an instance', () => {
+  it('should create an instance of packs module', () => {
     expect(packsModule).toBeTruthy()
   })
 })

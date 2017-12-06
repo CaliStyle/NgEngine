@@ -5,6 +5,10 @@ import { CommonModule } from '@angular/common'
   imports: [
     CommonModule
   ],
-  declarations: []
+  declarations: [
+  ]
 })
-export class PacksModule { }
+export class PacksModule {
+  constructor() {
+  }
+}
