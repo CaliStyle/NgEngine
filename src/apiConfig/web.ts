@@ -2,17 +2,17 @@ import 'zone.js/dist/zone-node'
 import 'reflect-metadata'
 import { renderModuleFactory } from '@angular/platform-server'
 import { ngExpressEngine } from '@nguniversal/express-engine'
+import { provideModuleMap } from '@nguniversal/module-map-ngfactory-loader'
 import * as express from 'express'
 
 import { join } from 'path'
-import { readFileSync } from 'fs'
 
-const DIST_FOLDER = join(process.cwd(), 'dist')
-
-const { AppServerModuleNgFactory } = require('main.server')
+const { AppServerModuleNgFactory, LAZY_MODULE_MAP } = require('main.server')
 
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
+
+const DIST_FOLDER = join(process.cwd(), 'dist')
 
 /**
  * Server Configuration
@@ -143,7 +143,10 @@ export const web = {
   views: {
     engines: {
       'ng.html': ngExpressEngine({
-        bootstrap: AppServerModuleNgFactory
+        bootstrap: AppServerModuleNgFactory,
+        providers: [
+          provideModuleMap(LAZY_MODULE_MAP)
+        ]
       })
     },
     path: join('dist', 'browser', 'views')
