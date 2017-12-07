@@ -1,5 +1,7 @@
 import { packs } from '../packs/main'
 import { NgPack } from './ng-pack'
+import { environment } from '../../appConfig/app'
+import * as config from '../../appConfig'
 
 export class NgEngine {
   public packs: {}
@@ -11,6 +13,20 @@ export class NgEngine {
 
   constructor() {
     Object.defineProperties(this, {
+      env: {
+        enumerable: false,
+        value: environment
+      },
+      config: {
+        value: config,
+        configurable: true,
+        writable: false
+      },
+      // config: {
+      //   value: new lib.Configuration(app.config, processEnv),
+      //   configurable: true,
+      //   writable: false
+      // },
       packs: {
         value: { }
       },
@@ -33,13 +49,12 @@ export class NgEngine {
 
     // const packs = []
 
-    packs.forEach(p => {
+    packs.forEach(Pack => {
       try {
-        const pack = new NgPack(this, p)
+        const pack = new Pack(this)
         this.packs[pack.name] = pack
         // this.config.merge(pack.config)
         this.mergePack(pack)
-        // lib.Core.bindTrailpackMethodListeners(this, pack)
       }
       catch (e) {
         console.log(e.stack)
@@ -56,6 +71,6 @@ export class NgEngine {
     Object.assign(this.effects, pack.effects)
     Object.assign(this.models, pack.models)
     Object.assign(this.reducers, pack.reducers)
-    Object.assign(this.routes, pack.routes)
+    Object.assign(this.routes, {[pack.name]: pack.routes})
   }
 }

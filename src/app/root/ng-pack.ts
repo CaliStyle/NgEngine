@@ -1,14 +1,29 @@
+import { Routes } from '@angular/router'
+
+export interface NgPack {
+  config: {
+    name: string
+    root: string
+  }
+  actions: any
+  effects: any
+  reducers: any
+  routes: Routes
+}
+
 export class NgPack {
   public actions
   public effects
   public reducers
-  public routes
+  public routes: Routes
 /**
  * @constructor
  * @param app NgEngine instance
- * @param pack.config The ngPack configuration (config/ folder)
- * @param pack.routes
- * @param pack.actions
+ * @param config The ngPack configuration (config/ folder)
+ * @param actions
+ * @param effects
+ * @param reducers
+ * @param routes
  *
  * Instantiate the ngPack and set some initial properties. All ngPacks
  * should implement their own constructors, and call super(app, pack) with
@@ -16,46 +31,39 @@ export class NgPack {
  * constructor is not recommended.
  */
 
-// constructor (app, {config = { }, routes = [], actions = [], reducers = [], effects = [] }) {
-  constructor (app, config: any) {
+  constructor (app, {config, actions, effects, reducers, routes}) {
     Object.defineProperties(this, {
       app: {
-        enumerable: false,
+        enumberable: false,
         writable: false,
         value: app
-      },
-      name: {
-        value: config.config.name
-      },
-      // pkg: {
-      //   value: Object.freeze(pkg),
-      //   writable: false,
-      //   enumerable: false
-      // },
-      // api: {
-      //   value: api,
-      //   writable: true
-      // },
-      actions: {
-        value: []
-      },
-      effects: {
-        value: []
-      },
-      reducers: {
-        value: []
-      },
-      routes: {
-        value: []
       },
       config: {
         value: config,
         enumerable: false
+      },
+      actions: {
+        value: actions,
+        writable: true
+      },
+      effects: {
+        value: effects,
+        writable: true
+      },
+      reducers: {
+        value: reducers,
+        writable: true
+      },
+      routes: {
+        value: routes,
+        writable: true
       }
     })
+    console.log(this)
   }
+
   get name() {
-    return this.name
+    return this.constructor.name
   }
 
   getActions () {

@@ -1,5 +1,5 @@
-import * as home from './home'
-import * as fourZeroFour from './404'
-import * as fiveZeroZero from './500'
+import { Home } from './home'
+import { FourZeroFour } from './404'
+import { FiveZeroZero } from './500'
 
-export const packs = [ home, fourZeroFour, fiveZeroZero ]
+export const packs = [ Home, FourZeroFour, FiveZeroZero ]
