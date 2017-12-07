@@ -7,7 +7,7 @@ import { StoreModule } from '@ngrx/store'
 import { StoreDevtoolsModule } from '@ngrx/store-devtools'
 
 // NgEngine for NgPacks
-import { NgEngine } from './ng-engine'
+import { NgEngine } from '../engine/ng-engine'
 // Routing Module
 import { AppRoutingModule } from './app.routing.module'
 // Root Component
@@ -16,8 +16,8 @@ import { AppComponent } from './app.component'
 import { SharedModule } from '../shared/shared.module'
 // Pack Module
 import { PacksModule } from '../packs/packs.module'
-// NGRX Reducers
-import { reducers, metaReducers } from './reducers'
+// NGRX
+import { AppStoreModule } from '../store/store.module'
 
 @NgModule({
   declarations: [
@@ -31,14 +31,7 @@ import { reducers, metaReducers } from './reducers'
     BrowserTransferStateModule,
     RouterModule,
     AppRoutingModule,
-    // ModuleMapLoaderModule, <- Can not be used on the browser (server only)
-    StoreModule.forRoot(reducers, {metaReducers}),
-    // Note that you must instrument after importing StoreModule (config is optional)
-    StoreDevtoolsModule.instrument({
-      //  Retains last 25 states
-      maxAge: 25,
-      // name: 'ngEngine'
-    }),
+    AppStoreModule,
     SharedModule,
     PacksModule
   ],

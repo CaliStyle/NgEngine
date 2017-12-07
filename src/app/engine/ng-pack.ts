@@ -1,4 +1,34 @@
 import { Routes } from '@angular/router'
+//
+// const Reflect = global['Reflect']
+//
+// export const defaultProps = {
+//   id: undefined
+//   name: undefined,
+//   app: undefined,
+//   config: {},
+//   // get id() {
+//   //   return this.config.name.replace('Module', '').toLowerCase()
+//   // },
+//   // name:
+//   //   return this.config.name.replace('Module', '')
+//   // },
+//   actions: {},
+//   effects: {},
+//   reducers: {},
+//   routes: []
+// }
+//
+// export function NgPack(_props) {
+//   const id = _props.config.name.replace('Module').toLowerCase()
+//   const name = _props.config.name.replace('Module')
+//   _props = Object.assign({}, defaultProps, _props, {name: name, id: id})
+//   console.log('props',_props)
+//   return function (cls) {
+//     Reflect.defineMetadata('annotations', [_props], cls)
+//   }
+// }
+
 
 export interface NgPack {
   config: {
@@ -20,7 +50,7 @@ export class NgPack {
 /**
  * @constructor
  * @param app NgEngine instance
- * @param config The ngPack configuration (config/ folder)
+ * @param config The NgPack configuration (config/ folder)
  * @param actions
  * @param effects
  * @param reducers
@@ -60,7 +90,6 @@ export class NgPack {
         writable: true
       }
     })
-    console.log(this)
   }
 
   get id() {
@@ -69,24 +98,4 @@ export class NgPack {
   get name() {
     return this.config.name.replace('Module', '')
   }
-
-  // /**
-  //  * Get the Actions of this pack
-  //  * @returns {any}
-  //  */
-  // get actions () {
-  //   return this.actions
-  // }
-  //
-  // get effects () {
-  //   return this.effects
-  // }
-  //
-  // getReducers () {
-  //   return this.reducers
-  // }
-  //
-  // getRoutes () {
-  //  return this.routes
-  // }
 }

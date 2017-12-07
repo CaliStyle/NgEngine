@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core'
 import { Store } from '@ngrx/store'
 
-import * as fromRoot from './reducers'
-import { app } from './actions'
+import * as fromRoot from '../store/reducers'
+import { app } from '../store/actions'
 
 
 @Component({
@@ -11,9 +11,13 @@ import { app } from './actions'
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  constructor(private _store: Store<fromRoot.State>) {}
+  constructor(
+    private _store: Store<fromRoot.State>
+  ) {
+    console.log('AppComponent', this)
+  }
 
   ngOnInit() {
-    this._store.dispatch(new app.LoadPackAction({pack: {id: 'test', name: 'test'}}))
+    this._store.dispatch(new app.SetTitleAction({title: 'Proxy Engine with Angular'}))
   }
 }

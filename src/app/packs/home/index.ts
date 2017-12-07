@@ -1,4 +1,4 @@
-import { NgPack} from '../../root/ng-pack'
+import { NgPack} from '../../engine/ng-pack'
 import { ROUTES } from './home.router'
 import { ACTIONS } from './home.actions'
 import { EFFECTS } from './home.effects'

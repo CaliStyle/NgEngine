@@ -1,9 +1,10 @@
-import { NgPack} from '../../root/ng-pack'
+import { NgPack} from '../../engine/ng-pack'
 
 import { ROUTES } from './404.router'
 import { ACTIONS } from './404.actions'
 import { EFFECTS } from './404.effects'
 import { REDUCERS } from './404.reducers'
+
 
 export class FourZeroFour extends NgPack {
   constructor(app) {

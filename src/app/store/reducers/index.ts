@@ -2,12 +2,11 @@ import { createSelector, ActionReducer, ActionReducerMap, MetaReducer } from '@n
 import { environment } from '../../../appConfig/app'
 import * as fromApp from './app'
 
-import * as packs from '../../packs/main'
-
 /**
  * Default State
  */
 export interface State {
+  [key: string]: Object
   app: fromApp.State
 }
 
@@ -17,6 +16,8 @@ export interface State {
 export const reducers: ActionReducerMap<State> = {
   app: fromApp.reducer
 }
+
+export const getAppState = (state: State) => state.app
 
 /**
  * TO CONSOLE Logger

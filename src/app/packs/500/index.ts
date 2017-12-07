@@ -1,4 +1,4 @@
-import { NgPack} from '../../root/ng-pack'
+import { NgPack} from '../../engine/ng-pack'
 
 import { ROUTES } from './500.router'
 import { ACTIONS } from './500.actions'

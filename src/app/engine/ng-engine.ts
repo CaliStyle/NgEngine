@@ -1,7 +1,6 @@
 import { Store } from '@ngrx/store'
 
 import { packs } from '../packs/main'
-import { NgPack } from './ng-pack'
 import { environment } from '../../appConfig/app'
 import * as config from '../../appConfig'
 // import * as fromRoot from '@app/reducers'
@@ -58,6 +57,7 @@ export class NgEngine {
     packs.forEach(Pack => {
       try {
         const pack = new Pack(this)
+        console.log(pack)
         this.packs[pack.name] = pack
         // this.config.merge(pack.config)
         this.mergePack(pack)

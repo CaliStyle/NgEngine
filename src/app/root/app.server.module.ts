@@ -6,7 +6,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools'
 import { ModuleMapLoaderModule } from '@nguniversal/module-map-ngfactory-loader'
 
 // NgEngine for NgPacks
-import { NgEngine } from './ng-engine'
+import { NgEngine } from '../engine/ng-engine'
 // Root Module
 import { AppModule } from './app.module'
 // Root Component
@@ -17,8 +17,8 @@ import { AppRoutingModule } from './app.routing.module'
 import { SharedModule } from '../shared/shared.module'
 // Pack Module
 import { PacksModule } from '../packs/packs.module'
-// NGRX Reducers
-import { reducers, metaReducers } from './reducers'
+// NGRX
+import { AppStoreModule } from '../store/store.module'
 
 @NgModule({
   imports: [
@@ -28,13 +28,7 @@ import { reducers, metaReducers } from './reducers'
     RouterModule,
     AppRoutingModule,
     ModuleMapLoaderModule,
-    StoreModule.forRoot(reducers, {metaReducers}),
-    // Note that you must instrument after importing StoreModule (config is optional)
-    StoreDevtoolsModule.instrument({
-      //  Retains last 25 states
-      maxAge: 25,
-      // name: 'ngEngine'
-    }),
+    AppStoreModule,
     SharedModule,
     PacksModule
   ],
