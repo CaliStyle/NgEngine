@@ -13,9 +13,7 @@ import { app } from '../store/actions'
 export class AppComponent implements OnInit {
   constructor(
     private _store: Store<fromRoot.State>
-  ) {
-    console.log('AppComponent', this)
-  }
+  ) { }
 
   ngOnInit() {
     this._store.dispatch(new app.SetTitleAction({title: 'Proxy Engine with Angular'}))
