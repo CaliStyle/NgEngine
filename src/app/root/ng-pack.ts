@@ -63,7 +63,7 @@ export class NgPack {
   }
 
   get name() {
-    return this.constructor.name
+    return this.config.name.replace('Module', '')
   }
 
   getActions () {
