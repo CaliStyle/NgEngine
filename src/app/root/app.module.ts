@@ -16,8 +16,8 @@ import { AppComponent } from './app.component'
 import { SharedModule } from '../shared/shared.module'
 // Pack Module
 import { PacksModule } from '../packs/packs.module'
-
-import { reducers, metaReducers } from '../shared/reducers/reducers'
+// NGRX Reducers
+import { reducers, metaReducers } from './reducers'
 
 @NgModule({
   declarations: [
@@ -31,8 +31,8 @@ import { reducers, metaReducers } from '../shared/reducers/reducers'
     BrowserTransferStateModule,
     RouterModule,
     AppRoutingModule,
-    // ModuleMapLoaderModule,
-    StoreModule.forRoot(reducers),
+    // ModuleMapLoaderModule, <- Can not be used on the browser (server only)
+    StoreModule.forRoot(reducers, {metaReducers}),
     // Note that you must instrument after importing StoreModule (config is optional)
     StoreDevtoolsModule.instrument({
       //  Retains last 25 states

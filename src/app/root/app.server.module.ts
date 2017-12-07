@@ -7,7 +7,6 @@ import { ModuleMapLoaderModule } from '@nguniversal/module-map-ngfactory-loader'
 
 // NgEngine for NgPacks
 import { NgEngine } from './ng-engine'
-
 // Root Module
 import { AppModule } from './app.module'
 // Root Component
@@ -18,6 +17,8 @@ import { AppRoutingModule } from './app.routing.module'
 import { SharedModule } from '../shared/shared.module'
 // Pack Module
 import { PacksModule } from '../packs/packs.module'
+// NGRX Reducers
+import { reducers, metaReducers } from './reducers'
 
 @NgModule({
   imports: [
@@ -27,8 +28,13 @@ import { PacksModule } from '../packs/packs.module'
     RouterModule,
     AppRoutingModule,
     ModuleMapLoaderModule,
-    StoreModule,
-    StoreDevtoolsModule,
+    StoreModule.forRoot(reducers, {metaReducers}),
+    // Note that you must instrument after importing StoreModule (config is optional)
+    StoreDevtoolsModule.instrument({
+      //  Retains last 25 states
+      maxAge: 25,
+      // name: 'ngEngine'
+    }),
     SharedModule,
     PacksModule
   ],
@@ -37,4 +43,8 @@ import { PacksModule } from '../packs/packs.module'
   ]
 })
 export class AppServerModule extends NgEngine {
+  constructor() {
+    super()
+    console.log('App Module', this)
+  }
 }

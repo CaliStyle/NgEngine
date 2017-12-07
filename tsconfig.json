@@ -15,6 +15,14 @@
     "lib": [
       "es2017",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@app/actions/*": [
+        "./src/app/root/actions/*"
+      ],
+      "@app/reducers/*": [
+        "./src/app/root/reducers/*"
+      ]
+    }
   }
 }

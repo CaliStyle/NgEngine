@@ -1,7 +1,11 @@
+import { Store } from '@ngrx/store'
+
 import { packs } from '../packs/main'
 import { NgPack } from './ng-pack'
 import { environment } from '../../appConfig/app'
 import * as config from '../../appConfig'
+// import * as fromRoot from '@app/reducers'
+// import { app } from '@app/actions'
 
 export class NgEngine {
   public packs: {}
@@ -12,15 +16,17 @@ export class NgEngine {
   public actions: {}
 
   constructor() {
+    // this.store = Store // <fromRoot.State>
+
     Object.defineProperties(this, {
-      env: {
-        enumerable: false,
-        value: environment
-      },
       config: {
         value: config,
         configurable: true,
         writable: false
+      },
+      env: {
+        enumerable: false,
+        value: environment
       },
       // config: {
       //   value: new lib.Configuration(app.config, processEnv),
@@ -72,5 +78,7 @@ export class NgEngine {
     Object.assign(this.models, pack.models)
     Object.assign(this.reducers, pack.reducers)
     Object.assign(this.routes, {[pack.name]: pack.routes})
+
+    // this.store.dispatch(new app.LoadPackAction({pack: {id: pack.id, name: pack.name}}))
   }
 }

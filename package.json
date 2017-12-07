@@ -2,6 +2,7 @@
   "name": "proxy-engine-ng",
   "version": "1.0.0",
   "license": "MIT",
+  "repository": "https://github.com/calistyle/proxy-engine-ng.git",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -34,6 +35,8 @@
     "@angular/platform-browser-dynamic": "^5.0.0",
     "@angular/platform-server": "^5.0.3",
     "@angular/router": "^5.0.0",
+    "@ngrx/effects": "^4.1.1",
+    "@ngrx/entity": "^4.1.1",
     "@ngrx/store": "^4.1.1",
     "@ngrx/store-devtools": "^4.1.1",
     "@nguniversal/express-engine": "^5.0.0-beta.5",

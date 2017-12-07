@@ -16,6 +16,7 @@ export class NgPack {
   public effects
   public reducers
   public routes: Routes
+
 /**
  * @constructor
  * @param app NgEngine instance
@@ -62,20 +63,30 @@ export class NgPack {
     console.log(this)
   }
 
+  get id() {
+    return this.config.name.replace('Module', '').toLowerCase()
+  }
   get name() {
     return this.config.name.replace('Module', '')
   }
 
-  getActions () {
-    return this.actions
-  }
-  getEffects () {
-    return this.effects
-  }
-  getReducers () {
-    return this.reducers
-  }
-  getRoutes () {
-   return this.routes
-  }
+  // /**
+  //  * Get the Actions of this pack
+  //  * @returns {any}
+  //  */
+  // get actions () {
+  //   return this.actions
+  // }
+  //
+  // get effects () {
+  //   return this.effects
+  // }
+  //
+  // getReducers () {
+  //   return this.reducers
+  // }
+  //
+  // getRoutes () {
+  //  return this.routes
+  // }
 }
