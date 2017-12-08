@@ -3,6 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing'
 import { Router } from '@angular/router'
 import { Location } from '@angular/common'
 import { StoreModule, Store } from '@ngrx/store'
+import { NgEngineModule } from '../engine/ng-engine.module'
 
 import * as fromRoot from '../store/reducers'
 import { AppComponent } from './app.component'
@@ -20,7 +21,8 @@ describe('AppComponent', () => {
         RouterTestingModule.withRoutes([]),
         StoreModule.forRoot({
           ...fromRoot.reducers
-        })
+        }),
+        NgEngineModule
       ],
       declarations: [ AppComponent ]
     })
