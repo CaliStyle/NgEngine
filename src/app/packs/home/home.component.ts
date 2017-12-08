@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { Observable } from 'rxjs/Observable'
-import { Store } from '@ngrx/store'
-import * as fromRoot from '../../store/reducers'
+import { NgEngineService } from '../../engine/ng-engine.service'
 
 @Component({
   selector: 'app-home',
@@ -11,8 +10,8 @@ import * as fromRoot from '../../store/reducers'
 export class HomeComponent implements OnInit {
   public state$: Observable<any>
 
-  constructor(private _store: Store<fromRoot.State>) {
-    this.state$ = _store.select(fromRoot.getAppState)
+  constructor(private _ngEngine: NgEngineService) {
+    this.state$ = this._ngEngine.select('getAppState')
   }
 
   ngOnInit() {

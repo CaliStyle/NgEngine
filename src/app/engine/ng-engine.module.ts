@@ -2,11 +2,13 @@ import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
 
 // NgEngine for NgPacks
-import { NgEngineService } from '../engine/ng-engine.service'
+import { AppStoreModule } from '../store/store.module'
+import { NgEngineService } from './ng-engine.service'
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    AppStoreModule
   ],
   declarations: [],
   providers: [

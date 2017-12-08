@@ -14,12 +14,11 @@ import { NgEngineService } from '../engine/ng-engine.service'
 })
 export class AppComponent implements OnInit {
   constructor(
-    private _store: Store<fromRoot.State>,
-    private _engineService: NgEngineService
+    private _ngEngine: NgEngineService
   ) { }
 
   ngOnInit() {
-    this._store.dispatch(new app.SetTitleAction({title: 'Proxy Engine with Angular'}))
-    const engine = this._engineService.engine
+    const engine = this._ngEngine.engine
+    this._ngEngine.dispatch('app', 'SetTitleAction', {title: 'Proxy Engine with Angular'})
   }
 }

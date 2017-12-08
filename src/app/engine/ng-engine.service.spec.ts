@@ -1,15 +1,29 @@
-import { TestBed, inject } from '@angular/core/testing';
-
-import { NgEngineService } from './ng-engine.service';
+import { TestBed, inject } from '@angular/core/testing'
+import { NgEngineModule } from './ng-engine.module'
+import { NgEngineService } from './ng-engine.service'
 
 describe('NgEngineService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [NgEngineService]
-    });
-  });
+      imports: [
+        NgEngineModule
+      ]
+    })
+  })
 
   it('should be created', inject([NgEngineService], (service: NgEngineService) => {
-    expect(service).toBeTruthy();
-  }));
-});
+    expect(service).toBeTruthy()
+  }))
+  it('should get engine', inject([NgEngineService], (service: NgEngineService) => {
+    expect(service.engine).toBeTruthy()
+  }))
+  it('should get store', inject([NgEngineService], (service: NgEngineService) => {
+    expect(service.store).toBeTruthy()
+  }))
+  it('should select from store', inject([NgEngineService], (service: NgEngineService) => {
+    expect(service.select('getAppState')).toBeTruthy()
+  }))
+  it('should dispatch from store', inject([NgEngineService], (service: NgEngineService) => {
+    expect(service.select('getAppState')).toBeTruthy()
+  }))
+})
