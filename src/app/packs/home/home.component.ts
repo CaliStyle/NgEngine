@@ -10,10 +10,9 @@ import { NgEngineService } from '../../engine/ng-engine.service'
 export class HomeComponent implements OnInit {
   public state$: Observable<any>
 
-  constructor(private _ngEngine: NgEngineService) {
-    this.state$ = this._ngEngine.select('getAppState')
-  }
+  constructor(private _ngEngine: NgEngineService) { }
 
   ngOnInit() {
+    this.state$ = this._ngEngine.select('getAppState')
   }
 }
