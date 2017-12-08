@@ -6,7 +6,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools'
 import { ModuleMapLoaderModule } from '@nguniversal/module-map-ngfactory-loader'
 
 // NgEngine for NgPacks
-import { NgEngine } from '../engine/ng-engine'
+import { NgEngineModule } from '../engine/ng-engine.module'
 // Root Module
 import { AppModule } from './app.module'
 // Root Component
@@ -30,15 +30,13 @@ import { AppStoreModule } from '../store/store.module'
     ModuleMapLoaderModule,
     AppStoreModule,
     SharedModule,
+    NgEngineModule,
     PacksModule
   ],
   bootstrap: [
     AppComponent
   ]
 })
-export class AppServerModule extends NgEngine {
-  constructor() {
-    super()
-    console.log('App Module', this)
-  }
+export class AppServerModule {
+
 }

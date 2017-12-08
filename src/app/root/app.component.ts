@@ -4,6 +4,8 @@ import { Store } from '@ngrx/store'
 import * as fromRoot from '../store/reducers'
 import { app } from '../store/actions'
 
+import { NgEngineService } from '../engine/ng-engine.service'
+
 
 @Component({
   selector: 'app-root',
@@ -12,10 +14,12 @@ import { app } from '../store/actions'
 })
 export class AppComponent implements OnInit {
   constructor(
-    private _store: Store<fromRoot.State>
+    private _store: Store<fromRoot.State>,
+    private _engineService: NgEngineService
   ) { }
 
   ngOnInit() {
     this._store.dispatch(new app.SetTitleAction({title: 'Proxy Engine with Angular'}))
+    const engine = this._engineService.engine
   }
 }
