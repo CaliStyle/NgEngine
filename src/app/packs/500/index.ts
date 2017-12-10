@@ -1,6 +1,5 @@
 import { NgPack} from '../../engine/ng-pack'
 
-import { ROUTES } from './500.router'
 import { ACTIONS } from './500.actions'
 import { EFFECTS } from './500.effects'
 import { REDUCERS } from './500.reducers'
@@ -14,8 +13,7 @@ export class FiveZeroZero extends NgPack {
       },
       actions: ACTIONS,
       effects: EFFECTS,
-      reducers: REDUCERS,
-      routes: ROUTES
+      reducers: REDUCERS
     })
   }
 }

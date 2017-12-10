@@ -1,5 +1,4 @@
 import { NgPack} from '../../engine/ng-pack'
-import { ROUTES } from './home.router'
 import { ACTIONS } from './home.actions'
 import { EFFECTS } from './home.effects'
 import { REDUCERS } from './home.reducers'
@@ -13,8 +12,7 @@ export class Home extends NgPack {
       },
       actions: ACTIONS,
       effects: EFFECTS,
-      reducers: REDUCERS,
-      routes: ROUTES
+      reducers: REDUCERS
     })
   }
 }

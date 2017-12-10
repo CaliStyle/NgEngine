@@ -9,7 +9,6 @@ describe('NgPack', () => {
     //   },
     //   actions: {},
     //   effects: {},
-    //   routes: [],
     //   reducers: {}
     // })).toBeTruthy()
   })

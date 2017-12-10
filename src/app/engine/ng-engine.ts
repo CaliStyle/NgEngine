@@ -1,14 +1,12 @@
 import { Store } from '@ngrx/store'
 
 import { packs } from '../packs/main'
-import { environment } from '../../appConfig/app'
 import * as config from '../../appConfig'
 // import * as fromRoot from '@app/reducers'
 // import { app } from '@app/actions'
 
 export class NgEngine {
   public packs: {}
-  public routes: {}
   public models: {}
   public effects: {}
   public reducers: {}
@@ -24,8 +22,9 @@ export class NgEngine {
         writable: false
       },
       env: {
-        enumerable: false,
-        value: environment
+        configurable: true,
+        writable: false,
+        value: config.environment
       },
       // config: {
       //   value: new lib.Configuration(app.config, processEnv),
@@ -33,9 +32,6 @@ export class NgEngine {
       //   writable: false
       // },
       packs: {
-        value: { }
-      },
-      routes: {
         value: { }
       },
       models: {
@@ -77,7 +73,6 @@ export class NgEngine {
     Object.assign(this.effects, pack.effects)
     Object.assign(this.models, pack.models)
     Object.assign(this.reducers, pack.reducers)
-    Object.assign(this.routes, {[pack.name]: pack.routes})
 
     // this.store.dispatch(new app.LoadPackAction({pack: {id: pack.id, name: pack.name}}))
   }

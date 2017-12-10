@@ -26,26 +26,26 @@ describe('HomeComponent', () => {
     component = fixture.componentInstance
     fixture.detectChanges()
   })
-  // TODO FIX
-  // it('should create the app', () => {
-  //   expect(component).toBeTruthy()
-  // })
-  //
-  // it('should subscribe to published app state', async(() => {
-  //   ngEngineService.dispatch('app', 'SetTitleAction', {title: 'Proxy Engine with Angular'})
-  //   component.state$.subscribe(data => {
-  //     expect(data.title).toBe('Proxy Engine with Angular')
-  //   })
-  // }))
-  //
-  // it('should set h1 as state$.title', async(() => {
-  //   ngEngineService.dispatch('app', 'SetTitleAction', {title: 'Proxy Engine with Angular'})
-  //   component.state$.subscribe(data => {
-  //     fixture.whenStable().then(() => {
-  //       fixture.detectChanges()
-  //       const compiled = fixture.debugElement.nativeElement
-  //       expect(compiled.querySelector('h1').textContent).toContain('Proxy Engine with Angular')
-  //     })
-  //   })
-  // }))
+
+  it('should create the app', () => {
+    expect(component).toBeTruthy()
+  })
+
+  it('should subscribe to published app state', async(() => {
+    ngEngineService.dispatch('app', 'SetTitleAction', {title: 'Proxy Engine with Angular'})
+    component.state$.subscribe(data => {
+      expect(data.title).toBe('Proxy Engine with Angular')
+    })
+  }))
+
+  it('should set h1 as state$.title', async(() => {
+    ngEngineService.dispatch('app', 'SetTitleAction', {title: 'Proxy Engine with Angular'})
+    component.state$.subscribe(data => {
+      fixture.whenStable().then(() => {
+        fixture.detectChanges()
+        const compiled = fixture.debugElement.nativeElement
+        expect(compiled.querySelector('h1').textContent).toContain('Proxy Engine with Angular')
+      })
+    })
+  }))
 })

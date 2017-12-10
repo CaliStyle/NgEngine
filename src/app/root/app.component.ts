@@ -1,9 +1,4 @@
 import { Component, OnInit } from '@angular/core'
-import { Store } from '@ngrx/store'
-
-import * as fromRoot from '../store/reducers'
-import { app } from '../store/actions'
-
 import { NgEngineService } from '../engine/ng-engine.service'
 
 

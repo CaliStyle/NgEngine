@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { Observable } from 'rxjs/Observable'
+// import { Observable } from 'rxjs/Observable'
 import { NgEngineService } from '../../engine/ng-engine.service'
 
 @Component({
@@ -8,7 +8,7 @@ import { NgEngineService } from '../../engine/ng-engine.service'
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  public state$: Observable<any>
+  public state$ // : Observable<any>
 
   constructor(private _ngEngine: NgEngineService) { }
 

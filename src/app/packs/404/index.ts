@@ -1,6 +1,5 @@
 import { NgPack} from '../../engine/ng-pack'
 
-import { ROUTES } from './404.router'
 import { ACTIONS } from './404.actions'
 import { EFFECTS } from './404.effects'
 import { REDUCERS } from './404.reducers'
@@ -15,8 +14,7 @@ export class FourZeroFour extends NgPack {
       },
       actions: ACTIONS,
       effects: EFFECTS,
-      reducers: REDUCERS,
-      routes: ROUTES
+      reducers: REDUCERS
     })
   }
 }

@@ -38,14 +38,12 @@ export interface NgPack {
   actions: any
   effects: any
   reducers: any
-  routes: Routes
 }
 
 export class NgPack {
   public actions
   public effects
   public reducers
-  public routes: Routes
 
 /**
  * @constructor
@@ -62,7 +60,7 @@ export class NgPack {
  * constructor is not recommended.
  */
 
-  constructor (app, {config, actions, effects, reducers, routes}) {
+  constructor (app, {config, actions, effects, reducers}) {
     Object.defineProperties(this, {
       app: {
         enumberable: false,
@@ -83,10 +81,6 @@ export class NgPack {
       },
       reducers: {
         value: reducers,
-        writable: true
-      },
-      routes: {
-        value: routes,
         writable: true
       }
     })
