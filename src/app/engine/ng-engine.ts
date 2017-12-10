@@ -66,7 +66,6 @@ export class NgEngine {
     })
   }
 
-  // private mergePack (pack = {routes: {}, models: {}, effects: {}, reducers: {}, actions: {}}) {
   private mergePack (pack) {
 
     Object.assign(this.actions, pack.actions)
@@ -74,6 +73,5 @@ export class NgEngine {
     Object.assign(this.models, pack.models)
     Object.assign(this.reducers, pack.reducers)
 
-    // this.store.dispatch(new app.LoadPackAction({pack: {id: pack.id, name: pack.name}}))
   }
 }

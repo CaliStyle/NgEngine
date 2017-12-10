@@ -52,7 +52,6 @@ export class NgPack {
  * @param actions
  * @param effects
  * @param reducers
- * @param routes
  *
  * Instantiate the ngPack and set some initial properties. All ngPacks
  * should implement their own constructors, and call super(app, pack) with

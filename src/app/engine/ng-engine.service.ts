@@ -13,6 +13,13 @@ export class NgEngineService {
     protected _store: Store<fromRoot.State>
   ) {
     this.ngEngine = new NgEngine()
+    for (const p in this.ngEngine.packs) {
+      if (!this.ngEngine.packs.hasOwnProperty(p)) {
+        continue
+      }
+      const pack = this.ngEngine.packs[p]
+      this.dispatch('app', 'LoadPackAction', { pack: { id: pack.id, name: pack.name }})
+    }
   }
 
   get engine() {
@@ -75,7 +82,7 @@ export class NgEngineService {
         return this.store.dispatch(new Actions[action][type](params))
       }
       catch (err) {
-        if (this.isProduction) {
+        if (!this.isProduction) {
           console.log(err)
         }
       }
