@@ -1,4 +1,5 @@
 import { TestBed, inject } from '@angular/core/testing'
+import { RouterTestingModule } from '@angular/router/testing'
 import { NgEngineModule } from './ng-engine.module'
 import { NgEngineService } from './ng-engine.service'
 
@@ -6,6 +7,7 @@ describe('NgEngineService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
+        RouterTestingModule,
         NgEngineModule
       ]
     })

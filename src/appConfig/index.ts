@@ -1,3 +1,5 @@
 import * as env from './env'
 
-export { environment } from './app'
+export { title } from './app'
+export { environment } from './environment'
+export { env }

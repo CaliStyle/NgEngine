@@ -1,1 +1,1 @@
-export { environment } from './app'
+export { environment } from './environment'

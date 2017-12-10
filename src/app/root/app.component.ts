@@ -13,7 +13,7 @@ export class AppComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    const engine = this._ngEngine.engine
-    this._ngEngine.dispatch('app', 'SetTitleAction', {title: 'Proxy Engine with Angular'})
+    const title = this._ngEngine.config.title
+    this._ngEngine.dispatch('app', 'SetTitleAction', {title: title})
   }
 }

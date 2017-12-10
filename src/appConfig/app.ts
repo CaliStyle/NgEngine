@@ -1,4 +1,1 @@
-// TODO make this work with Trails env
-export const environment = {
-  production: false
-}
+export const title = 'Proxy Engine with Angular'

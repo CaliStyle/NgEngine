@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed, async } from '@angular/core/testing'
+import { RouterTestingModule } from '@angular/router/testing'
 
 import { NgEngineModule } from '../../engine/ng-engine.module'
 import { NgEngineService } from '../../engine/ng-engine.service'
@@ -12,6 +13,7 @@ describe('HomeComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
+        RouterTestingModule,
         NgEngineModule,
         // other imports
       ],

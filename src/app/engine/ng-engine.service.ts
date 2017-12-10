@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { NgEngine } from './ng-engine'
-import { Store } from '@ngrx/store'
+import { Action, Store } from '@ngrx/store'
 
 import * as fromRoot from '../store/reducers'
 import * as Actions from '../store/actions'
@@ -10,7 +10,7 @@ export class NgEngineService {
   private ngEngine
 
   constructor(
-    private _store: Store<fromRoot.State>
+    protected _store: Store<fromRoot.State>
   ) {
     this.ngEngine = new NgEngine()
   }
@@ -18,6 +18,18 @@ export class NgEngineService {
   get engine() {
     return this.ngEngine
   }
+
+  get config() {
+    return this.engine.config
+  }
+
+  get environment() {
+    return this.engine.environment
+  }
+  get isProduction() {
+   return this.environment === 'production'
+  }
+
   get actions() {
     return this.ngEngine.actions
   }
@@ -50,11 +62,23 @@ export class NgEngineService {
 
   /**
    * Alias of Store.dispatch
-   * @param {string} store
-   * @param {string} action
+   * @param {string | Action} action
+   * @param {string} type
    * @param params
    */
-  dispatch(action: string, type: string, params: any) {
-    return this.store.dispatch(new Actions[action][type](params))
+  dispatch(action: any, type?: string, params?: any[] | {[key: string]: any}) {
+    if (typeof <Action>action === 'object') {
+      return this.store.dispatch(action)
+    }
+    else if (typeof <string>action === 'string') {
+      try {
+        return this.store.dispatch(new Actions[action][type](params))
+      }
+      catch (err) {
+        if (this.isProduction) {
+          console.log(err)
+        }
+      }
+    }
   }
 }

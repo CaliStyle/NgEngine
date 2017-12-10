@@ -1,5 +1,6 @@
 import { createSelector, ActionReducer, ActionReducerMap, MetaReducer } from '@ngrx/store'
-import { environment } from '../../../appConfig/app'
+import { routerReducer, RouterReducerState } from '@ngrx/router-store'
+import { environment } from '../../../appConfig'
 import * as fromApp from './app'
 
 /**
@@ -7,17 +8,26 @@ import * as fromApp from './app'
  */
 export interface State {
   [key: string]: Object
-  app: fromApp.State
+  app: fromApp.State,
+  router: RouterReducerState
 }
 
 /**
  * Default Reducers
  */
 export const reducers: ActionReducerMap<State> = {
-  app: fromApp.reducer
+  app: fromApp.reducer,
+  router: routerReducer
 }
 
+/**
+ * App State
+ */
 export const getAppState = (state: State) => state.app
+/**
+ * Router State
+ */
+export const getRouterState = (state: State) => state.router
 
 /**
  * TO CONSOLE Logger

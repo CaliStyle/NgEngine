@@ -1,3 +1,1 @@
-export const environment = {
-  production: false
-}
+export { environment } from './environment'
