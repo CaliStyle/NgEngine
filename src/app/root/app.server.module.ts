@@ -15,9 +15,7 @@ import { AppComponent } from './app.component'
 import { AppRoutingModule } from './app.routing.module'
 // Shared Module
 import { SharedModule } from '../shared/shared.module'
-// Pack Module
-import { PacksModule } from '../packs/packs.module'
-// NGRX
+// NGRX Store
 import { AppStoreModule } from '../store/store.module'
 
 @NgModule({
@@ -30,8 +28,7 @@ import { AppStoreModule } from '../store/store.module'
     ModuleMapLoaderModule,
     AppStoreModule,
     SharedModule,
-    NgEngineModule,
-    PacksModule
+    NgEngineModule
   ],
   bootstrap: [
     AppComponent

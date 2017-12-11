@@ -20,6 +20,7 @@ export class NgEngineService {
       const pack = this.ngEngine.packs[p]
       this.dispatch('app', 'LoadPackAction', { pack: { id: pack.id, name: pack.name }})
     }
+    console.log('ngEngine', this.ngEngine)
   }
 
   get engine() {

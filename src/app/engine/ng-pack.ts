@@ -31,10 +31,8 @@ import { Routes } from '@angular/router'
 
 
 export interface NgPack {
-  config: {
-    name: string
-    root: string
-  }
+  config: Object
+  pkg: { name?: 'string'}
   actions: any
   effects: any
   reducers: any
@@ -59,7 +57,7 @@ export class NgPack {
  * constructor is not recommended.
  */
 
-  constructor (app, {config, actions, effects, reducers}) {
+  constructor (app, {config, pkg, actions, effects, reducers}) {
     Object.defineProperties(this, {
       app: {
         enumberable: false,
@@ -68,6 +66,11 @@ export class NgPack {
       },
       config: {
         value: config,
+        enumerable: false
+      },
+      pkg: {
+        value: Object.freeze(pkg),
+        writable: false,
         enumerable: false
       },
       actions: {
@@ -86,9 +89,9 @@ export class NgPack {
   }
 
   get id() {
-    return this.config.name.replace('Module', '').toLowerCase()
+    return this.pkg.name.replace('ngPack-', '').toLowerCase()
   }
   get name() {
-    return this.config.name.replace('Module', '')
+    return this.pkg.name.replace('ngPack-', '')
   }
 }

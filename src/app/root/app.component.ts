@@ -13,7 +13,7 @@ export class AppComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    const title = this._ngEngine.config.title
+    const title = this._ngEngine.config.get('title')
     this._ngEngine.dispatch('app', 'SetTitleAction', {title: title})
   }
 }

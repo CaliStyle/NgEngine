@@ -1,11 +1,14 @@
 import { Store } from '@ngrx/store'
 
-import { packs } from '../packs/main'
+// import { packs } from '../packs/main'
 import * as config from '../../appConfig'
+import { NgConfig } from './ng-config'
 // import * as fromRoot from '@app/reducers'
 // import { app } from '@app/actions'
 
 export class NgEngine {
+  public config: NgConfig
+
   public packs: {}
   public models: {}
   public effects: {}
@@ -13,24 +16,17 @@ export class NgEngine {
   public actions: {}
 
   constructor() {
-    // this.store = Store // <fromRoot.State>
-
     Object.defineProperties(this, {
-      config: {
-        value: config,
-        configurable: true,
-        writable: false
-      },
       env: {
         configurable: true,
         writable: false,
         value: config.environment
       },
-      // config: {
-      //   value: new lib.Configuration(app.config, processEnv),
-      //   configurable: true,
-      //   writable: false
-      // },
+      config: {
+        value: new NgConfig(config, config.environment),
+        configurable: true,
+        writable: false
+      },
       packs: {
         value: { }
       },
@@ -48,14 +44,15 @@ export class NgEngine {
       }
     })
 
-    // const packs = []
+    const packs = this.config.get('main.packs')
+    console.log('PACKS', packs)
 
     packs.forEach(Pack => {
       try {
         const pack = new Pack(this)
         console.log(pack)
         this.packs[pack.name] = pack
-        // this.config.merge(pack.config)
+        this.config.merge(pack.config)
         this.mergePack(pack)
       }
       catch (e) {
