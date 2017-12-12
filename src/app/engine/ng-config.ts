@@ -1,4 +1,7 @@
-import * as path from 'path'
+/** Node 6 do not have entries or values and need to be shimmed for NgEngine */
+import 'core-js/fn/object/entries'
+import 'core-js/fn/object/values'
+
 import { merge } from 'lodash'
 
 // const ConfigurationProxyHandler = {
@@ -13,26 +16,30 @@ import { merge } from 'lodash'
 //   }
 // }
 
-export class NgConfig extends Map {
+export class NgConfig { // extends Map {
+
+  private map: Map<any, any>
 
   public immutable: boolean
   public env: {}
 
   constructor (configTree = { }, processEnv = { }) {
+    // super()
     const config = NgConfig.buildConfig(configTree)
     const configEntries = Object.entries(NgConfig.flattenTree(config))
-    super(configEntries)
-    // super()
+
+    this.map = new Map(configEntries)
+
+    // configEntries.forEach(entry => {
+    //   this.map.set(entry[0], entry[1])
+    // })
+
+    // super(configEntries)
 
     this.validateConfig(config)
 
     this.immutable = false
     this.env = processEnv
-
-    this.get = this.get.bind(this)
-    this.set = this.set.bind(this)
-    this.entries = this.entries.bind(this)
-    this.has = this.has.bind(this)
 
     return this
     // return new Proxy(this, ConfigurationProxyHandler)
@@ -60,22 +67,21 @@ export class NgConfig extends Map {
    * Copy and merge the provided configuration into a new object, decorated with
    * necessary default and environment-specific values.
    */
-  static buildConfig (initialConfig: {env?: string} = { }, appEnv?) {
-    const root = path.resolve(path.dirname(require.main.filename))
-    const temp = path.resolve(root, '.tmp')
+  static buildConfig (initialConfig: {env?: Object } = { }, appEnv?) {
+    // const root = path.resolve(path.dirname(require.main.filename))
+    // const temp = path.resolve(root, '.tmp')
     const envConfig = initialConfig.env && initialConfig.env[appEnv]
 
     const configTemplate = {
       main: {
         packs: [ ],
         paths: {
-          root: root,
-          temp: temp
+          root: ''
         },
         freezeConfig: true,
         createPaths: true
       },
-      log: { }
+      // log: { }
     }
 
     const mergedConfig = merge(configTemplate, initialConfig, (envConfig || { }))
@@ -88,7 +94,19 @@ export class NgConfig extends Map {
     if (this.immutable === true) {
       // throw new IllegalAccessError('Cannot set properties directly on config. Use .set(key, value) (immutable)')
     }
-    return super.set(key, value)
+    return this.map.set(key, value)
+  }
+
+  get (key) {
+    return this.map.get(key)
+  }
+
+  has(key) {
+    return this.map.has(key)
+  }
+
+  entries() {
+    return this.map.entries()
   }
 
   /**

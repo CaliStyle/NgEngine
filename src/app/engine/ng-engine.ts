@@ -16,14 +16,17 @@ export class NgEngine {
   public actions: {}
 
   constructor() {
+
+    const processEnv = Object.freeze(JSON.parse(JSON.stringify({})))
+
     Object.defineProperties(this, {
       env: {
         configurable: true,
         writable: false,
-        value: config.environment
+        value: processEnv
       },
       config: {
-        value: new NgConfig(config, config.environment),
+        value: new NgConfig(config, processEnv),
         configurable: true,
         writable: false
       },
@@ -44,13 +47,9 @@ export class NgEngine {
       }
     })
 
-    const packs = this.config.get('main.packs')
-    console.log('PACKS', packs)
-
-    packs.forEach(Pack => {
+    this.config.get('main.packs').forEach(Pack => {
       try {
         const pack = new Pack(this)
-        console.log(pack)
         this.packs[pack.name] = pack
         this.config.merge(pack.config)
         this.mergePack(pack)

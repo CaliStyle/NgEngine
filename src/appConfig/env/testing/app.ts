@@ -1,5 +1,3 @@
 export const app = {
-  environment: {
-    production: false
-  }
+  title: 'Proxy Engine with Angular'
 }
