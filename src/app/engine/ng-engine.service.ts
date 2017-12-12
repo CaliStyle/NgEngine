@@ -13,6 +13,7 @@ export class NgEngineService {
     protected _store: Store<fromRoot.State>
   ) {
     this.ngEngine = new NgEngine()
+
     for (const p in this.ngEngine.packs) {
       if (!this.ngEngine.packs.hasOwnProperty(p)) {
         continue
@@ -87,6 +88,9 @@ export class NgEngineService {
           console.log(err)
         }
       }
+    }
+    else {
+      throw new Error('Action should be an object or a string')
     }
   }
 }

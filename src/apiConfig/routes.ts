@@ -46,6 +46,22 @@ export const routes = [
     config: {}
   },
 
+  /**
+   * Constrain the DefaultController.info handler to accept only GET requests.
+   */
+  {
+    method: [ 'GET' ],
+    path: '/api/v1/default/info',
+    handler: 'DefaultController.info',
+    config: {
+      app: {
+        proxyRouter: {
+          ignore: true
+        }
+      }
+    }
+  }
+
   // Proxy Router
   // {
   //   method: [ 'GET' ],
