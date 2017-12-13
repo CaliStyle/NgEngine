@@ -1,1 +1,1 @@
-export const fourZeroFour = {}
+export {}

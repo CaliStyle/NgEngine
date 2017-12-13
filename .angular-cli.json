@@ -22,12 +22,12 @@
         "scss/styles.scss"
       ],
       "scripts": [],
-      "environmentSource": "appConfig/app.ts",
+      "environmentSource": "appConfig/index.ts",
       "environments": {
-        "dev": "appConfig/app.ts",
-        "staging": "appConfig/env/staging/app.ts",
-        "testing": "appConfig/env/testing/app.ts",
-        "prod": "appConfig/env/production/app.ts"
+        "dev": "appConfig/index.ts",
+        "staging": "appConfig/env/staging/index.ts",
+        "testing": "appConfig/env/testing/index.ts",
+        "prod": "appConfig/env/production/index.ts"
       }
     },
     {
@@ -41,12 +41,12 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "scripts": [],
-      "environmentSource": "appConfig/app.ts",
+      "environmentSource": "appConfig/index.ts",
       "environments": {
-        "dev": "appConfig/app.ts",
-        "staging": "appConfig/env/staging/app.ts",
-        "testing": "appConfig/env/testing/app.ts",
-        "prod": "appConfig/env/production/app.ts"
+        "dev": "appConfig/index.ts",
+        "staging": "appConfig/env/staging/index.ts",
+        "testing": "appConfig/env/testing/index.ts",
+        "prod": "appConfig/env/production/index.ts"
       }
     }
   ],
@@ -65,7 +65,7 @@
       "exclude": "**/node_modules/**"
     },
     {
-      "project": "e2e/tsconfig.e2e.json",
+      "project": "test/e2e/tsconfig.e2e.json",
       "exclude": "**/node_modules/**"
     }
   ],

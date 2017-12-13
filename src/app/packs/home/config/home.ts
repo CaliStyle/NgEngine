@@ -1,1 +1,1 @@
-export const home = {}
+export {}

@@ -20,7 +20,7 @@ describe('NgEngineService', () => {
     expect(service.engine).toBeTruthy()
   }))
   it('should get config from engine', inject([NgEngineService], (service: NgEngineService) => {
-    expect(service.config.get('title')).toBeTruthy()
+    expect(service.config.get('app.title')).toBeTruthy()
   }))
   it('should get store', inject([NgEngineService], (service: NgEngineService) => {
     expect(service.store).toBeTruthy()

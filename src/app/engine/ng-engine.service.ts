@@ -5,6 +5,8 @@ import { Action, Store } from '@ngrx/store'
 import * as fromRoot from '../store/reducers'
 import * as Actions from '../store/actions'
 
+// const engine = new NgEngine()
+
 @Injectable()
 export class NgEngineService {
   private ngEngine
