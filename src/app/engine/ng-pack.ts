@@ -1,35 +1,3 @@
-import { Routes } from '@angular/router'
-//
-// const Reflect = global['Reflect']
-//
-// export const defaultProps = {
-//   id: undefined
-//   name: undefined,
-//   app: undefined,
-//   config: {},
-//   // get id() {
-//   //   return this.config.name.replace('Module', '').toLowerCase()
-//   // },
-//   // name:
-//   //   return this.config.name.replace('Module', '')
-//   // },
-//   actions: {},
-//   effects: {},
-//   reducers: {},
-//   routes: []
-// }
-//
-// export function NgPack(_props) {
-//   const id = _props.config.name.replace('Module').toLowerCase()
-//   const name = _props.config.name.replace('Module')
-//   _props = Object.assign({}, defaultProps, _props, {name: name, id: id})
-//   console.log('props',_props)
-//   return function (cls) {
-//     Reflect.defineMetadata('annotations', [_props], cls)
-//   }
-// }
-
-
 export interface NgPack {
   config: Object
   pkg: { name?: 'string'}
