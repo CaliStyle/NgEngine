@@ -1,19 +1,20 @@
 import { Injectable, Inject } from '@angular/core'
 import { Action, Store } from '@ngrx/store'
 
+import { NgEngine } from './ng-engine'
+import { NgEngineStore } from './ng-engine.store'
 
 import * as fromRoot from '../store/reducers'
 import * as Actions from '../store/actions'
-import { NgEngine } from './ng-engine'
+
 
 @Injectable()
 export class NgEngineService {
   constructor(
-    @Inject('engine') private ngEngine: NgEngine,
-    protected _store: Store<fromRoot.State>
+    @Inject('ngEngine') private ngEngine: NgEngine,
+    @Inject('ngEngineStore') protected _store: NgEngineStore
   ) {
-    this.ngEngine = ngEngine
-
+    // Dispatch to the Store that packs have been loaded
     for (const p in this.ngEngine.packs) {
       if (!this.ngEngine.packs.hasOwnProperty(p)) {
         continue
@@ -27,6 +28,7 @@ export class NgEngineService {
         }
       })
     }
+    this.dispatch('app', 'LoadPacksCompleteAction', true)
   }
 
   /**
@@ -109,6 +111,7 @@ export class NgEngineService {
    * @returns {Store<any>}
    */
   select(state) {
+    // const fromRoot = this.reducers
     return this.store.select(fromRoot[state])
   }
 
@@ -118,7 +121,7 @@ export class NgEngineService {
    * @param {string} type
    * @param params
    */
-  dispatch(action: any, type?: string, params?: any[] | {[key: string]: any}) {
+  dispatch(action: any, type?: string, params?: boolean | string | any[] | {[key: string]: any}) {
     if (typeof <Action>action === 'object') {
       return this.store.dispatch(action)
     }
