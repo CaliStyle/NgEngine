@@ -1,5 +1,6 @@
 import { TestBed, inject } from '@angular/core/testing'
 import { RouterTestingModule } from '@angular/router/testing'
+import { NgEngine } from './ng-engine'
 import { NgEngineModule } from './ng-engine.module'
 import { NgEngineService } from './ng-engine.service'
 
@@ -8,7 +9,7 @@ describe('NgEngineService', () => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
-        NgEngineModule
+        NgEngineModule.forRoot(new NgEngine())
       ]
     })
   })

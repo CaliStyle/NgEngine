@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core'
 import { ServerModule, ServerTransferStateModule } from '@angular/platform-server'
 import { RouterModule } from '@angular/router'
-import { StoreModule } from '@ngrx/store'
-import { StoreDevtoolsModule } from '@ngrx/store-devtools'
 import { ModuleMapLoaderModule } from '@nguniversal/module-map-ngfactory-loader'
 
 // NgEngine for NgPacks
+import { NgEngine } from '../engine/ng-engine'
 import { NgEngineModule } from '../engine/ng-engine.module'
 // Root Module
 import { AppModule } from './app.module'
@@ -28,7 +27,7 @@ import { AppStoreModule } from '../store/store.module'
     ModuleMapLoaderModule,
     AppStoreModule,
     SharedModule,
-    NgEngineModule
+    NgEngineModule.forRoot(new NgEngine())
   ],
   bootstrap: [
     AppComponent

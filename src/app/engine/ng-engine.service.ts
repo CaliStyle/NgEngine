@@ -1,61 +1,94 @@
-import { Injectable } from '@angular/core'
-import { NgEngine } from './ng-engine'
+import { Injectable, Inject } from '@angular/core'
 import { Action, Store } from '@ngrx/store'
+
 
 import * as fromRoot from '../store/reducers'
 import * as Actions from '../store/actions'
-
-// const engine = new NgEngine()
+import { NgEngine } from './ng-engine'
 
 @Injectable()
 export class NgEngineService {
-  private ngEngine
-
   constructor(
+    @Inject('engine') private ngEngine: NgEngine,
     protected _store: Store<fromRoot.State>
   ) {
-    this.ngEngine = new NgEngine()
+    this.ngEngine = ngEngine
 
     for (const p in this.ngEngine.packs) {
       if (!this.ngEngine.packs.hasOwnProperty(p)) {
         continue
       }
       const pack = this.ngEngine.packs[p]
-      this.dispatch('app', 'LoadPackAction', { pack: { id: pack.id, name: pack.name }})
+      this.dispatch('app', 'LoadPackAction', {
+        pack: {
+          id: pack.id,
+          name: pack.name,
+          config: pack.config
+        }
+      })
     }
-    console.log('ngEngine', this.ngEngine)
   }
 
+  /**
+   * Get Alias of engine
+   */
   get engine() {
     return this.ngEngine
   }
 
+  /**
+   * Get Engine Config
+   */
   get config() {
     return this.engine.config
   }
 
+  /**
+   * Get Engine Enviroment
+   * @returns {any | string}
+   */
   get environment() {
     return this.engine.environment
   }
+
+  /**
+   * Get Engine is Production
+   * @returns {boolean}
+   */
   get isProduction() {
    return this.environment === 'production'
   }
 
+  /**
+   * Get Engine Actions
+   */
   get actions() {
     return this.ngEngine.actions
   }
+
+  /**
+   * Get Engine Effects
+   */
   get effects() {
     return this.ngEngine.effects
   }
+
+  /**
+   * Get Engine Reducers
+   */
   get reducers() {
     return this.ngEngine.reducers
   }
-  get routes() {
-    return this.ngEngine.routes
-  }
 
   /**
-   * Get ths NGRX Store
+   * Get Engine Routes
+   */
+  // get routes() {
+  //   return this.ngEngine.routes
+  // }
+
+  /**
+   * Get Engine NGRX Store
    * @returns {Store<State>}
    */
   get store() {
@@ -63,7 +96,15 @@ export class NgEngineService {
   }
 
   /**
-   * Alias of Store
+   * Log Items to engine log
+   * @param items
+   */
+  public log(...items) {
+    return this.engine.log(items)
+  }
+
+  /**
+   * Alias of Store.select
    * @param state
    * @returns {Store<any>}
    */

@@ -1,10 +1,17 @@
-import { Store } from '@ngrx/store'
 
-// import { packs } from '../packs/main'
 import * as config from '../../appConfig'
 import { NgConfig } from './ng-config'
-// import * as fromRoot from '@app/reducers'
-// import { app } from '@app/actions'
+
+export interface NgEngine {
+  config: NgConfig
+  packs: {}
+  models: {}
+  effects: {}
+  reducers: {}
+  actions: {},
+  env: Object,
+  environment: string
+}
 
 export class NgEngine {
   public config: NgConfig
@@ -55,7 +62,7 @@ export class NgEngine {
         this.mergePack(pack)
       }
       catch (e) {
-        console.log(e.stack)
+        this.log(e.stack)
         throw new Error('ng constructor')
         // throw new NgPackError(Pack, e, 'constructor')
       }
@@ -69,5 +76,10 @@ export class NgEngine {
     Object.assign(this.models, pack.models)
     Object.assign(this.reducers, pack.reducers)
 
+  }
+  public log(...items) {
+    if (!this.config.get('environment.production')) {
+      console.log(items)
+    }
   }
 }

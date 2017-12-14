@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store'
-import { type } from '../../utils/type.util'
+import { type } from '../../../utils/type.util'
 
 export const ActionTypes = {
   SET_TITLE:   type('[App] Set Title'),

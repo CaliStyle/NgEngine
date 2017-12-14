@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 import { RouterTestingModule } from '@angular/router/testing'
 import { Router } from '@angular/router'
 import { Location } from '@angular/common'
+import { NgEngine } from '../engine/ng-engine'
 import { NgEngineModule } from '../engine/ng-engine.module'
 import { NgEngineService } from '../engine/ng-engine.service'
 import { AppComponent } from './app.component'
@@ -18,7 +19,7 @@ describe('AppComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule.withRoutes([]),
-        NgEngineModule
+        NgEngineModule.forRoot(new NgEngine())
       ],
       declarations: [ AppComponent ]
     })

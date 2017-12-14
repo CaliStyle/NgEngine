@@ -2,11 +2,9 @@ import { BrowserModule, BrowserTransferStateModule} from '@angular/platform-brow
 import { HttpClientModule } from '@angular/common/http'
 import { NgModule } from '@angular/core'
 import { RouterModule } from '@angular/router'
-// import { ModuleMapLoaderModule } from '@nguniversal/module-map-ngfactory-loader'
-import { StoreModule } from '@ngrx/store'
-import { StoreDevtoolsModule } from '@ngrx/store-devtools'
 
 // NgEngine for NgPacks
+import { NgEngine } from '../engine/ng-engine'
 import { NgEngineModule } from '../engine/ng-engine.module'
 // Routing Module
 import { AppRoutingModule } from './app.routing.module'
@@ -31,7 +29,7 @@ import { AppStoreModule } from '../store/store.module'
     AppRoutingModule,
     AppStoreModule,
     SharedModule,
-    NgEngineModule
+    NgEngineModule.forRoot(new NgEngine())
   ],
   bootstrap: [
     AppComponent
