@@ -1,4 +1,4 @@
-
+import { Injectable } from '@angular/core'
 import * as config from '../../appConfig'
 import { NgConfig } from './ng-config'
 
@@ -13,6 +13,7 @@ export interface NgEngine {
   environment: string
 }
 
+@Injectable()
 export class NgEngine {
   public config: NgConfig
 
@@ -69,14 +70,21 @@ export class NgEngine {
     })
   }
 
+  /**
+   * Merge a Pack into Engine
+   * @param pack
+   */
   private mergePack (pack) {
-
     Object.assign(this.actions, pack.actions)
     Object.assign(this.effects, pack.effects)
     Object.assign(this.models, pack.models)
     Object.assign(this.reducers, pack.reducers)
-
   }
+
+  /**
+   * Log
+   * @param items
+   */
   public log(...items) {
     if (!this.config.get('environment.production')) {
       console.log(items)

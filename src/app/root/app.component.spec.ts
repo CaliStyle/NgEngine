@@ -19,7 +19,7 @@ describe('AppComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule.withRoutes([]),
-        NgEngineModule.forRoot(new NgEngine())
+        NgEngineModule
       ],
       declarations: [ AppComponent ]
     })

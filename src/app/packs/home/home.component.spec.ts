@@ -15,7 +15,7 @@ describe('HomeComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
-        NgEngineModule.forRoot(new NgEngine())
+        NgEngineModule
         // other imports
       ],
       declarations: [ HomeComponent ]

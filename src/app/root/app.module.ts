@@ -29,7 +29,7 @@ import { AppStoreModule } from '../store/store.module'
     AppRoutingModule,
     AppStoreModule,
     SharedModule,
-    NgEngineModule.forRoot(new NgEngine())
+    NgEngineModule // .forRoot(new NgEngine())
   ],
   bootstrap: [
     AppComponent

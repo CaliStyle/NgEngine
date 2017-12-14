@@ -9,7 +9,7 @@ describe('NgEngineService', () => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
-        NgEngineModule.forRoot(new NgEngine())
+        NgEngineModule
       ]
     })
   })

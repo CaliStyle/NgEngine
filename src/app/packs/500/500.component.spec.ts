@@ -12,7 +12,7 @@ describe('FiveZeroZeroComponent', () => {
     TestBed.configureTestingModule({
       imports:  [
         RouterTestingModule,
-        NgEngineModule.forRoot(new NgEngine())
+        NgEngineModule
       ],
       declarations: [ FiveZeroZeroComponent ]
     })

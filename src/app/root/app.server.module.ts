@@ -27,7 +27,7 @@ import { AppStoreModule } from '../store/store.module'
     ModuleMapLoaderModule,
     AppStoreModule,
     SharedModule,
-    NgEngineModule.forRoot(new NgEngine())
+    NgEngineModule // .forRoot(NgEngine)
   ],
   bootstrap: [
     AppComponent
