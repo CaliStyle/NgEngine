@@ -11,9 +11,10 @@ import { NgEngine } from './ng-engine'
 import { NgEngineStore } from './ng-engine.store'
 import { NgEngineService } from './ng-engine.service'
 
-// Main Reducers
+// Root Reducers
 import { reducers, metaReducers } from '../store/reducers'
 
+// Combine Root Reducers with Pack Reducers
 export const REDUCER_TOKEN = new InjectionToken<ActionReducerMap<any>>('Pack Reducers')
 export function getReducers(ngEngine: NgEngine) {
   return Object.assign(reducers, ngEngine.reducers)
@@ -24,9 +25,9 @@ export function getReducers(ngEngine: NgEngine) {
 //   return []
 // }
 
-// export const EFFECTS_TOKEN = new InjectionToken('Pack Effects')
+// export const EFFECTS_TOKEN = new InjectionToken<Array<any>>('Pack Effects')
 // export function getEffects(ngEngine: NgEngine) {
-//   return [ngEngine.effects]
+//   return Object.values(ngEngine.effects)
 // }
 
 @NgModule({
@@ -34,7 +35,7 @@ export function getReducers(ngEngine: NgEngine) {
     RouterModule,
     CommonModule,
     StoreModule.forRoot(REDUCER_TOKEN, {metaReducers}),
-    EffectsModule.forRoot([]),
+    EffectsModule.forRoot([]), // EFFECTS_TOKEN),
     StoreRouterConnectingModule,
     StoreDevtoolsModule.instrument({ maxAge: 50 })
   ],
@@ -55,7 +56,7 @@ export function getReducers(ngEngine: NgEngine) {
     //   provide: EFFECTS_TOKEN,
     //   deps: [ NgEngine ],
     //   useFactory: getEffects
-    // },
+    // }
   ]
 })
 export class NgEngineModule {

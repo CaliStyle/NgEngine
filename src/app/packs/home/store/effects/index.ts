@@ -1,1 +1,1 @@
-export const effects = []
+export const effects = {}

@@ -1,6 +1,6 @@
 import { actions } from './actions'
-import * as reducers from './reducers'
 import { effects } from './effects'
+import * as reducers from './reducers'
 
 export { actions as ACTIONS }
 export { reducers as REDUCERS }
