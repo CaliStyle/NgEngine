@@ -45,6 +45,4 @@ export function logger(reducer: ActionReducer<{}>): ActionReducer<{}> {
 /**
  * Meta Reducers
  */
-export const metaReducers: MetaReducer<{}>[] = !environment.production
-  ? [logger]
-  : []
+export const metaReducers: MetaReducer<{}>[] = [logger]

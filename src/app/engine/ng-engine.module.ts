@@ -20,10 +20,10 @@ export function getReducers(ngEngine: NgEngine) {
   return Object.assign(reducers, ngEngine.reducers)
 }
 
-// export function getMetaReducers(ngEngine: NgEngine): MetaReducer[] {
-//   // return array of meta reducers;
-//   return []
-// }
+export function getMetaReducers(ngEngine: NgEngine): MetaReducer<{}>[] {
+  // return array of meta reducers;
+  return ngEngine.environment !== 'production' ? metaReducers : []
+}
 
 // export const EFFECTS_TOKEN = new InjectionToken<Array<any>>('Pack Effects')
 // export function getEffects(ngEngine: NgEngine) {
@@ -34,7 +34,7 @@ export function getReducers(ngEngine: NgEngine) {
   imports: [
     RouterModule,
     CommonModule,
-    StoreModule.forRoot(REDUCER_TOKEN, {metaReducers}),
+    StoreModule.forRoot(REDUCER_TOKEN),
     EffectsModule.forRoot([]), // EFFECTS_TOKEN),
     StoreRouterConnectingModule,
     StoreDevtoolsModule.instrument({ maxAge: 50 })
@@ -51,6 +51,11 @@ export function getReducers(ngEngine: NgEngine) {
       provide: REDUCER_TOKEN,
       deps: [ NgEngine ],
       useFactory: getReducers
+    },
+    {
+      provide: META_REDUCERS,
+      deps: [ NgEngine ],
+      useFactory: getMetaReducers
     },
     // {
     //   provide: EFFECTS_TOKEN,

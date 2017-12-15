@@ -14,7 +14,7 @@ export class NgEngineService {
     protected ngEngine: NgEngine,
     protected _store: NgEngineStore
   ) {
-    console.log(this.ngEngine)
+    this.log(this.ngEngine)
     // Dispatch to the Store that packs have been loaded
     for (const p in this.ngEngine.packs) {
       if (!this.ngEngine.packs.hasOwnProperty(p)) {
@@ -107,10 +107,11 @@ export class NgEngineService {
 
   /**
    * Log Items to engine log
-   * @param items
+   * @param message
+   * @param optionalParams
    */
-  public log(...items) {
-    return this.engine.log(items)
+  public log(message: any, ...optionalParams: any[]) {
+    return this.engine.log(arguments)
   }
 
   /**

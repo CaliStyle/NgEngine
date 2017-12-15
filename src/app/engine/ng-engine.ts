@@ -15,6 +15,9 @@ export interface NgEngine {
   environment: string
 }
 
+// For browsers that don't implement the debug method, log will be used instead. Fixes #62.
+const CONSOLE_DEBUG_METHOD = console['debug'] ? 'debug' : 'log'
+
 @Injectable()
 export class NgEngine {
   public config: NgConfig
@@ -90,13 +93,33 @@ export class NgEngine {
     Object.assign(this.state, {[pack.id]: omit(pack.reducers, 'reducers')})
   }
 
-  /**
-   * Log
-   * @param items
-   */
-  public log(...items) {
+  error(message?: any, ...optionalParams: any[]) {
     if (!this.config.get('environment.production')) {
-      console.log(items)
+      console.error.apply(console, arguments)
+    }
+  }
+
+  warn(message?: any, ...optionalParams: any[]) {
+    if (!this.config.get('environment.production')) {
+      console.warn.apply(console, arguments)
+    }
+  }
+
+  info(message?: any, ...optionalParams: any[]) {
+    if (!this.config.get('environment.production')) {
+      console.info.apply(console, arguments)
+    }
+  }
+
+  debug(message?: any, ...optionalParams: any[]) {
+    if (!this.config.get('environment.production')) {
+      ( <any> console )[CONSOLE_DEBUG_METHOD].apply(console, arguments)
+    }
+  }
+
+  log(message?: any, ...optionalParams: any[]) {
+    if (!this.config.get('environment.production')) {
+      console.log.apply(console, arguments)
     }
   }
 }
