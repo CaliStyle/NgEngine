@@ -4,8 +4,8 @@ import {Action, ActionReducer, combineReducers, Store} from '@ngrx/store'
 import { NgEngine } from './ng-engine'
 import { NgEngineStore } from './ng-engine.store'
 
-import * as fromRoot from '../store/reducers'
-import * as Actions from '../store/actions'
+import * as fromRoot from '../root/store/reducers'
+import * as Actions from '../root/store/actions'
 
 
 @Injectable()

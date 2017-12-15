@@ -1,6 +1,6 @@
 import { createSelector, ActionReducer, ActionReducerMap, MetaReducer } from '@ngrx/store'
 import { routerReducer, RouterReducerState } from '@ngrx/router-store'
-import { environment } from '../../../appConfig'
+import { environment } from '../../../../appConfig'
 import * as fromApp from './app'
 
 /**

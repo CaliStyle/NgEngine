@@ -8,14 +8,16 @@ export interface App {
 }
 
 export interface State extends EntityState<App> {
-  title: string | null
+  title: string | null,
+  ready: boolean
 }
 
 export const adapter: EntityAdapter<App> = createEntityAdapter<App>()
 
 export const initialState: State = adapter.getInitialState({
   // additional entity state properties
-  title: null
+  title: null,
+  ready: false
 })
 
 
@@ -29,6 +31,9 @@ export function reducer(state = initialState, action: app.Actions): State {
     }
     case app.ActionTypes.UNLOAD_PACK: {
       return adapter.removeOne(action.payload.id, state)
+    }
+    case app.ActionTypes.LOAD_PACKS_COMPLETE: {
+      return Object.assign({}, state, {ready: action.payload})
     }
 
     default: {
