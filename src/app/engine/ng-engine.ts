@@ -1,14 +1,22 @@
+import { ActionReducerMap, MetaReducer } from '@ngrx/store'
 import { Injectable } from '@angular/core'
+import { omit, merge } from 'lodash'
+
+// Config and Config Class
 import * as config from '../../appConfig'
 import { NgConfig } from './ng-config'
-import { omit, merge } from 'lodash'
+
+// Root Reducers, Actions
+import * as rootReducers from '../root/store/reducers'
+import * as rootActions from '../root/store/actions'
 
 export interface NgEngine {
   config: NgConfig
   packs: {}
   models: {}
   effects: {}
-  reducers: {}
+  reducers: ActionReducerMap<any>
+  // metaReducers: MetaReducer<{}>[]
   state: {}
   actions: {}
   env: Object
@@ -25,7 +33,8 @@ export class NgEngine {
   public packs: {}
   public models: {}
   public effects: {}
-  public reducers: {}
+  public reducers
+  // public metaReducers: []
   public state: {}
   public actions: {}
 
@@ -54,13 +63,16 @@ export class NgEngine {
         value: { }
       },
       reducers: {
-        value: { }
+        value: rootReducers.reducers
       },
+      // metaReducers: {
+      //   value: rootReducers.metaReducers
+      // },
       state: {
-        value: { }
+        value: {root: omit(rootReducers, 'reducers', 'metaReducers')}
       },
       actions: {
-        value: { }
+        value: rootActions
       }
     })
 

@@ -12,12 +12,12 @@ import { NgEngineStore } from './ng-engine.store'
 import { NgEngineService } from './ng-engine.service'
 
 // Root Reducers
-import { reducers, metaReducers } from '../root/store/reducers'
+import { metaReducers } from '../root/store/reducers'
 
 // Combine Root Reducers with Pack Reducers
 export const REDUCER_TOKEN = new InjectionToken<ActionReducerMap<any>>('Pack Reducers')
 export function getReducers(ngEngine: NgEngine) {
-  return Object.assign(reducers, ngEngine.reducers)
+  return ngEngine.reducers
 }
 
 export function getMetaReducers(ngEngine: NgEngine): MetaReducer<{}>[] {
