@@ -4,7 +4,6 @@ import { RouterModule } from '@angular/router'
 import { ModuleMapLoaderModule } from '@nguniversal/module-map-ngfactory-loader'
 
 // NgEngine for NgPacks
-import { NgEngine } from '../engine/ng-engine'
 import { NgEngineModule } from '../engine/ng-engine.module'
 // Root Module
 import { AppModule } from './app.module'
@@ -14,8 +13,6 @@ import { AppComponent } from './app.component'
 import { AppRoutingModule } from './app.routing.module'
 // Shared Module
 import { SharedModule } from '../shared/shared.module'
-// NGRX Store
-import { AppStoreModule } from '../store/store.module'
 
 @NgModule({
   imports: [
@@ -25,9 +22,8 @@ import { AppStoreModule } from '../store/store.module'
     RouterModule,
     AppRoutingModule,
     ModuleMapLoaderModule,
-    AppStoreModule,
     SharedModule,
-    NgEngineModule // .forRoot(NgEngine)
+    NgEngineModule
   ],
   bootstrap: [
     AppComponent

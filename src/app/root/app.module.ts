@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core'
 import { RouterModule } from '@angular/router'
 
 // NgEngine for NgPacks
-import { NgEngine } from '../engine/ng-engine'
 import { NgEngineModule } from '../engine/ng-engine.module'
 // Routing Module
 import { AppRoutingModule } from './app.routing.module'
@@ -12,8 +11,6 @@ import { AppRoutingModule } from './app.routing.module'
 import { AppComponent } from './app.component'
 // Shared Module
 import { SharedModule } from '../shared/shared.module'
-// NGRX Store
-import { AppStoreModule } from '../store/store.module'
 
 @NgModule({
   declarations: [
@@ -27,9 +24,8 @@ import { AppStoreModule } from '../store/store.module'
     BrowserTransferStateModule,
     RouterModule,
     AppRoutingModule,
-    AppStoreModule,
     SharedModule,
-    NgEngineModule // .forRoot(new NgEngine())
+    NgEngineModule
   ],
   bootstrap: [
     AppComponent

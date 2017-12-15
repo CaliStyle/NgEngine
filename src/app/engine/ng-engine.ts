@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core'
 import * as config from '../../appConfig'
 import { NgConfig } from './ng-config'
+import { omit, merge } from 'lodash'
 
 export interface NgEngine {
   config: NgConfig
@@ -8,8 +9,9 @@ export interface NgEngine {
   models: {}
   effects: {}
   reducers: {}
-  actions: {},
-  env: Object,
+  state: {}
+  actions: {}
+  env: Object
   environment: string
 }
 
@@ -21,6 +23,7 @@ export class NgEngine {
   public models: {}
   public effects: {}
   public reducers: {}
+  public state: {}
   public actions: {}
 
   constructor() {
@@ -50,6 +53,9 @@ export class NgEngine {
       reducers: {
         value: { }
       },
+      state: {
+        value: { }
+      },
       actions: {
         value: { }
       }
@@ -75,10 +81,13 @@ export class NgEngine {
    * @param pack
    */
   private mergePack (pack) {
-    Object.assign(this.actions, pack.actions)
+
+    Object.assign(this.actions, {[pack.id]: pack.actions})
     Object.assign(this.effects, pack.effects)
-    Object.assign(this.models, pack.models)
-    Object.assign(this.reducers, pack.reducers)
+    // this.effects = pack.effects
+    Object.assign(this.models,  pack.models)
+    Object.assign(this.reducers,  pack.reducers['reducers'] || {})
+    Object.assign(this.state, {[pack.id]: omit(pack.reducers, 'reducers')})
   }
 
   /**

@@ -30,12 +30,6 @@ export class NgConfig { // extends Map {
 
     this.map = new Map(configEntries)
 
-    // configEntries.forEach(entry => {
-    //   this.map.set(entry[0], entry[1])
-    // })
-
-    // super(configEntries)
-
     this.validateConfig(config)
 
     this.immutable = false

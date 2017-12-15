@@ -1,1 +1,1 @@
-export const EFFECTS = {}
+export const EFFECTS = []

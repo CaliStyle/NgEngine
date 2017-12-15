@@ -8,11 +8,14 @@ import { NgEngineService } from '../../engine/ng-engine.service'
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  public state$: Observable<any>
+  public appState$: Observable<any>
+  public homeState$: Observable<any>
 
   constructor(private _ngEngine: NgEngineService) { }
 
   ngOnInit() {
-    this.state$ = this._ngEngine.select('getAppState')
+    this.appState$ = this._ngEngine.select('getAppState')
+    this.homeState$ = this._ngEngine.select('home', 'getHomeState')
+    this._ngEngine.dispatch('home', 'HelloWorldAction', 'Hello World')
   }
 }

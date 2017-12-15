@@ -36,18 +36,29 @@ describe('HomeComponent', () => {
 
   it('should subscribe to published app state', async(() => {
     ngEngineService.dispatch('app', 'SetTitleAction', {title: 'Proxy Engine with Angular'})
-    component.state$.subscribe(data => {
+    component.appState$.subscribe(data => {
       expect(data.title).toBe('Proxy Engine with Angular')
     })
   }))
 
-  it('should set h1 as state$.title', async(() => {
+  it('should set h1 as appState$.title', async(() => {
     ngEngineService.dispatch('app', 'SetTitleAction', {title: 'Proxy Engine with Angular'})
-    component.state$.subscribe(data => {
+    component.appState$.subscribe(data => {
       fixture.whenStable().then(() => {
         fixture.detectChanges()
         const compiled = fixture.debugElement.nativeElement
         expect(compiled.querySelector('h1').textContent).toContain('Proxy Engine with Angular')
+      })
+    })
+  }))
+
+  it('should set h2 as homeState$.title', async(() => {
+    ngEngineService.dispatch('home', 'HelloWorldAction', 'Hello World')
+    component.homeState$.subscribe(data => {
+      fixture.whenStable().then(() => {
+        fixture.detectChanges()
+        const compiled = fixture.debugElement.nativeElement
+        expect(compiled.querySelector('h2').textContent).toContain('Hello World')
       })
     })
   }))

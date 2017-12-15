@@ -1,5 +1,5 @@
 import { Injectable, Inject } from '@angular/core'
-import { Action, Store } from '@ngrx/store'
+import {Action, ActionReducer, combineReducers, Store} from '@ngrx/store'
 
 import { NgEngine } from './ng-engine'
 import { NgEngineStore } from './ng-engine.store'
@@ -11,9 +11,10 @@ import * as Actions from '../store/actions'
 @Injectable()
 export class NgEngineService {
   constructor(
-    @Inject('ngEngine') private ngEngine: NgEngine,
-    @Inject('ngEngineStore') protected _store: NgEngineStore
+    protected ngEngine: NgEngine,
+    protected _store: NgEngineStore
   ) {
+    console.log(this.ngEngine)
     // Dispatch to the Store that packs have been loaded
     for (const p in this.ngEngine.packs) {
       if (!this.ngEngine.packs.hasOwnProperty(p)) {
@@ -83,6 +84,13 @@ export class NgEngineService {
   }
 
   /**
+   * Get Engine state
+   */
+  get state() {
+    return this.ngEngine.state
+  }
+
+  /**
    * Get Engine Routes
    */
   // get routes() {
@@ -107,16 +115,32 @@ export class NgEngineService {
 
   /**
    * Alias of Store.select
+   * Determines if this is a Root Select or a Feature Select of State
    * @param state
+   * @param featureState
    * @returns {Store<any>}
    */
-  select(state) {
-    // const fromRoot = this.reducers
-    return this.store.select(fromRoot[state])
+  select(state: string, featureState?: string ) {
+    const fromPackRoot = this.state
+    try {
+      if (fromRoot[state]) {
+        return this.store.select(fromRoot[state])
+      }
+      else if (fromPackRoot[state][featureState]) {
+        return this.store.select(fromPackRoot[state][featureState])
+      }
+      else {
+        throw new Error(`${state} is not in state`)
+      }
+    }
+    catch (err) {
+      this.log(err)
+    }
   }
 
   /**
    * Alias of Store.dispatch
+   * Determines if this is a Root Dispatch or a Feature Dispatch
    * @param {string | Action} action
    * @param {string} type
    * @param params
@@ -127,12 +151,18 @@ export class NgEngineService {
     }
     else if (typeof <string>action === 'string') {
       try {
-        return this.store.dispatch(new Actions[action][type](params))
+        if (Actions[action]) {
+          return this.store.dispatch(new Actions[action][type](params))
+        }
+        else if (this.actions[action]) {
+          return this.store.dispatch(new this.actions[action][type](params))
+        }
+        else {
+          throw new Error(`${action} is not a registered action`)
+        }
       }
       catch (err) {
-        if (!this.isProduction) {
-          console.log(err)
-        }
+        this.log(err)
       }
     }
     else {
