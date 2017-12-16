@@ -22,7 +22,7 @@ export function getReducers(ngEngine: NgEngine) {
 
 export function getMetaReducers(ngEngine: NgEngine): MetaReducer<{}>[] {
   // return array of meta reducers;
-  return ngEngine.environment !== 'production' ? metaReducers : []
+  return !ngEngine.config.get('environment.production') ? metaReducers : []
 }
 
 // export const EFFECTS_TOKEN = new InjectionToken<Array<any>>('Pack Effects')
