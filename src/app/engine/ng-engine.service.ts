@@ -1,5 +1,5 @@
-import { Injectable, Inject } from '@angular/core'
-import {Action, ActionReducer, combineReducers, Store} from '@ngrx/store'
+import { Injectable } from '@angular/core'
+import {Action, Store} from '@ngrx/store'
 
 import { NgEngine } from './ng-engine'
 import { NgEngineStore } from './ng-engine.store'
@@ -7,19 +7,20 @@ import { NgEngineStore } from './ng-engine.store'
 import * as fromRoot from '../root/store/reducers'
 import * as Actions from '../root/store/actions'
 
-
 @Injectable()
 export class NgEngineService {
   constructor(
     protected ngEngine: NgEngine,
     protected _store: NgEngineStore
   ) {
+    // Log the configuration
     this.log(this.ngEngine)
     // Dispatch to the Store that packs have been loaded
     for (const p in this.ngEngine.packs) {
       if (!this.ngEngine.packs.hasOwnProperty(p)) {
         continue
       }
+      // Dispatch loaded pack and it's config
       const pack = this.ngEngine.packs[p]
       this.dispatch('app', 'LoadPackAction', {
         pack: {
@@ -29,6 +30,7 @@ export class NgEngineService {
         }
       })
     }
+    // Dispatch that packs have finished loading
     this.dispatch('app', 'LoadPacksCompleteAction', true)
   }
 
@@ -131,7 +133,7 @@ export class NgEngineService {
         return this.store.select(fromPackRoot[state][featureState])
       }
       else {
-        throw new Error(`${state} is not in state`)
+        throw new Error(`${state} is not in root state or pack state`)
       }
     }
     catch (err) {
