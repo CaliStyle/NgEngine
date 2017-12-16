@@ -5,7 +5,7 @@
   "repository": "https://github.com/calistyle/proxy-engine-ng.git",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --proxy-config proxy.conf.json",
     "build": "run-s build:client build:aot build:server",
     "build:prod": "run-s build:client:prod build:aot build:server",
     "build:client": "ng build --app 0",
