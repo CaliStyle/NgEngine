@@ -10,33 +10,22 @@ import { NgConfig } from './ng-config'
 import * as rootReducers from '../root/store/reducers'
 import * as rootActions from '../root/store/actions'
 
-export interface NgEngine {
-  config: NgConfig
-  packs: {}
-  models: {}
-  effects: {}
-  reducers: ActionReducerMap<any>
-  // metaReducers: MetaReducer<{}>[]
-  state: {}
-  actions: {}
-  env: Object
-  environment: string
-}
-
-// For browsers that don't implement the debug method, log will be used instead. Fixes #62.
+// For browsers that don't implement the debug method, log will be used instead.
 const CONSOLE_DEBUG_METHOD = console['debug'] ? 'debug' : 'log'
 
 @Injectable()
 export class NgEngine {
   public config: NgConfig
-
+  public env: Object
+  public environment: string
   public packs: {}
-  public models: {}
-  public effects: {}
-  public reducers
-  // public metaReducers: []
-  public state: {}
-  public actions: {}
+
+  private _actions: {}
+  private _effects: {}
+  private _metaReducers: MetaReducer<{}>
+  private _models: {}
+  private _reducers: ActionReducerMap<any>
+  private _state: {}
 
   constructor() {
 
@@ -56,22 +45,22 @@ export class NgEngine {
       packs: {
         value: { }
       },
-      models: {
+      _models: {
         value: { }
       },
-      effects: {
+      _effects: {
         value: { }
       },
-      reducers: {
+      _reducers: {
         value: rootReducers.reducers
       },
-      // metaReducers: {
-      //   value: rootReducers.metaReducers
-      // },
-      state: {
+      _metaReducers: {
+        value: rootReducers.metaReducers
+      },
+      _state: {
         value: {root: omit(rootReducers, 'reducers', 'metaReducers')}
       },
-      actions: {
+      _actions: {
         value: rootActions
       }
     })
@@ -85,10 +74,34 @@ export class NgEngine {
       }
       catch (e) {
         this.log(e.stack)
-        throw new Error('ng constructor')
+        throw new Error('ng new pack constructor')
         // throw new NgPackError(Pack, e, 'constructor')
       }
     })
+  }
+
+  get actions() {
+    return this._actions
+  }
+
+  get effects() {
+    return this._effects
+  }
+
+  get metaReducers() {
+    return Object.values(this._metaReducers)
+  }
+
+  get models() {
+    return this._models
+  }
+
+  get reducers() {
+    return this._reducers
+  }
+
+  get state() {
+    return this._state
   }
 
   /**
@@ -97,39 +110,39 @@ export class NgEngine {
    */
   private mergePack (pack) {
 
-    Object.assign(this.actions, {[pack.id]: pack.actions})
-    Object.assign(this.effects, pack.effects)
-    // this.effects = pack.effects
-    Object.assign(this.models,  pack.models)
-    Object.assign(this.reducers,  pack.reducers['reducers'] || {})
-    Object.assign(this.state, {[pack.id]: omit(pack.reducers, 'reducers')})
+    Object.assign(this._actions, {[pack.id]: pack.actions})
+    Object.assign(this._effects, pack.effects)
+    Object.assign(this._models,  pack.models)
+    Object.assign(this._reducers,  pack.reducers['reducers'] || {})
+    Object.assign(this._metaReducers,  pack.reducers['metaReducers'] || {})
+    Object.assign(this._state, {[pack.id]: omit(pack.reducers, ['reducers', 'metaReducers'])})
   }
 
-  error(message?: any, ...optionalParams: any[]) {
+  public error(message?: any, ...optionalParams: any[]) {
     if (!this.config.get('environment.production')) {
       console.error.apply(console, arguments)
     }
   }
 
-  warn(message?: any, ...optionalParams: any[]) {
+  public warn(message?: any, ...optionalParams: any[]) {
     if (!this.config.get('environment.production')) {
       console.warn.apply(console, arguments)
     }
   }
 
-  info(message?: any, ...optionalParams: any[]) {
+  public info(message?: any, ...optionalParams: any[]) {
     if (!this.config.get('environment.production')) {
       console.info.apply(console, arguments)
     }
   }
 
-  debug(message?: any, ...optionalParams: any[]) {
+  public debug(message?: any, ...optionalParams: any[]) {
     if (!this.config.get('environment.production')) {
       ( <any> console )[CONSOLE_DEBUG_METHOD].apply(console, arguments)
     }
   }
 
-  log(message?: any, ...optionalParams: any[]) {
+  public log(message?: any, ...optionalParams: any[]) {
     if (!this.config.get('environment.production')) {
       console.log.apply(console, arguments)
     }

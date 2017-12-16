@@ -11,18 +11,15 @@ import { NgEngine } from './ng-engine'
 import { NgEngineStore } from './ng-engine.store'
 import { NgEngineService } from './ng-engine.service'
 
-// Root Reducers
-import { metaReducers } from '../root/store/reducers'
-
-// Combine Root Reducers with Pack Reducers
+// Return Root Reducers with Pack Reducers
 export const REDUCER_TOKEN = new InjectionToken<ActionReducerMap<any>>('Pack Reducers')
 export function getReducers(ngEngine: NgEngine) {
   return ngEngine.reducers
 }
 
+// Return Root Meta Reducers with Pack Meta Reducers
 export function getMetaReducers(ngEngine: NgEngine): MetaReducer<{}>[] {
-  // return array of meta reducers;
-  return !ngEngine.config.get('environment.production') ? metaReducers : []
+  return ngEngine.metaReducers
 }
 
 // export const EFFECTS_TOKEN = new InjectionToken<Array<any>>('Pack Effects')
