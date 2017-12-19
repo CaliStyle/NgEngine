@@ -25,9 +25,9 @@
       "environmentSource": "appConfig/index.ts",
       "environments": {
         "dev": "appConfig/index.ts",
-        "staging": "appConfig/env/staging/index.ts",
-        "testing": "appConfig/env/testing/index.ts",
-        "prod": "appConfig/env/production/index.ts"
+        "staging": "appConfig/index.ts",
+        "testing": "appConfig/index.ts",
+        "prod": "appConfig/index.ts"
       }
     },
     {
@@ -44,9 +44,9 @@
       "environmentSource": "appConfig/index.ts",
       "environments": {
         "dev": "appConfig/index.ts",
-        "staging": "appConfig/env/staging/index.ts",
-        "testing": "appConfig/env/testing/index.ts",
-        "prod": "appConfig/env/production/index.ts"
+        "staging": "appConfig/index.ts",
+        "testing": "appConfig/index.ts",
+        "prod": "appConfig/index.ts"
       }
     }
   ],

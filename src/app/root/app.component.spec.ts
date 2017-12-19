@@ -2,9 +2,9 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 import { RouterTestingModule } from '@angular/router/testing'
 import { Router } from '@angular/router'
 import { Location } from '@angular/common'
-import { NgEngine } from '../engine/ng-engine'
-import { NgEngineModule } from '../engine/ng-engine.module'
-import { NgEngineService } from '../engine/ng-engine.service'
+import { NgEngine } from '../ngEngine/ng-engine'
+import { NgEngineModule } from '../ngEngine/ng-engine.module'
+import { NgEngineService } from '../ngEngine/ng-engine.service'
 import { AppComponent } from './app.component'
 
 

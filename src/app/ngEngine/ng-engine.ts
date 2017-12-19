@@ -1,3 +1,4 @@
+import { Routes } from '@angular/router'
 import { ActionReducerMap, MetaReducer } from '@ngrx/store'
 import { Injectable } from '@angular/core'
 import { omit, merge } from 'lodash'
@@ -9,6 +10,7 @@ import { NgConfig } from './ng-config'
 // Root Reducers, Actions
 import * as rootReducers from '../root/store/reducers'
 import * as rootActions from '../root/store/actions'
+
 
 // For browsers that don't implement the debug method, log will be used instead.
 const CONSOLE_DEBUG_METHOD = console['debug'] ? 'debug' : 'log'
@@ -26,6 +28,7 @@ export class NgEngine {
   private _models: {}
   private _reducers: ActionReducerMap<any>
   private _state: {}
+  private _routes: Routes
 
   constructor() {
 
@@ -45,26 +48,33 @@ export class NgEngine {
       packs: {
         value: { }
       },
-      _models: {
-        value: { }
+      _actions: {
+        value: rootActions
       },
       _effects: {
+        value: { }
+      },
+      _metaReducers: {
+        value: rootReducers.metaReducers
+      },
+      _models: {
         value: { }
       },
       _reducers: {
         value: rootReducers.reducers
       },
-      _metaReducers: {
-        value: rootReducers.metaReducers
+      _routes: {
+        value: []// this.config.get('routes')
       },
       _state: {
         value: {root: omit(rootReducers, 'reducers', 'metaReducers')}
-      },
-      _actions: {
-        value: rootActions
       }
     })
 
+    // Assign routes from config
+    Object.assign(this._routes, this.config.get('routes'))
+
+    // Load Packs
     this.config.get('main.packs').forEach(Pack => {
       try {
         const pack = new Pack(this)
@@ -100,6 +110,10 @@ export class NgEngine {
     return this._reducers
   }
 
+  get routes() {
+    return this._routes
+  }
+
   get state() {
     return this._state
   }
@@ -109,42 +123,42 @@ export class NgEngine {
    * @param pack
    */
   private mergePack (pack) {
-
-    Object.assign(this._actions, {[pack.id]: pack.actions})
-    Object.assign(this._effects, pack.effects)
-    Object.assign(this._models,  pack.models)
-    Object.assign(this._reducers,  pack.reducers['reducers'] || {})
+    Object.assign(this._actions, {[pack.id]: pack.actions || {}})
+    Object.assign(this._effects, pack.effects || {})
+    Object.assign(this._models,  pack.models || {})
     Object.assign(this._metaReducers,  pack.reducers['metaReducers'] || {})
+    Object.assign(this._reducers,  pack.reducers['reducers'] || {})
+    // Object.assign(this._routes, pack.routes)
     Object.assign(this._state, {[pack.id]: omit(pack.reducers, ['reducers', 'metaReducers'])})
   }
 
   public error(message?: any, ...optionalParams: any[]) {
     if (!this.config.get('environment.production')) {
-      console.error.apply(console, arguments)
+      (<any>console).error.apply(console, arguments)
     }
   }
 
   public warn(message?: any, ...optionalParams: any[]) {
     if (!this.config.get('environment.production')) {
-      console.warn.apply(console, arguments)
+      (<any>console).warn.apply(console, arguments)
     }
   }
 
   public info(message?: any, ...optionalParams: any[]) {
     if (!this.config.get('environment.production')) {
-      console.info.apply(console, arguments)
+      (<any>console).info.apply(console, arguments)
     }
   }
 
   public debug(message?: any, ...optionalParams: any[]) {
     if (!this.config.get('environment.production')) {
-      ( <any> console )[CONSOLE_DEBUG_METHOD].apply(console, arguments)
+      (<any>console)[CONSOLE_DEBUG_METHOD].apply(console, arguments)
     }
   }
 
   public log(message?: any, ...optionalParams: any[]) {
     if (!this.config.get('environment.production')) {
-      console.log.apply(console, arguments)
+      (<any>console).log.apply(console, arguments)
     }
   }
 }

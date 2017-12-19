@@ -1,9 +1,15 @@
-import * as environment from './environment'
 import * as env from './env'
-import * as main from './main'
-import * as app from './app'
 
-export { app }
-export { environment }
+import { environment } from './environment'
+import { main } from './main'
+import { app } from './app'
+import { routes } from './routes'
+
+/**
+ * Export the config
+ */
 export { env }
 export { main }
+export { app }
+export { environment }
+export { routes }

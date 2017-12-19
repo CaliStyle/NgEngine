@@ -1,1 +1,3 @@
-export const production = false
+export const environment = {
+  production: false
+}

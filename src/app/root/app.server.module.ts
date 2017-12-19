@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router'
 import { ModuleMapLoaderModule } from '@nguniversal/module-map-ngfactory-loader'
 
 // NgEngine for NgPacks
-import { NgEngineModule } from '../engine/ng-engine.module'
+import { NgEngineModule } from '../ngEngine/ng-engine.module'
 // Root Module
 import { AppModule } from './app.module'
 // Root Component

@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core'
 import { RouterModule } from '@angular/router'
 
 // NgEngine for NgPacks
-import { NgEngineModule } from '../engine/ng-engine.module'
+import { NgEngineModule } from '../ngEngine/ng-engine.module'
 // Routing Module
 import { AppRoutingModule } from './app.routing.module'
 // Root Component

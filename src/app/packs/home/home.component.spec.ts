@@ -1,9 +1,9 @@
 import { ComponentFixture, TestBed, async } from '@angular/core/testing'
 import { RouterTestingModule } from '@angular/router/testing'
 
-import { NgEngine } from '../../engine/ng-engine'
-import { NgEngineModule } from '../../engine/ng-engine.module'
-import { NgEngineService } from '../../engine/ng-engine.service'
+import { NgEngine } from '../../ngEngine/ng-engine'
+import { NgEngineModule } from '../../ngEngine/ng-engine.module'
+import { NgEngineService } from '../../ngEngine/ng-engine.service'
 import { HomeComponent } from './home.component'
 
 describe('HomeComponent', () => {

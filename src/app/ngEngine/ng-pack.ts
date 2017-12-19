@@ -56,10 +56,27 @@ export class NgPack {
     })
   }
 
+  /**
+   * Get the ID of the pack
+   * @returns {string}
+   */
   get id() {
     return this.pkg.name.replace('ngPack-', '').toLowerCase()
   }
+
+  /**
+   * Get the name of the pack
+   * @returns {string}
+   */
   get name() {
     return this.pkg.name.replace('ngPack-', '')
+  }
+
+  /**
+   * Get the type of the pack (Not Used Yet)
+   * @returns {string}
+   */
+  get type () {
+    return 'misc'
   }
 }
