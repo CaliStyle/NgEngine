@@ -23,9 +23,9 @@ export class NgConfig { // extends Map {
   public immutable: boolean
   public env: {}
 
-  constructor (configTree = { }, processEnv = { }) {
+  constructor (configTree = { }, processEnv: { APP_ENV?: string} = { }) {
     // super()
-    const config = NgConfig.buildConfig(configTree)
+    const config = NgConfig.buildConfig(configTree, processEnv.APP_ENV || 'development')
     const configEntries = Object.entries(NgConfig.flattenTree(config))
 
     this.map = new Map(configEntries)

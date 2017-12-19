@@ -1,5 +1,3 @@
-import * as environment from './environment'
-import * as app from './app'
+import { app } from './app'
 
 export { app }
-export { environment }

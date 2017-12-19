@@ -1,3 +1,4 @@
 export const app = {
-  title: 'Proxy Engine with Angular'
+  API_URL: '/api/v1',
+  title: 'Proxy Engine with Angular Production'
 }

@@ -11,6 +11,8 @@ import { NgConfig } from './ng-config'
 import * as rootReducers from '../root/store/reducers'
 import * as rootActions from '../root/store/actions'
 
+// Environment Stub from  angular cli
+import { environment } from '../../environments/environment'
 
 // For browsers that don't implement the debug method, log will be used instead.
 const CONSOLE_DEBUG_METHOD = console['debug'] ? 'debug' : 'log'
@@ -31,9 +33,15 @@ export class NgEngine {
   private _routes: Routes
 
   constructor() {
+    // Set environment string
+    this.environment = this.environmentString(environment)
 
-    const processEnv = Object.freeze(JSON.parse(JSON.stringify({})))
+    // Freeze process environment
+    const processEnv = Object.freeze(JSON.parse(JSON.stringify({
+      APP_ENV: this.environment
+    })))
 
+    // Define initial properties
     Object.defineProperties(this, {
       env: {
         configurable: true,
@@ -90,6 +98,33 @@ export class NgEngine {
     })
   }
 
+  environmentString(env) {
+    let e = 'development'
+    if (env.production === true) {
+      e = 'production'
+    }
+    else if (env.staging === true) {
+      e = 'staging'
+    }
+    else if (env.testing === true) {
+      e = 'testing'
+    }
+    return e
+  }
+
+  get development() {
+    return this.environment === 'development'
+  }
+  get production() {
+    return this.environment === 'production'
+  }
+  get staging() {
+    return this.environment === 'staging'
+  }
+  get testing() {
+    return this.environment === 'testing'
+  }
+
   get actions() {
     return this._actions
   }
@@ -133,31 +168,31 @@ export class NgEngine {
   }
 
   public error(message?: any, ...optionalParams: any[]) {
-    if (!this.config.get('environment.production')) {
+    if (!this.production) {
       (<any>console).error.apply(console, arguments)
     }
   }
 
   public warn(message?: any, ...optionalParams: any[]) {
-    if (!this.config.get('environment.production')) {
+    if (!this.production) {
       (<any>console).warn.apply(console, arguments)
     }
   }
 
   public info(message?: any, ...optionalParams: any[]) {
-    if (!this.config.get('environment.production')) {
+    if (!this.production) {
       (<any>console).info.apply(console, arguments)
     }
   }
 
   public debug(message?: any, ...optionalParams: any[]) {
-    if (!this.config.get('environment.production')) {
+    if (!this.production) {
       (<any>console)[CONSOLE_DEBUG_METHOD].apply(console, arguments)
     }
   }
 
   public log(message?: any, ...optionalParams: any[]) {
-    if (!this.config.get('environment.production')) {
+    if (!this.production) {
       (<any>console).log.apply(console, arguments)
     }
   }

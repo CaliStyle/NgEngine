@@ -57,14 +57,6 @@ export class NgEngineService {
   }
 
   /**
-   * Get Engine is Production
-   * @returns {boolean}
-   */
-  get isProduction() {
-   return this.environment === 'production'
-  }
-
-  /**
    * Get Engine Actions
    */
   get actions() {
