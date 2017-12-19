@@ -12,7 +12,7 @@ export class ViewController extends Controller {
    * @param res
    */
   index(req: Request, res: Response) {
-    this.app.log.debug(`ssr: ${req.originalUrl }`)
+    this.app.log.debug(`ssr: ${req ? req.originalUrl : 'Unknown' }`)
     res.render('index', { req, res })
   }
 }

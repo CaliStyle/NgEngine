@@ -2,9 +2,21 @@
 
 [![Build status][ci-image]][ci-url]
 
-A Angular CLI, Angular Universal, [Trails](https://trailsjs.io/), and [Proxy Engine](https://github.com/CaliStyle/trailpack-proxy-engine) Boiler Plate.
+An Angular CLI, Angular Universal, [Trails](https://trailsjs.io/), and [Proxy Engine](https://github.com/CaliStyle/trailpack-proxy-engine) Boiler Plate complete with NgPacks concept.
 
 Do you need to use Angular 5+ with Server Side Rendering (SSR) and an advanced node.js framework? This is the boiler plate for you!
+
+## NgEngine and NgPacks
+From our time spent working on Trails, we've really enjoyed some of the design patters, specifically Trailpacks. We're bringing that to Angular. With NgPacks you can register all of your modular components, reducers, actions, effects and more, even if they are lazy loaded without loosing performance. The other thing that we love about Trails is it's configuration concept.  With NgEngine, you now have environment driven configuration for all your NgPacks.
+
+# Configuring your Application
+## Trails
+For Trails documentation see the [Trails Website](https://trailsjs.io).  The only difference is that we are extending trails with Typescript and bundling it with webpack. You can configure Trails through `src/apiConfig`.
+
+## Angular
+For Angular documentation see the [Angular Website](https://angular.io).  You can configure your NgEngine Angular app through `src/appConfig`. 
+
+# Running your Application
 
 ## Trails server
 run `npm run build && node dist/server.js` for the trails server to start. Navigate to `http://localhost:3000/`
@@ -12,6 +24,8 @@ run `npm run build && node dist/server.js` for the trails server to start. Navig
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+
+Run `npm start` for a dev server that expects the API server at `http://localhost:3000`.  
 
 ## Code scaffolding
 

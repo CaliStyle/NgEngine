@@ -8,13 +8,21 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "removeComments": true,
-    "target": "es5",
+    "target": "es6",
     "typeRoots": [
       "node_modules/@types"
     ],
     "lib": [
       "es2017",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@app/actions/*": [
+        "./src/app/root/actions/*"
+      ],
+      "@app/reducers/*": [
+        "./src/app/root/reducers/*"
+      ]
+    }
   }
 }

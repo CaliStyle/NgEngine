@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core'
-import { RouterModule, Routes } from '@angular/router'
+import { RouterModule } from '@angular/router'
 
-const routes: Routes = []
+// TODO load this with NgEngine
+import { routes } from '../../appConfig'
 
 @NgModule({
   imports: [

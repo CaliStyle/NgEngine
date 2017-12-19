@@ -1,27 +1,42 @@
-import { TestBed, async } from '@angular/core/testing'
+import { async, ComponentFixture, TestBed } from '@angular/core/testing'
+import { RouterTestingModule } from '@angular/router/testing'
+import { Router } from '@angular/router'
+import { Location } from '@angular/common'
+import { NgEngine } from '../ngEngine/ng-engine'
+import { NgEngineModule } from '../ngEngine/ng-engine.module'
+import { NgEngineService } from '../ngEngine/ng-engine.service'
 import { AppComponent } from './app.component'
+
+
 describe('AppComponent', () => {
+  let component: AppComponent
+  let location: Location
+  let router: Router
+  let fixture: ComponentFixture<AppComponent>
+  let ngEngineService: NgEngineService
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        AppComponent
+      imports: [
+        RouterTestingModule.withRoutes([]),
+        NgEngineModule
       ],
-    }).compileComponents()
+      declarations: [ AppComponent ]
+    })
+      .compileComponents()
   }))
-  it('should create the app', async(() => {
-    const fixture = TestBed.createComponent(AppComponent)
-    const app = fixture.debugElement.componentInstance
-    expect(app).toBeTruthy()
-  }))
-  it(`should have as title 'Proxy Engine with Angular'`, async(() => {
-    const fixture = TestBed.createComponent(AppComponent)
-    const app = fixture.debugElement.componentInstance
-    expect(app.title).toEqual('Proxy Engine with Angular')
-  }))
-  it('should render title in a h1 tag', async(() => {
-    const fixture = TestBed.createComponent(AppComponent)
+
+  beforeEach(() => {
+    router = TestBed.get(Router)
+    ngEngineService = TestBed.get(NgEngineService)
+    spyOn(ngEngineService, 'dispatch').and.callThrough()
+    location = TestBed.get(Location)
+    fixture = TestBed.createComponent(AppComponent)
+    component = fixture.componentInstance
     fixture.detectChanges()
-    const compiled = fixture.debugElement.nativeElement
-    expect(compiled.querySelector('h1').textContent).toContain('Welcome to Proxy Engine with Angular!')
-  }))
+  })
+
+  it('should create', () => {
+    expect(component).toBeTruthy()
+  })
 })
