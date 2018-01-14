@@ -64,7 +64,7 @@ export class NgEngineConfig { // extends Map {
   static buildConfig (initialConfig: {env?: Object } = { }, appEnv?) {
     // const root = path.resolve(path.dirname(require.main.filename))
     // const temp = path.resolve(root, '.tmp')
-    const envConfig = initialConfig.env && initialConfig.env[appEnv]
+    const envConfig = initialConfig && initialConfig.env && initialConfig.env[appEnv]
 
     const configTemplate = {
       main: {
@@ -79,11 +79,20 @@ export class NgEngineConfig { // extends Map {
     }
 
     const mergedConfig = merge(configTemplate, initialConfig, (envConfig || { }))
-    mergedConfig.env = appEnv
+    // Fixes issue with mergedConfig as null
+    if (mergedConfig) {
+      mergedConfig.env = appEnv
+    }
 
     return mergedConfig
   }
 
+  /**
+   * set on config (key, value)
+   * @param key
+   * @param value
+   * @returns {Map<any, any>}
+   */
   set (key, value) {
     if (this.immutable === true) {
       // throw new IllegalAccessError('Cannot set properties directly on config. Use .set(key, value) (immutable)')
@@ -91,14 +100,28 @@ export class NgEngineConfig { // extends Map {
     return this.map.set(key, value)
   }
 
+  /**
+   * get from config by key
+   * @param key
+   * @returns {any}
+   */
   get (key) {
     return this.map.get(key)
   }
 
+  /**
+   * has config key
+   * @param key
+   * @returns {boolean}
+   */
   has(key) {
     return this.map.has(key)
   }
 
+  /**
+   * get entries from config
+   * @returns {IterableIterator<[any , any]>}
+   */
   entries() {
     return this.map.entries()
   }

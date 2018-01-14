@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@angular/core'
 import { Routes } from '@angular/router'
-import { ActionReducerMap, MetaReducer } from '@ngrx/store'
+import { ActionReducerMap, MetaReducer, Action } from '@ngrx/store'
 import { omit, merge } from 'lodash'
 
 // Config Class
@@ -28,7 +28,7 @@ export class NgEngine {
     @Inject('environment') environment?,
     @Inject('appConfig') appConfig?,
     @Inject('fromRootReducers') rootReducers?,
-    @Inject('fromRootActions') rootActions?
+    @Inject('fromRootActions') rootActions?: Action[]
   ) {
     // Injected Environment or default values
     environment = environment || {
@@ -72,13 +72,13 @@ export class NgEngine {
         value: { }
       },
       _metaReducers: {
-        value: rootReducers.metaReducers
+        value: rootReducers.metaReducers || {}
       },
       _models: {
         value: { }
       },
       _reducers: {
-        value: rootReducers.reducers
+        value: rootReducers.reducers || {}
       },
       _routes: {
         value: []// this.config.get('routes')
@@ -100,7 +100,7 @@ export class NgEngine {
         this.mergePack(pack)
       }
       catch (e) {
-        this.log(e.stack)
+        this.error(e.stack)
         throw new Error('ng new pack constructor')
         // throw new NgPackError(Pack, e, 'constructor')
       }
@@ -114,13 +114,13 @@ export class NgEngine {
    */
   public environmentString(env) {
     let e = 'development'
-    if (env.production === true) {
+    if (env && env.production === true) {
       e = 'production'
     }
-    else if (env.staging === true) {
+    else if (env && env.staging === true) {
       e = 'staging'
     }
-    else if (env.testing === true) {
+    else if (env && env.testing === true) {
       e = 'testing'
     }
     return e

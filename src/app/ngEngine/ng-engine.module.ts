@@ -45,24 +45,6 @@ export function getRoutes(ngEngine: NgEngine) {
     StoreModule
   ],
   // providers: [
-  //   NgEngine,
-  //   NgEngineStore,
-  //   NgEngineService,
-  //   {
-  //     provide: REDUCER_TOKEN,
-  //     deps: [ NgEngine ],
-  //     useFactory: getReducers
-  //   },
-  //   {
-  //     provide: META_REDUCERS,
-  //     deps: [ NgEngine ],
-  //     useFactory: getMetaReducers
-  //   },
-  //   {
-  //     provide: ROUTES_TOKEN,
-  //     deps: [ NgEngine ],
-  //     useFactory: getRoutes
-  //   },
   //   // {
   //   //   provide: EFFECTS_TOKEN,
   //   //   deps: [ NgEngine ],
@@ -93,10 +75,26 @@ export class NgEngineModule {
           deps: [ NgEngine ],
           useFactory: getRoutes
         },
-        { provide: 'environment', useValue: environment },
-        { provide: 'appConfig', useValue: appConfig },
-        { provide: 'fromRootReducers', useValue: fromRootReducers },
-        { provide: 'fromRootActions', useValue: fromRootActions }
+        {
+          provide: 'environment',
+         //  deps: [ NgEngine ],
+          useValue: environment
+        },
+        {
+          provide: 'appConfig',
+          // deps: [ NgEngine ],
+          useValue: appConfig
+        },
+        {
+          provide: 'fromRootReducers',
+          // deps: [ NgEngine, NgEngineService ],
+          useValue: fromRootReducers
+        },
+        {
+          provide: 'fromRootActions',
+          // deps: [ NgEngine, NgEngineService ],
+          useValue: fromRootActions
+        }
       ]
     }
   }
