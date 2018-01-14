@@ -16,7 +16,7 @@ import { merge } from 'lodash'
 //   }
 // }
 
-export class NgConfig { // extends Map {
+export class NgEngineConfig { // extends Map {
 
   private map: Map<any, any>
 
@@ -25,8 +25,8 @@ export class NgConfig { // extends Map {
 
   constructor (configTree = { }, processEnv: { APP_ENV?: string} = { }) {
     // super()
-    const config = NgConfig.buildConfig(configTree, processEnv.APP_ENV || 'development')
-    const configEntries = Object.entries(NgConfig.flattenTree(config))
+    const config = NgEngineConfig.buildConfig(configTree, processEnv.APP_ENV || 'development')
+    const configEntries = Object.entries(NgEngineConfig.flattenTree(config))
 
     this.map = new Map(configEntries)
 
@@ -47,7 +47,7 @@ export class NgConfig { // extends Map {
 
     Object.entries(tree).forEach(([ k, v ]) => {
       if (typeof v === 'object' && v !== null) {
-        const flatObject = NgConfig.flattenTree(v)
+        const flatObject = NgEngineConfig.flattenTree(v)
         Object.keys(flatObject).forEach(flatKey => {
           toReturn[`${k}.${flatKey}`] = flatObject[flatKey]
         })
@@ -107,7 +107,7 @@ export class NgConfig { // extends Map {
    * Merge tree into this configuration. Return overwritten keys
    */
   merge (configTree) {
-    const configEntries = Object.entries(NgConfig.flattenTree(configTree))
+    const configEntries = Object.entries(NgEngineConfig.flattenTree(configTree))
     return configEntries.map(([ key, value ]) => {
       const hasKey = this.has(key)
       this.set(key, value)

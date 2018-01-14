@@ -1,4 +1,4 @@
-import { NgModule, InjectionToken } from '@angular/core'
+import { NgModule, InjectionToken, ModuleWithProviders } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { RouterModule, Routes, ROUTES } from '@angular/router'
 import { StoreModule, ActionReducerMap, MetaReducer, META_REDUCERS } from '@ngrx/store'
@@ -7,9 +7,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools'
 import { EffectsModule } from '@ngrx/effects'
 
 // NgEngine for NgPacks
-import { NgEngine } from './ng-engine'
-import { NgEngineStore } from './ng-engine.store'
-import { NgEngineService } from './ng-engine.service'
+import { NgEngine, NgEngineStore, NgEngineService, NgEngineConfig } from './ng-engine.service'
+import { NgPack } from './ng-pack'
 
 // Return Root Reducers with Pack Reducers
 export const REDUCER_TOKEN = new InjectionToken<ActionReducerMap<any>>('REDUCER_TOKEN')
@@ -45,32 +44,68 @@ export function getRoutes(ngEngine: NgEngine) {
   exports: [
     StoreModule
   ],
-  providers: [
-    NgEngine,
-    NgEngineStore,
-    NgEngineService,
-    {
-      provide: REDUCER_TOKEN,
-      deps: [ NgEngine ],
-      useFactory: getReducers
-    },
-    {
-      provide: META_REDUCERS,
-      deps: [ NgEngine ],
-      useFactory: getMetaReducers
-    },
-    {
-      provide: ROUTES_TOKEN,
-      deps: [ NgEngine ],
-      useFactory: getRoutes
-    },
-    // {
-    //   provide: EFFECTS_TOKEN,
-    //   deps: [ NgEngine ],
-    //   useFactory: getEffects
-    // }
-  ]
+  // providers: [
+  //   NgEngine,
+  //   NgEngineStore,
+  //   NgEngineService,
+  //   {
+  //     provide: REDUCER_TOKEN,
+  //     deps: [ NgEngine ],
+  //     useFactory: getReducers
+  //   },
+  //   {
+  //     provide: META_REDUCERS,
+  //     deps: [ NgEngine ],
+  //     useFactory: getMetaReducers
+  //   },
+  //   {
+  //     provide: ROUTES_TOKEN,
+  //     deps: [ NgEngine ],
+  //     useFactory: getRoutes
+  //   },
+  //   // {
+  //   //   provide: EFFECTS_TOKEN,
+  //   //   deps: [ NgEngine ],
+  //   //   useFactory: getEffects
+  //   // }
+  // ]
 })
 export class NgEngineModule {
+  static forRoot(environment?: any, appConfig?: any, fromRootReducers?: any, fromRootActions?: any): ModuleWithProviders {
+    return {
+      ngModule: NgEngineModule,
+      providers: [
+        NgEngine,
+        NgEngineStore,
+        NgEngineService,
+        {
+          provide: REDUCER_TOKEN,
+          deps: [ NgEngine ],
+          useFactory: getReducers
+        },
+        {
+          provide: META_REDUCERS,
+          deps: [ NgEngine ],
+          useFactory: getMetaReducers
+        },
+        {
+          provide: ROUTES_TOKEN,
+          deps: [ NgEngine ],
+          useFactory: getRoutes
+        },
+        { provide: 'environment', useValue: environment },
+        { provide: 'appConfig', useValue: appConfig },
+        { provide: 'fromRootReducers', useValue: fromRootReducers },
+        { provide: 'fromRootActions', useValue: fromRootActions }
+      ]
+    }
+  }
+}
 
+export {
+  NgEngine,
+  NgPack,
+  NgEngineService,
+  NgEngineStore,
+  NgEngineConfig
 }

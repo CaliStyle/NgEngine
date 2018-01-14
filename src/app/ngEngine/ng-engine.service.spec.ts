@@ -1,15 +1,19 @@
 import { TestBed, inject } from '@angular/core/testing'
 import { RouterTestingModule } from '@angular/router/testing'
-import { NgEngine } from './ng-engine'
-import { NgEngineModule } from './ng-engine.module'
-import { NgEngineService } from './ng-engine.service'
+import { NgEngineModule, NgEngineService } from './'
+// Environment Stub from  angular cli
+import { environment } from '../../environments/environment'
+// App Config for NgEngine
+import * as appConfig from '../../appConfig'
+import * as fromRootReducers from '../root/store/reducers'
+import * as fromRootActions from '../root/store/actions'
 
 describe('NgEngineService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
-        NgEngineModule
+        NgEngineModule.forRoot(environment, appConfig, fromRootReducers, fromRootActions)
       ]
     })
   })

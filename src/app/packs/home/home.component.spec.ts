@@ -1,9 +1,15 @@
 import { ComponentFixture, TestBed, async } from '@angular/core/testing'
 import { RouterTestingModule } from '@angular/router/testing'
 
-import { NgEngine } from '../../ngEngine/ng-engine'
-import { NgEngineModule } from '../../ngEngine/ng-engine.module'
-import { NgEngineService } from '../../ngEngine/ng-engine.service'
+import { NgEngineModule, NgEngineService } from '../../ngEngine'
+
+// Environment Stub from  angular cli
+import { environment } from '../../../environments/environment'
+// App Config for NgEngine
+import * as appConfig from '../../../appConfig'
+import * as fromRootReducers from '../../root/store/reducers'
+import * as fromRootActions from '../../root/store/actions'
+
 import { HomeComponent } from './home.component'
 
 describe('HomeComponent', () => {
@@ -15,7 +21,7 @@ describe('HomeComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
-        NgEngineModule
+        NgEngineModule.forRoot(environment, appConfig, fromRootReducers, fromRootActions)
         // other imports
       ],
       declarations: [ HomeComponent ]

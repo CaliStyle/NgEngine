@@ -1,20 +1,27 @@
-import { Injectable } from '@angular/core'
-import {Action, Store} from '@ngrx/store'
+import { Injectable, Inject } from '@angular/core'
+import { Action, Store } from '@ngrx/store'
 
-import { NgEngine } from './ng-engine'
+import { NgEngine, NgEngineConfig } from './ng-engine'
 import { NgEngineStore } from './ng-engine.store'
-
-import * as fromRoot from '../root/store/reducers'
-import * as Actions from '../root/store/actions'
 
 @Injectable()
 export class NgEngineService {
+  private rootReducers = {}
+  private rootActions: Action[] = []
+
   constructor(
     protected ngEngine: NgEngine,
-    protected _store: NgEngineStore
+    protected _store: NgEngineStore,
+    @Inject('fromRootReducers') rootReducers?,
+    @Inject('fromRootActions') rootActions?
   ) {
+    // Set the injections from Root Reducers and from Root Actions
+    this.rootReducers = rootReducers
+    this.rootActions = rootActions
+
     // Log the configuration
     this.log(this.ngEngine)
+
     // Dispatch to the Store that packs have been loaded
     for (const p in this.ngEngine.packs) {
       if (!this.ngEngine.packs.hasOwnProperty(p)) {
@@ -118,8 +125,8 @@ export class NgEngineService {
   select(state: string, featureState?: string ) {
     const fromPackRoot = this.state
     try {
-      if (fromRoot[state]) {
-        return this.store.select(fromRoot[state])
+      if (this.rootReducers[state]) {
+        return this.store.select(this.rootReducers[state])
       }
       else if (fromPackRoot[state][featureState]) {
         return this.store.select(fromPackRoot[state][featureState])
@@ -146,8 +153,8 @@ export class NgEngineService {
     }
     else if (typeof <string>action === 'string') {
       try {
-        if (Actions[action]) {
-          return this.store.dispatch(new Actions[action][type](params))
+        if (this.rootActions[action]) {
+          return this.store.dispatch(new this.rootActions[action][type](params))
         }
         else if (this.actions[action]) {
           return this.store.dispatch(new this.actions[action][type](params))
@@ -165,3 +172,5 @@ export class NgEngineService {
     }
   }
 }
+
+export { NgEngine, NgEngineStore, NgEngineConfig }

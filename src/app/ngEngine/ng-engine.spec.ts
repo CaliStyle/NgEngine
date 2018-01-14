@@ -1,4 +1,4 @@
-import { NgEngine } from './ng-engine'
+import { NgEngine } from './'
 
 describe('NgEngine', () => {
   it('should create an NgEngine instance', () => {

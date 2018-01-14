@@ -1,25 +1,17 @@
+import { Injectable, Inject } from '@angular/core'
 import { Routes } from '@angular/router'
 import { ActionReducerMap, MetaReducer } from '@ngrx/store'
-import { Injectable } from '@angular/core'
 import { omit, merge } from 'lodash'
 
-// Config and Config Class
-import * as config from '../../appConfig'
-import { NgConfig } from './ng-config'
-
-// Root Reducers, Actions
-import * as rootReducers from '../root/store/reducers'
-import * as rootActions from '../root/store/actions'
-
-// Environment Stub from  angular cli
-import { environment } from '../../environments/environment'
+// Config Class
+import { NgEngineConfig } from './ng-engine.config'
 
 // For browsers that don't implement the debug method, log will be used instead.
 const CONSOLE_DEBUG_METHOD = console['debug'] ? 'debug' : 'log'
 
 @Injectable()
 export class NgEngine {
-  public config: NgConfig
+  public config: NgEngineConfig
   public env: Object
   public environment: string
   public packs: {}
@@ -32,7 +24,24 @@ export class NgEngine {
   private _state: {}
   private _routes: Routes
 
-  constructor() {
+  constructor(
+    @Inject('environment') environment?,
+    @Inject('appConfig') appConfig?,
+    @Inject('fromRootReducers') rootReducers?,
+    @Inject('fromRootActions') rootActions?
+  ) {
+    // Injected Environment or default values
+    environment = environment || {
+      development: true,
+      staging: false,
+      testing: false,
+      production: false
+    }
+
+    // Injected Reducers, Actions or default values
+    rootReducers = rootReducers || {}
+    rootActions = rootActions || []
+
     // Set environment string
     this.environment = this.environmentString(environment)
 
@@ -49,7 +58,7 @@ export class NgEngine {
         value: processEnv
       },
       config: {
-        value: new NgConfig(config, processEnv),
+        value: new NgEngineConfig(appConfig, processEnv),
         configurable: true,
         writable: false
       },
@@ -98,7 +107,12 @@ export class NgEngine {
     })
   }
 
-  environmentString(env) {
+  /**
+   * get Environment as a string
+   * @param env
+   * @returns {string}
+   */
+  public environmentString(env) {
     let e = 'development'
     if (env.production === true) {
       e = 'production'
@@ -112,43 +126,88 @@ export class NgEngine {
     return e
   }
 
+  /**
+   * get if environment is development
+   * @returns {boolean}
+   */
   get development() {
     return this.environment === 'development'
   }
+  /**
+   * get if environment is production
+   * @returns {boolean}
+   */
   get production() {
     return this.environment === 'production'
   }
+  /**
+   * get if environment is staging
+   * @returns {boolean}
+   */
   get staging() {
     return this.environment === 'staging'
   }
+
+  /**
+   * get if environment is testing
+   * @returns {boolean}
+   */
   get testing() {
     return this.environment === 'testing'
   }
 
+  /**
+   * get actions
+   * @returns {boolean}
+   */
   get actions() {
     return this._actions
   }
 
+  /**
+   * get effects
+   * @returns {boolean}
+   */
   get effects() {
     return this._effects
   }
 
+  /**
+   * get metaReducers
+   * @returns {boolean}
+   */
   get metaReducers() {
     return Object.values(this._metaReducers)
   }
 
+  /**
+   * get models
+   * @returns {boolean}
+   */
   get models() {
     return this._models
   }
 
+  /**
+   * get reducers
+   * @returns {boolean}
+   */
   get reducers() {
     return this._reducers
   }
 
+  /**
+   * get routes
+   * @returns {boolean}
+   */
   get routes() {
     return this._routes
   }
 
+  /**
+   * get state
+   * @returns {boolean}
+   */
   get state() {
     return this._state
   }
@@ -167,33 +226,61 @@ export class NgEngine {
     Object.assign(this._state, {[pack.id]: omit(pack.reducers, ['reducers', 'metaReducers'])})
   }
 
+  /**
+   * Log Error
+   * @param message
+   * @param optionalParams
+   */
   public error(message?: any, ...optionalParams: any[]) {
     if (!this.production) {
       (<any>console).error.apply(console, arguments)
     }
   }
 
+  /**
+   * Log Error
+   * @param message
+   * @param optionalParams
+   */
   public warn(message?: any, ...optionalParams: any[]) {
     if (!this.production) {
       (<any>console).warn.apply(console, arguments)
     }
   }
 
+  /**
+   * Log Info
+   * @param message
+   * @param optionalParams
+   */
   public info(message?: any, ...optionalParams: any[]) {
     if (!this.production) {
       (<any>console).info.apply(console, arguments)
     }
   }
 
+  /**
+   * Log Debug
+   * @param message
+   * @param optionalParams
+   */
   public debug(message?: any, ...optionalParams: any[]) {
     if (!this.production) {
       (<any>console)[CONSOLE_DEBUG_METHOD].apply(console, arguments)
     }
   }
 
+  /**
+   * Log
+   * @param message
+   * @param optionalParams
+   */
   public log(message?: any, ...optionalParams: any[]) {
     if (!this.production) {
       (<any>console).log.apply(console, arguments)
     }
   }
 }
+
+// Export the Config
+export { NgEngineConfig }
