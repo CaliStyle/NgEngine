@@ -7,12 +7,15 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools'
 import { EffectsModule } from '@ngrx/effects'
 
 // NgEngine for NgPacks
-import { NgEngine, NgEngineStore, NgEngineService, NgEngineConfig } from './ng-engine.service'
+import { NgEngine, NgEngineStore, NgEngineService, NgEngineConfig, NgEngineConfiguration } from './ng-engine.service'
 import { NgPack } from './ng-pack'
+
+export const ENGINE = new InjectionToken<NgEngineConfiguration>('ENGINE_TOKEN')
 
 // Return Root Reducers with Pack Reducers
 export const REDUCER_TOKEN = new InjectionToken<ActionReducerMap<any>>('REDUCER_TOKEN')
 export function getReducers(ngEngine: NgEngine) {
+  console.log('BROKE', ngEngine)
   return ngEngine.reducers
 }
 
@@ -42,7 +45,8 @@ export function getRoutes(ngEngine: NgEngine) {
   ],
   declarations: [],
   exports: [
-    StoreModule
+    StoreModule,
+    // EffectsModule
   ],
   // providers: [
   //   // {
@@ -53,10 +57,19 @@ export function getRoutes(ngEngine: NgEngine) {
   // ]
 })
 export class NgEngineModule {
-  static forRoot(environment?: any, appConfig?: any, fromRootReducers?: any, fromRootActions?: any): ModuleWithProviders {
+  static forRoot(config: NgEngineConfiguration): ModuleWithProviders {
     return {
       ngModule: NgEngineModule,
       providers: [
+        {
+          provide: 'ENGINE',
+          useValue: {
+            environment: config.environment,
+            appConfig: config.appConfig,
+            fromRootReducers: config.fromRootReducers,
+            fromRootActions: config.fromRootActions
+          }
+        },
         NgEngine,
         NgEngineStore,
         NgEngineService,
@@ -74,27 +87,17 @@ export class NgEngineModule {
           provide: ROUTES_TOKEN,
           deps: [ NgEngine ],
           useFactory: getRoutes
-        },
-        {
-          provide: 'environment',
-         //  deps: [ NgEngine ],
-          useValue: environment
-        },
-        {
-          provide: 'appConfig',
-          // deps: [ NgEngine ],
-          useValue: appConfig
-        },
-        {
-          provide: 'fromRootReducers',
-          // deps: [ NgEngine, NgEngineService ],
-          useValue: fromRootReducers
-        },
-        {
-          provide: 'fromRootActions',
-          // deps: [ NgEngine, NgEngineService ],
-          useValue: fromRootActions
         }
+        // {
+        //   provide: NgEngine,
+        //   // deps: [ ENGINE_TOKEN ],
+        //   useClass: NgEngine
+        // },
+        // {
+        //   provide: NgEngineService,
+        //   deps: [ENGINE_TOKEN],
+        //   useClass: NgEngineService
+        // },
       ]
     }
   }
@@ -105,5 +108,6 @@ export {
   NgPack,
   NgEngineService,
   NgEngineStore,
-  NgEngineConfig
+  NgEngineConfig,
+  NgEngineConfiguration
 }

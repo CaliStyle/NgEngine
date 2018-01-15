@@ -18,7 +18,7 @@ describe('FourZeroFourComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
-        NgEngineModule.forRoot(environment, appConfig, fromRootReducers, fromRootActions)
+        NgEngineModule.forRoot({environment, appConfig, fromRootReducers, fromRootActions})
       ],
       declarations: [
         FourZeroFourComponent

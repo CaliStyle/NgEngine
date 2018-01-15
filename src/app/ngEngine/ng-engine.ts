@@ -6,6 +6,9 @@ import { omit, merge } from 'lodash'
 // Config Class
 import { NgEngineConfig } from './ng-engine.config'
 
+// Configuration Interface
+import { NgEngineConfiguration } from './ng-engine.interface'
+
 // For browsers that don't implement the debug method, log will be used instead.
 const CONSOLE_DEBUG_METHOD = console['debug'] ? 'debug' : 'log'
 
@@ -25,13 +28,11 @@ export class NgEngine {
   private _routes: Routes
 
   constructor(
-    @Inject('environment') environment?,
-    @Inject('appConfig') appConfig?,
-    @Inject('fromRootReducers') rootReducers?,
-    @Inject('fromRootActions') rootActions?: Action[]
+    @Inject('ENGINE') private _engine: NgEngineConfiguration
   ) {
+
     // Injected Environment or default values
-    environment = environment || {
+    const environment = _engine.environment || {
       development: true,
       staging: false,
       testing: false,
@@ -39,8 +40,8 @@ export class NgEngine {
     }
 
     // Injected Reducers, Actions or default values
-    rootReducers = rootReducers || {}
-    rootActions = rootActions || []
+    const rootReducers = _engine.fromRootReducers || {}
+    const rootActions = _engine.fromRootActions || []
 
     // Set environment string
     this.environment = this.environmentString(environment)
@@ -58,7 +59,7 @@ export class NgEngine {
         value: processEnv
       },
       config: {
-        value: new NgEngineConfig(appConfig, processEnv),
+        value: new NgEngineConfig(_engine.appConfig, processEnv),
         configurable: true,
         writable: false
       },
@@ -282,5 +283,5 @@ export class NgEngine {
   }
 }
 
-// Export the Config
-export { NgEngineConfig }
+// Export the Config and Interface
+export { NgEngineConfig, NgEngineConfiguration }

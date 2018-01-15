@@ -1,8 +1,9 @@
 import { Injectable, Inject } from '@angular/core'
 import { Action, Store } from '@ngrx/store'
 
-import { NgEngine, NgEngineConfig } from './ng-engine'
+import { NgEngine, NgEngineConfig, NgEngineConfiguration } from './ng-engine'
 import { NgEngineStore } from './ng-engine.store'
+// import { ENGINE_TOKEN } from './ng-engine.module'
 
 @Injectable()
 export class NgEngineService {
@@ -12,12 +13,12 @@ export class NgEngineService {
   constructor(
     protected ngEngine: NgEngine,
     protected _store: NgEngineStore,
-    @Inject('fromRootReducers') rootReducers?,
-    @Inject('fromRootActions') rootActions?
+    /// config: NgEngineConfiguration
+    @Inject('ENGINE') private c: NgEngineConfiguration
   ) {
     // Set the injections from Root Reducers and from Root Actions
-    this.rootReducers = rootReducers
-    this.rootActions = rootActions
+    this.rootReducers = c.fromRootReducers
+    this.rootActions = c.fromRootActions
 
     // Log the configuration
     this.log(this.ngEngine)
@@ -125,10 +126,10 @@ export class NgEngineService {
   select(state: string, featureState?: string ) {
     const fromPackRoot = this.state
     try {
-      if (this.rootReducers[state]) {
+      if (this.rootReducers && this.rootReducers[state]) {
         return this.store.select(this.rootReducers[state])
       }
-      else if (fromPackRoot[state][featureState]) {
+      else if (fromPackRoot && fromPackRoot[state][featureState]) {
         return this.store.select(fromPackRoot[state][featureState])
       }
       else {
@@ -136,7 +137,7 @@ export class NgEngineService {
       }
     }
     catch (err) {
-      this.log(err)
+      this.engine.error(err)
     }
   }
 
@@ -153,7 +154,7 @@ export class NgEngineService {
     }
     else if (typeof <string>action === 'string') {
       try {
-        if (this.rootActions[action]) {
+        if (this.rootActions && this.rootActions[action]) {
           return this.store.dispatch(new this.rootActions[action][type](params))
         }
         else if (this.actions[action]) {
@@ -164,7 +165,7 @@ export class NgEngineService {
         }
       }
       catch (err) {
-        this.log(err)
+        this.engine.error(err)
       }
     }
     else {
@@ -173,4 +174,5 @@ export class NgEngineService {
   }
 }
 
-export { NgEngine, NgEngineStore, NgEngineConfig }
+// Export Engine, Store, Config, and the Configuration interface
+export { NgEngine, NgEngineStore, NgEngineConfig, NgEngineConfiguration }

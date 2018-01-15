@@ -33,7 +33,7 @@ import { SharedModule } from '../shared/shared.module'
     RouterModule,
     AppRoutingModule,
     SharedModule,
-    NgEngineModule.forRoot(environment, appConfig, fromRootReducers, fromRootActions)
+    NgEngineModule.forRoot({environment, appConfig, fromRootReducers, fromRootActions})
   ],
   bootstrap: [
     AppComponent
