@@ -2,9 +2,13 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 import { RouterTestingModule } from '@angular/router/testing'
 import { Router } from '@angular/router'
 import { Location } from '@angular/common'
-import { NgEngine } from '../ngEngine/ng-engine'
 import { NgEngineModule } from '../ngEngine/ng-engine.module'
 import { NgEngineService } from '../ngEngine/ng-engine.service'
+import { SharedModule } from '../shared/shared.module'
+// For Material
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+
+// Component to Test
 import { AppComponent } from './app.component'
 
 
@@ -19,7 +23,9 @@ describe('AppComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule.withRoutes([]),
-        NgEngineModule
+        SharedModule,
+        NgEngineModule,
+        BrowserAnimationsModule
       ],
       declarations: [ AppComponent ]
     })
