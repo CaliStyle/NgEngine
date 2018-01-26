@@ -9,7 +9,12 @@ import { environment } from '../../environments/environment'
 import * as appConfig from '../../appConfig'
 import * as fromRootReducers from './store/reducers'
 import * as fromRootActions from './store/actions'
+// Shared Module
+import { SharedModule } from '../shared/shared.module'
+// For Material
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
+// Component to Test
 import { AppComponent } from './app.component'
 
 
@@ -24,7 +29,9 @@ describe('AppComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule.withRoutes([]),
-        NgEngineModule.forRoot({environment, appConfig, fromRootReducers, fromRootActions})
+        NgEngineModule.forRoot({environment, appConfig, fromRootReducers, fromRootActions}),
+        SharedModule,
+        BrowserAnimationsModule
       ],
       declarations: [ AppComponent ]
     })
