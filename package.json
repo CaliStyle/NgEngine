@@ -1,8 +1,8 @@
 {
-  "name": "proxy-engine-ng",
+  "name": "NgEngine",
   "version": "2.0.0",
   "license": "MIT",
-  "repository": "https://github.com/calistyle/proxy-engine-ng.git",
+  "repository": "https://github.com/CaliStyle/NgEngine.git",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --proxy-config proxy.conf.json",
