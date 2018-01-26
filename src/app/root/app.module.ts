@@ -11,6 +11,8 @@ import { AppRoutingModule } from './app.routing.module'
 import { AppComponent } from './app.component'
 // Shared Module
 import { SharedModule } from '../shared/shared.module'
+// For Material
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 @NgModule({
   declarations: [
@@ -25,7 +27,8 @@ import { SharedModule } from '../shared/shared.module'
     RouterModule,
     AppRoutingModule,
     SharedModule,
-    NgEngineModule
+    NgEngineModule,
+    BrowserAnimationsModule
   ],
   bootstrap: [
     AppComponent
