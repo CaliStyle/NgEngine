@@ -3,12 +3,9 @@ import { RouterTestingModule } from '@angular/router/testing'
 import { Router } from '@angular/router'
 import { Location } from '@angular/common'
 import { NgEngineModule, NgEngineService } from '../ngEngine'
-// Environment Stub from  angular cli
-import { environment } from '../../environments/environment'
-// App Config for NgEngine
-import * as appConfig from '../../appConfig'
-import * as fromRootReducers from './store/reducers'
-import * as fromRootActions from './store/actions'
+
+// NgEngine Initial State
+import * as ngEngineConfig from './app.ng-engine-config'
 // Shared Module
 import { SharedModule } from '../shared/shared.module'
 // For Material
@@ -29,7 +26,7 @@ describe('AppComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule.withRoutes([]),
-        NgEngineModule.forRoot({environment, appConfig, fromRootReducers, fromRootActions}),
+        NgEngineModule.forRoot(ngEngineConfig.INITIAL_NG_ENGINE),
         SharedModule,
         BrowserAnimationsModule
       ],

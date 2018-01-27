@@ -1,13 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 import { RouterTestingModule } from '@angular/router/testing'
-import { NgEngineModule } from '../../ngEngine'
-// Environment Stub from  angular cli
-import { environment } from '../../../environments/environment'
-// App Config for NgEngine
-import * as appConfig from '../../../appConfig'
-import * as fromRootReducers from '../../root/store/reducers'
-import * as fromRootActions from '../../root/store/actions'
 
+// NgEngine Module
+import { NgEngineModule, NgEngineService } from '../../ngEngine'
+// NgEngine Initial State
+import * as ngEngineConfig from '../../root/app.ng-engine-config'
+// 500 Component
 import { FiveZeroZeroComponent } from './500.component'
 
 describe('FiveZeroZeroComponent', () => {
@@ -18,7 +16,7 @@ describe('FiveZeroZeroComponent', () => {
     TestBed.configureTestingModule({
       imports:  [
         RouterTestingModule,
-        NgEngineModule.forRoot({environment, appConfig, fromRootReducers, fromRootActions})
+        NgEngineModule.forRoot(ngEngineConfig.INITIAL_NG_ENGINE)
       ],
       declarations: [ FiveZeroZeroComponent ]
     })

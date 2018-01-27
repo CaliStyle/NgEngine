@@ -19,6 +19,9 @@ export class NgEngine {
   public environment: string
   public packs: {}
 
+  public rootReducers: ActionReducerMap<any>
+  public rootActions: Action[] = []
+
   private _actions: {}
   private _effects: {}
   private _metaReducers: MetaReducer<{}>
@@ -28,8 +31,10 @@ export class NgEngine {
   private _routes: Routes
 
   constructor(
-    @Inject('ENGINE') private _engine: NgEngineConfiguration
+    @Inject('ENGINE_TOKEN')
+    private _engine: NgEngineConfiguration
   ) {
+    console.log('ENGINE', _engine)
 
     // Injected Environment or default values
     const environment = _engine.environment || {
@@ -40,8 +45,8 @@ export class NgEngine {
     }
 
     // Injected Reducers, Actions or default values
-    const rootReducers = _engine.fromRootReducers || {}
-    const rootActions = _engine.fromRootActions || []
+    this.rootReducers = _engine.fromRootReducers || {}
+    this.rootActions = _engine.fromRootActions || []
 
     // Set environment string
     this.environment = this.environmentString(environment)
@@ -67,25 +72,25 @@ export class NgEngine {
         value: { }
       },
       _actions: {
-        value: rootActions
+        value: this.rootActions
       },
       _effects: {
         value: { }
       },
       _metaReducers: {
-        value: rootReducers.metaReducers || {}
+        value: this.rootReducers.metaReducers || {}
       },
       _models: {
         value: { }
       },
       _reducers: {
-        value: rootReducers.reducers || {}
+        value: this.rootReducers.reducers || {}
       },
       _routes: {
         value: []// this.config.get('routes')
       },
       _state: {
-        value: {root: omit(rootReducers, 'reducers', 'metaReducers')}
+        value: {root: omit(this.rootReducers, 'reducers', 'metaReducers')}
       }
     })
 

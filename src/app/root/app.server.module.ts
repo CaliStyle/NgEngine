@@ -3,13 +3,8 @@ import { ServerModule, ServerTransferStateModule } from '@angular/platform-serve
 import { RouterModule } from '@angular/router'
 import { ModuleMapLoaderModule } from '@nguniversal/module-map-ngfactory-loader'
 
-// Environment Stub from  angular cli
-import { environment } from '../../environments/environment'
-// App Config for NgEngine
-import * as appConfig from '../../appConfig'
-import * as fromRootReducers from './store/reducers'
-import * as fromRootActions from './store/actions'
-
+// NgEngine Initial State
+import * as ngEngineConfig from './app.ng-engine-config'
 // NgEngine for NgPacks
 import { NgEngineModule } from '../ngEngine'
 // Root Module
@@ -23,6 +18,11 @@ import { SharedModule } from '../shared/shared.module'
 // For Material
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
+
+// WORKAROUND HERE FOR AOT
+Object.assign(ngEngineConfig.NG_ENGINE_TOKEN, ngEngineConfig.INITIAL_NG_ENGINE)
+// WORKAROUND HERE FOR AOT
+
 @NgModule({
   imports: [
     AppModule,
@@ -31,9 +31,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
     RouterModule,
     AppRoutingModule,
     ModuleMapLoaderModule,
+    BrowserAnimationsModule,
     SharedModule,
-    NgEngineModule.forRoot({environment, appConfig, fromRootReducers, fromRootActions}),
-    BrowserAnimationsModule
+    NgEngineModule.forRoot(ngEngineConfig.NG_ENGINE_TOKEN)
+  ],
+  providers: [
+    ngEngineConfig.ngEngineProvider
   ],
   bootstrap: [
     AppComponent

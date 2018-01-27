@@ -1,24 +1,22 @@
-import { Injectable, Inject } from '@angular/core'
-import { Action, Store } from '@ngrx/store'
-
+import { Injectable, Inject, InjectionToken, forwardRef } from '@angular/core'
 import { NgEngine, NgEngineConfig, NgEngineConfiguration } from './ng-engine'
 import { NgEngineStore } from './ng-engine.store'
-// import { ENGINE_TOKEN } from './ng-engine.module'
 
 @Injectable()
 export class NgEngineService {
-  private rootReducers = {}
-  private rootActions: Action[] = []
+  // private ngEngine
 
   constructor(
-    protected ngEngine: NgEngine,
-    protected _store: NgEngineStore,
     /// config: NgEngineConfiguration
-    @Inject('ENGINE') private c: NgEngineConfiguration
-  ) {
+    @Inject(forwardRef(() => NgEngine)) protected ngEngine: NgEngine,
+    // protected ngEngine: NgEngine,
+    // @Inject('ENGINE_TOKEN') c,
+    protected _store: NgEngineStore
+) {
+    // console.log('SERVICE', c)
+    //  this.ngEngine = new NgEngine(c)
+    // this.ngStore = new NgEngineStore()
     // Set the injections from Root Reducers and from Root Actions
-    this.rootReducers = c.fromRootReducers
-    this.rootActions = c.fromRootActions
 
     // Log the configuration
     this.log(this.ngEngine)
@@ -126,8 +124,8 @@ export class NgEngineService {
   select(state: string, featureState?: string ) {
     const fromPackRoot = this.state
     try {
-      if (this.rootReducers && this.rootReducers[state]) {
-        return this.store.select(this.rootReducers[state])
+      if (this.engine.rootReducers && this.engine.rootReducers[state]) {
+        return this.store.select(this.engine.rootReducers[state])
       }
       else if (fromPackRoot && fromPackRoot[state][featureState]) {
         return this.store.select(fromPackRoot[state][featureState])
@@ -149,13 +147,13 @@ export class NgEngineService {
    * @param params
    */
   dispatch(action: any, type?: string, params?: boolean | string | any[] | {[key: string]: any}) {
-    if (typeof <Action>action === 'object') {
+    if (typeof action === 'object') {
       return this.store.dispatch(action)
     }
-    else if (typeof <string>action === 'string') {
+    else if (typeof action === 'string') {
       try {
-        if (this.rootActions && this.rootActions[action]) {
-          return this.store.dispatch(new this.rootActions[action][type](params))
+        if (this.engine.rootActions && this.engine.rootActions[action]) {
+          return this.store.dispatch(new this.engine.rootActions[action][type](params))
         }
         else if (this.actions[action]) {
           return this.store.dispatch(new this.actions[action][type](params))
@@ -175,4 +173,9 @@ export class NgEngineService {
 }
 
 // Export Engine, Store, Config, and the Configuration interface
-export { NgEngine, NgEngineStore, NgEngineConfig, NgEngineConfiguration }
+export {
+  NgEngine,
+  NgEngineStore,
+  NgEngineConfig,
+  NgEngineConfiguration
+}

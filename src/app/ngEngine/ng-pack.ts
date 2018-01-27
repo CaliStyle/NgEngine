@@ -1,3 +1,6 @@
+/**
+ * Interface for the NgPack base class
+ */
 export interface NgPack {
   config: Object
   pkg: { name?: 'string'}
@@ -6,6 +9,9 @@ export interface NgPack {
   reducers: any
 }
 
+/**
+ * The NgPack base class
+ */
 export class NgPack {
   public actions
   public effects
@@ -15,6 +21,7 @@ export class NgPack {
  * @constructor
  * @param app NgEngine instance
  * @param config The NgPack configuration (config/ folder)
+ * @param pkg
  * @param actions
  * @param effects
  * @param reducers

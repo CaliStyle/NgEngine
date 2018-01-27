@@ -9,6 +9,7 @@ import { NgEngineService } from '../../ngEngine'
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomeComponent implements OnInit {
+  public title: string
   public appState$: Observable<any>
   public homeState$: Observable<any>
 
@@ -18,8 +19,8 @@ export class HomeComponent implements OnInit {
     this.appState$ = this._ngEngine.select('getAppState')
     this.homeState$ = this._ngEngine.select('home', 'getHomeState')
 
-    const title = this._ngEngine.config.get('home.title')
+    this.title = this._ngEngine.config.get('home.title')
 
-    this._ngEngine.dispatch('home', 'HelloWorldAction', title)
+    this._ngEngine.dispatch('home', 'HelloWorldAction', this.title)
   }
 }

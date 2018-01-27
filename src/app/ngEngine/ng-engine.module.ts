@@ -1,6 +1,6 @@
 import { NgModule, InjectionToken, ModuleWithProviders } from '@angular/core'
 import { CommonModule } from '@angular/common'
-import { RouterModule, Routes, ROUTES } from '@angular/router'
+import { RouterModule, Routes } from '@angular/router'
 import { StoreModule, ActionReducerMap, MetaReducer, META_REDUCERS } from '@ngrx/store'
 import { StoreRouterConnectingModule } from '@ngrx/router-store'
 import { StoreDevtoolsModule } from '@ngrx/store-devtools'
@@ -10,29 +10,33 @@ import { EffectsModule } from '@ngrx/effects'
 import { NgEngine, NgEngineStore, NgEngineService, NgEngineConfig, NgEngineConfiguration } from './ng-engine.service'
 import { NgPack } from './ng-pack'
 
-export const ENGINE = new InjectionToken<NgEngineConfiguration>('ENGINE_TOKEN')
+export function getEngineFactory(config) {
+  return new NgEngine(config)
+}
 
+// import { NgEngineStoreModule } from './ng-engine.store.module'
 // Return Root Reducers with Pack Reducers
 export const REDUCER_TOKEN = new InjectionToken<ActionReducerMap<any>>('REDUCER_TOKEN')
-export function getReducers(ngEngine: NgEngine) {
-  console.log('BROKE', ngEngine)
-  return ngEngine.reducers
+export function getReducersFactory(ngEngineService: any) {
+  console.log('BROKE', ngEngineService)
+  return ngEngineService.reducers
 }
 
 // Return Root Meta Reducers with Pack Meta Reducers
-export function getMetaReducers(ngEngine: NgEngine): MetaReducer<{}>[] {
-  return ngEngine.metaReducers
+export function getMetaReducersFactory(ngEngineService: any): MetaReducer<{}>[] {
+  return ngEngineService.metaReducers
 }
 
 // Return Root Routes
 export const ROUTES_TOKEN: InjectionToken<Routes[]> = new InjectionToken<Routes[]>('ROUTES_TOKEN')
-export function getRoutes(ngEngine: NgEngine) {
-  return ngEngine.routes
+export function getRoutesFactory(ngEngineService: any) {
+  return ngEngineService.routes
 }
 // export const EFFECTS_TOKEN = new InjectionToken<Array<any>>('Pack Effects')
-// export function getEffects(ngEngine: NgEngine) {
+// export function getEffectsFactory(ngEngine: NgEngine) {
 //   return Object.values(ngEngine.effects)
 // }
+
 
 @NgModule({
   imports: [
@@ -47,57 +51,55 @@ export function getRoutes(ngEngine: NgEngine) {
   exports: [
     StoreModule,
     // EffectsModule
-  ],
-  // providers: [
-  //   // {
-  //   //   provide: EFFECTS_TOKEN,
-  //   //   deps: [ NgEngine ],
-  //   //   useFactory: getEffects
-  //   // }
-  // ]
+  ]
 })
 export class NgEngineModule {
-  static forRoot(config: NgEngineConfiguration): ModuleWithProviders {
+  static forRoot(config: any): ModuleWithProviders {
+    // console.log('CONFIG', config)
     return {
       ngModule: NgEngineModule,
       providers: [
         {
-          provide: 'ENGINE',
-          useValue: {
-            environment: config.environment,
-            appConfig: config.appConfig,
-            fromRootReducers: config.fromRootReducers,
-            fromRootActions: config.fromRootActions
-          }
+          provide: 'ENGINE_TOKEN',
+          useValue: config
         },
-        NgEngine,
-        NgEngineStore,
+        // {
+        //   provide: SERVICE,
+        //   useClass: NgEngineService
+        // },
+        // NgEngine,
+        {
+          provide: NgEngine,
+          useFactory: getEngineFactory,
+          deps: ['ENGINE_TOKEN']
+        },
         NgEngineService,
+        NgEngineStore,
         {
           provide: REDUCER_TOKEN,
           deps: [ NgEngine ],
-          useFactory: getReducers
+          useFactory: getReducersFactory
         },
         {
           provide: META_REDUCERS,
           deps: [ NgEngine ],
-          useFactory: getMetaReducers
+          useFactory: getMetaReducersFactory
         },
         {
           provide: ROUTES_TOKEN,
           deps: [ NgEngine ],
-          useFactory: getRoutes
+          useFactory: getRoutesFactory
         }
         // {
         //   provide: NgEngine,
-        //   // deps: [ ENGINE_TOKEN ],
-        //   useClass: NgEngine
+        //   useFactory: getEngineFactory,
+        //   deps: [ENGINE_TOKEN]
         // },
         // {
         //   provide: NgEngineService,
-        //   deps: [ENGINE_TOKEN],
-        //   useClass: NgEngineService
-        // },
+        //   useClass: getEngineServiceFactory,
+        //   deps: [ENGINE_TOKEN]
+        // }
       ]
     }
   }

@@ -3,12 +3,8 @@ import { HttpClientModule } from '@angular/common/http'
 import { NgModule } from '@angular/core'
 import { RouterModule } from '@angular/router'
 
-// Environment Stub from  angular cli
-import { environment } from '../../environments/environment'
-// App Config for NgEngine
-import * as appConfig from '../../appConfig'
-import * as fromRootReducers from './store/reducers'
-import * as fromRootActions from './store/actions'
+// NgEngine Initial State
+import * as ngEngineConfig from './app.ng-engine-config'
 
 // NgEngine for NgPacks
 import { NgEngineModule } from '../ngEngine'
@@ -21,6 +17,9 @@ import { SharedModule } from '../shared/shared.module'
 // For Material
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
+// WORKAROUND HERE
+Object.assign(ngEngineConfig.NG_ENGINE_TOKEN, ngEngineConfig.INITIAL_NG_ENGINE)
+// WORKAROUND HERE
 
 @NgModule({
   declarations: [
@@ -34,9 +33,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
     BrowserTransferStateModule,
     RouterModule,
     AppRoutingModule,
+    BrowserAnimationsModule,
     SharedModule,
-    NgEngineModule.forRoot({environment, appConfig, fromRootReducers, fromRootActions}),
-    BrowserAnimationsModule
+    NgEngineModule.forRoot(ngEngineConfig.NG_ENGINE_TOKEN)
+  ],
+  providers: [
+    ngEngineConfig.ngEngineProvider
   ],
   bootstrap: [
     AppComponent
