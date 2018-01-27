@@ -14,7 +14,6 @@ export function getEngineFactory(config) {
   return new NgEngine(config)
 }
 
-// import { NgEngineStoreModule } from './ng-engine.store.module'
 // Return Root Reducers with Pack Reducers
 export const REDUCER_TOKEN = new InjectionToken<ActionReducerMap<any>>('REDUCER_TOKEN')
 export function getReducersFactory(ngEngineService: any) {
@@ -55,7 +54,6 @@ export function getRoutesFactory(ngEngineService: any) {
 })
 export class NgEngineModule {
   static forRoot(config: any): ModuleWithProviders {
-    // console.log('CONFIG', config)
     return {
       ngModule: NgEngineModule,
       providers: [
@@ -63,11 +61,6 @@ export class NgEngineModule {
           provide: 'ENGINE_TOKEN',
           useValue: config
         },
-        // {
-        //   provide: SERVICE,
-        //   useClass: NgEngineService
-        // },
-        // NgEngine,
         {
           provide: NgEngine,
           useFactory: getEngineFactory,
@@ -90,16 +83,6 @@ export class NgEngineModule {
           deps: [ NgEngine ],
           useFactory: getRoutesFactory
         }
-        // {
-        //   provide: NgEngine,
-        //   useFactory: getEngineFactory,
-        //   deps: [ENGINE_TOKEN]
-        // },
-        // {
-        //   provide: NgEngineService,
-        //   useClass: getEngineServiceFactory,
-        //   deps: [ENGINE_TOKEN]
-        // }
       ]
     }
   }

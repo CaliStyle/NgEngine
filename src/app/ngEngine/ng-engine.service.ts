@@ -1,23 +1,15 @@
-import { Injectable, Inject, InjectionToken, forwardRef } from '@angular/core'
+import { Injectable, Inject, forwardRef } from '@angular/core'
 import { NgEngine, NgEngineConfig, NgEngineConfiguration } from './ng-engine'
 import { NgEngineStore } from './ng-engine.store'
 
 @Injectable()
 export class NgEngineService {
-  // private ngEngine
-
   constructor(
     /// config: NgEngineConfiguration
     @Inject(forwardRef(() => NgEngine)) protected ngEngine: NgEngine,
     // protected ngEngine: NgEngine,
-    // @Inject('ENGINE_TOKEN') c,
     protected _store: NgEngineStore
 ) {
-    // console.log('SERVICE', c)
-    //  this.ngEngine = new NgEngine(c)
-    // this.ngStore = new NgEngineStore()
-    // Set the injections from Root Reducers and from Root Actions
-
     // Log the configuration
     this.log(this.ngEngine)
 
