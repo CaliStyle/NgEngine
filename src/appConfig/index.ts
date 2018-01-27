@@ -2,6 +2,7 @@ import * as env from './env'
 
 import { main } from './main'
 import { app } from './app'
+import { home } from './home'
 import { routes } from './routes'
 
 /**
@@ -10,4 +11,5 @@ import { routes } from './routes'
 export { env }
 export { main }
 export { app }
+export { home }
 export { routes }

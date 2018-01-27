@@ -1,4 +1,4 @@
-import { NgPack } from './ng-pack'
+import { NgPack } from './'
 
 describe('NgPack', () => {
   it('should create a NgPack instance', () => {

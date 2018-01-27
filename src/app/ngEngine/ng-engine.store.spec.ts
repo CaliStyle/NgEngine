@@ -1,4 +1,4 @@
-import { NgEngineStore } from './ng-engine.store'
+import { NgEngineStore } from './'
 
 describe('NgEngineStore', () => {
   it('should create an NgEngine instance', () => {

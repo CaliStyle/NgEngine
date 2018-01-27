@@ -1,7 +1,7 @@
-import { NgConfig } from './ng-config';
+import { NgEngineConfig } from './'
 
-describe('NgConfig', () => {
+describe('NgEngineConfig', () => {
   it('should create an instance', () => {
-    expect(new NgConfig()).toBeTruthy();
-  });
-});
+    expect(new NgEngineConfig()).toBeTruthy()
+  })
+})
