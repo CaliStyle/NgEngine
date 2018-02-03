@@ -1,6 +1,6 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core'
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core'
 import { Observable } from 'rxjs/Observable'
-import { NgEngineService } from '../../ngEngine/ng-engine.service'
+import { NgEngineService } from '../../ngEngine'
 
 @Component({
   selector: 'app-home',
@@ -9,6 +9,7 @@ import { NgEngineService } from '../../ngEngine/ng-engine.service'
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomeComponent implements OnInit {
+  public title: string
   public appState$: Observable<any>
   public homeState$: Observable<any>
 
@@ -17,6 +18,9 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.appState$ = this._ngEngine.select('getAppState')
     this.homeState$ = this._ngEngine.select('home', 'getHomeState')
-    this._ngEngine.dispatch('home', 'HelloWorldAction', 'Hello World')
+
+    this.title = this._ngEngine.config.get('home.title')
+
+    this._ngEngine.dispatch('home', 'HelloWorldAction', this.title)
   }
 }

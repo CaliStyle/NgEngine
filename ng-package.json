@@ -1,0 +1,9 @@
+{
+  "$schema": "./node_modules/ng-packagr/ng-package.schema.json",
+  "name": "ngEngine",
+  "version": "1.0.0",
+  "lib": {
+    "entryFile": "public_api.ts",
+    "languageLevel": [ "dom", "es2017" ]
+  }
+}

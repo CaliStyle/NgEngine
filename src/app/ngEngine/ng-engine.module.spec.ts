@@ -1,4 +1,4 @@
-import { NgEngineModule } from './ng-engine.module'
+import { NgEngineModule } from './'
 
 describe('NgEngineModule', () => {
   let ngEngineModule: NgEngineModule

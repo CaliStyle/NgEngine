@@ -16,7 +16,7 @@ import { merge } from 'lodash'
 //   }
 // }
 
-export class NgConfig { // extends Map {
+export class NgEngineConfig { // extends Map {
 
   private map: Map<any, any>
 
@@ -25,8 +25,8 @@ export class NgConfig { // extends Map {
 
   constructor (configTree = { }, processEnv: { APP_ENV?: string} = { }) {
     // super()
-    const config = NgConfig.buildConfig(configTree, processEnv.APP_ENV || 'development')
-    const configEntries = Object.entries(NgConfig.flattenTree(config))
+    const config = NgEngineConfig.buildConfig(configTree, processEnv.APP_ENV || 'development')
+    const configEntries = Object.entries(NgEngineConfig.flattenTree(config))
 
     this.map = new Map(configEntries)
 
@@ -47,7 +47,7 @@ export class NgConfig { // extends Map {
 
     Object.entries(tree).forEach(([ k, v ]) => {
       if (typeof v === 'object' && v !== null) {
-        const flatObject = NgConfig.flattenTree(v)
+        const flatObject = NgEngineConfig.flattenTree(v)
         Object.keys(flatObject).forEach(flatKey => {
           toReturn[`${k}.${flatKey}`] = flatObject[flatKey]
         })
@@ -64,7 +64,7 @@ export class NgConfig { // extends Map {
   static buildConfig (initialConfig: {env?: Object } = { }, appEnv?) {
     // const root = path.resolve(path.dirname(require.main.filename))
     // const temp = path.resolve(root, '.tmp')
-    const envConfig = initialConfig.env && initialConfig.env[appEnv]
+    const envConfig = initialConfig && initialConfig.env && initialConfig.env[appEnv]
 
     const configTemplate = {
       main: {
@@ -79,11 +79,20 @@ export class NgConfig { // extends Map {
     }
 
     const mergedConfig = merge(configTemplate, initialConfig, (envConfig || { }))
-    mergedConfig.env = appEnv
+    // Fixes issue with mergedConfig as null
+    if (mergedConfig) {
+      mergedConfig.env = appEnv
+    }
 
     return mergedConfig
   }
 
+  /**
+   * set on config (key, value)
+   * @param key
+   * @param value
+   * @returns {Map<any, any>}
+   */
   set (key, value) {
     if (this.immutable === true) {
       // throw new IllegalAccessError('Cannot set properties directly on config. Use .set(key, value) (immutable)')
@@ -91,14 +100,28 @@ export class NgConfig { // extends Map {
     return this.map.set(key, value)
   }
 
+  /**
+   * get from config by key
+   * @param key
+   * @returns {any}
+   */
   get (key) {
     return this.map.get(key)
   }
 
+  /**
+   * has config key
+   * @param key
+   * @returns {boolean}
+   */
   has(key) {
     return this.map.has(key)
   }
 
+  /**
+   * get entries from config
+   * @returns {IterableIterator<[any , any]>}
+   */
   entries() {
     return this.map.entries()
   }
@@ -107,7 +130,7 @@ export class NgConfig { // extends Map {
    * Merge tree into this configuration. Return overwritten keys
    */
   merge (configTree) {
-    const configEntries = Object.entries(NgConfig.flattenTree(configTree))
+    const configEntries = Object.entries(NgEngineConfig.flattenTree(configTree))
     return configEntries.map(([ key, value ]) => {
       const hasKey = this.has(key)
       this.set(key, value)
