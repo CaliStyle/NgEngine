@@ -19,7 +19,7 @@ export class NgEngine {
   public environment: string
   public packs: {}
 
-  public rootReducers: ActionReducerMap<any>
+  public rootReducers: any // ActionReducerMap<any>
   public rootActions: Action[] = []
 
   private _actions: {}
@@ -34,8 +34,6 @@ export class NgEngine {
     @Inject('ENGINE_TOKEN')
     private _engine: NgEngineConfiguration
   ) {
-    console.log('ENGINE', _engine)
-
     // Injected Environment or default values
     const environment = _engine.environment || {
       development: true,

@@ -1,6 +1,7 @@
 import { Injectable, Inject, forwardRef } from '@angular/core'
 import { NgEngine, NgEngineConfig, NgEngineConfiguration } from './ng-engine'
 import { NgEngineStore } from './ng-engine.store'
+import { Action, ActionReducer } from '@ngrx/store'
 
 @Injectable()
 export class NgEngineService {
@@ -113,7 +114,8 @@ export class NgEngineService {
    * @param featureState
    * @returns {Store<any>}
    */
-  select(state: string, featureState?: string ) {
+  // select(state: string|ActionReducer<any, Action>, featureState?: string ) {
+  select(state: any, featureState?: any ) {
     const fromPackRoot = this.state
     try {
       if (this.engine.rootReducers && this.engine.rootReducers[state]) {
