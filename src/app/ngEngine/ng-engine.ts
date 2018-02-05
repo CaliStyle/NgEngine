@@ -34,8 +34,6 @@ export class NgEngine {
     @Inject('ENGINE_TOKEN')
     private _engine: NgEngineConfiguration
   ) {
-    console.log('ENGINE', _engine)
-
     // Injected Environment or default values
     const environment = _engine.environment || {
       development: true,

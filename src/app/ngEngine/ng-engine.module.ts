@@ -17,7 +17,6 @@ export function getEngineFactory(config) {
 // Return Root Reducers with Pack Reducers
 export const REDUCER_TOKEN = new InjectionToken<ActionReducerMap<any>>('REDUCER_TOKEN')
 export function getReducersFactory(ngEngineService: any) {
-  console.log('BROKE', ngEngineService)
   return ngEngineService.reducers
 }
 
