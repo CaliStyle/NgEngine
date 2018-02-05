@@ -17,9 +17,13 @@ import { SharedModule } from '../shared/shared.module'
 // For Material
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
-// WORKAROUND HERE
+// Service Worker
+import { ServiceWorkerModule } from '@angular/service-worker'
+import { environment } from '../../environments/environment'
+
+// NgEngine AOT WORKAROUND HERE
 Object.assign(ngEngineConfig.NG_ENGINE_TOKEN, ngEngineConfig.INITIAL_NG_ENGINE)
-// WORKAROUND HERE
+// NgEngine AOT WORKAROUND HERE
 
 @NgModule({
   declarations: [
@@ -35,7 +39,8 @@ Object.assign(ngEngineConfig.NG_ENGINE_TOKEN, ngEngineConfig.INITIAL_NG_ENGINE)
     AppRoutingModule,
     BrowserAnimationsModule,
     SharedModule,
-    NgEngineModule.forRoot(ngEngineConfig.NG_ENGINE_TOKEN)
+    NgEngineModule.forRoot(ngEngineConfig.NG_ENGINE_TOKEN),
+    environment.production ? ServiceWorkerModule.register('/ngsw-worker.js') : []
   ],
   providers: [
     ngEngineConfig.ngEngineProvider

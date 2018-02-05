@@ -18,6 +18,7 @@
       "tsconfig": "tsconfig.app.json",
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
+      "serviceWorker": true,
       "styles": [
         "scss/default-theme.scss",
         "scss/styles.scss"
@@ -34,10 +35,10 @@
       }
     },
     {
-      "platform": "server",
       "root": "src",
       "outDir": "dist/server",
       "assets": [],
+      "platform": "server",
       "main": "main.server.ts",
       "test": "test.ts",
       "tsconfig": "tsconfig.server.json",
@@ -85,6 +86,7 @@
   },
   "defaults": {
     "styleExt": "scss",
-    "component": {}
+    "component": {
+    }
   }
 }
