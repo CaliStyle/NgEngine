@@ -62,5 +62,5 @@ The Trails REPL (trailpack-repl) includes some characters that production webpac
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 
-[ci-image]: https://img.shields.io/circleci/project/github/CaliStyle/proxy-engine-ng/master.svg
-[ci-url]: https://circleci.com/gh/CaliStyle/proxy-engine-ng/tree/master
+[ci-image]: https://img.shields.io/circleci/project/github/CaliStyle/NgEngine/master.svg
+[ci-url]: https://circleci.com/gh/CaliStyle/NgEngine/tree/master
