@@ -19,6 +19,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 // Service Worker
 import { ServiceWorkerModule } from '@angular/service-worker'
+
+// Environment shim from CLI
 import { environment } from '../../environments/environment'
 
 // NgEngine AOT WORKAROUND HERE

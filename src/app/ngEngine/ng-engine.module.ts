@@ -16,39 +16,42 @@ export function getEngineFactory(config) {
 
 // Return Root Reducers with Pack Reducers
 export const REDUCER_TOKEN = new InjectionToken<ActionReducerMap<any>>('REDUCER_TOKEN')
-export function getReducersFactory(ngEngineService: any) {
-  return ngEngineService.reducers
+export function getReducersFactory(ngEngine: NgEngine) {
+  return ngEngine.reducers
 }
 
 // Return Root Meta Reducers with Pack Meta Reducers
-export function getMetaReducersFactory(ngEngineService: any): MetaReducer<{}>[] {
-  return ngEngineService.metaReducers
+export function getMetaReducersFactory(ngEngine: NgEngine): MetaReducer<{}>[] {
+  return ngEngine.metaReducers
 }
 
 // Return Root Routes
 export const ROUTES_TOKEN: InjectionToken<Routes[]> = new InjectionToken<Routes[]>('ROUTES_TOKEN')
-export function getRoutesFactory(ngEngineService: any) {
-  return ngEngineService.routes
+export function getRoutesFactory(ngEngine: NgEngine) {
+  return ngEngine.routes
 }
-// export const EFFECTS_TOKEN = new InjectionToken<Array<any>>('Pack Effects')
-// export function getEffectsFactory(ngEngine: NgEngine) {
-//   return Object.values(ngEngine.effects)
-// }
 
+// Return Root Effects with Pack Effects
+// export const EFFECTS_TOKEN = new InjectionToken<any>('EFFECTS_TOKEN')
+// export function getEffectsFactory(ngEngine: NgEngine): Array<any> {
+//   const effects = Object.values(ngEngine.effects)
+//   console.log('TOKEN', effects)
+//   return effects
+// }
 
 @NgModule({
   imports: [
     RouterModule,
     CommonModule,
     StoreModule.forRoot(REDUCER_TOKEN),
-    EffectsModule.forRoot([]), // EFFECTS_TOKEN),
+    EffectsModule.forRoot([]),
     StoreRouterConnectingModule,
     StoreDevtoolsModule.instrument({ maxAge: 50 })
   ],
   declarations: [],
   exports: [
     StoreModule,
-    // EffectsModule
+    EffectsModule
   ]
 })
 export class NgEngineModule {
@@ -77,6 +80,11 @@ export class NgEngineModule {
           deps: [ NgEngine ],
           useFactory: getMetaReducersFactory
         },
+        // {
+        //   provide: EFFECTS_TOKEN,
+        //   deps: [ NgEngine ],
+        //   useFactory: getEffectsFactory
+        // },
         {
           provide: ROUTES_TOKEN,
           deps: [ NgEngine ],
