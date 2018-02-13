@@ -2,12 +2,14 @@ import { Injectable, Inject } from '@angular/core'
 import { Routes } from '@angular/router'
 import { ActionReducerMap, MetaReducer, Action } from '@ngrx/store'
 import { omit, merge } from 'lodash'
+import { mergeEffects } from '@ngrx/effects'
 
 // Config Class
 import { NgEngineConfig } from './ng-engine.config'
 
 // Configuration Interface
 import { NgEngineConfiguration } from './ng-engine.interface'
+
 
 // For browsers that don't implement the debug method, log will be used instead.
 const CONSOLE_DEBUG_METHOD = console['debug'] ? 'debug' : 'log'
@@ -21,6 +23,7 @@ export class NgEngine {
 
   public rootReducers: any // ActionReducerMap<any>
   public rootActions: Action[] = []
+  public rootEffects: any
 
   private _actions: {}
   private _effects: {}
@@ -45,6 +48,7 @@ export class NgEngine {
     // Injected Reducers, Actions or default values
     this.rootReducers = _engine.fromRootReducers || {}
     this.rootActions = _engine.fromRootActions || []
+    this.rootEffects = _engine.fromRootEffects || []
 
     // Set environment string
     this.environment = this.environmentString(environment)
@@ -70,10 +74,10 @@ export class NgEngine {
         value: { }
       },
       _actions: {
-        value: this.rootActions
+        value: this.rootActions || {}
       },
       _effects: {
-        value: { }
+        value: this.rootEffects || {}
       },
       _metaReducers: {
         value: this.rootReducers.metaReducers || {}
@@ -222,7 +226,7 @@ export class NgEngine {
    */
   private mergePack (pack) {
     Object.assign(this._actions, {[pack.id]: pack.actions || {}})
-    Object.assign(this._effects, pack.effects || {})
+    Object.assign(this._effects, pack.effects.effects || {})
     Object.assign(this._models,  pack.models || {})
     Object.assign(this._metaReducers,  pack.reducers['metaReducers'] || {})
     Object.assign(this._reducers,  pack.reducers['reducers'] || {})
