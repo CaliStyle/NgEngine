@@ -1,11 +1,14 @@
 {
   "index": "/views/index.ng.html",
   "assetGroups": [{
-    "name": "app",
+    "name": "appShell",
     "installMode": "prefetch",
     "resources": {
       "files": [
         "/assets/images/icons/favicon.ico",
+        "/assets/images/icons/favicon-16x16.ico",
+        "/assets/images/icons/favicon-32x32.ico",
+        "/assets/images/icons/favicon-96x96.ico",
         "/views/index.ng.html"
       ],
       "versionedFiles": [
@@ -30,6 +33,25 @@
         "https://fonts.googleapis.com/**",
         "https://fonts.gstatic.com/**"
       ]
+    }
+  }, {
+    "name": "external",
+    "resources": {
+      "urls": [
+
+      ]
+    }
+  }],
+  "dataGroups": [{
+    "name": "api-default-info",
+    "urls": [
+      "/api/v1/default/info"
+    ],
+    "cacheConfig": {
+      "maxSize": 100,
+      "maxAge": "3d",
+      "timeout": "1m",
+      "strategy": "freshness"
     }
   }]
 }
