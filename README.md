@@ -6,6 +6,14 @@ An Angular CLI, Angular Universal, [Trails](https://trailsjs.io/), and [Proxy En
 
 Do you need to use Angular 5+ with Server Side Rendering (SSR) and an advanced node.js framework? This is the boiler plate for you!
 
+## Features
+ - Angular 5 (+ Angular CLI)
+ - Server Side Rendering (Universal)
+ - Advanced Node.js Backend (Node.js)
+ - Advanced Angular Configuration (NgEngine + NgPacks)
+ - Angular Material
+ - Service Workers (PWA)
+
 ## NgEngine and NgPacks
 From our time spent working on Trails, we've really enjoyed some of the design patters, specifically Trailpacks. We're bringing that to Angular. With NgPacks you can register all of your modular components, reducers, actions, effects and more, even if they are lazy loaded without loosing performance. The other thing that we love about Trails is it's configuration concept.  With NgEngine, you now have environment driven configuration for all your NgPacks.
 
@@ -38,6 +46,7 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 Alternatively run `npm run build`. The build artifacts will be stored in the `dist/` directory.
 
 ## Production Build
+Run `npm run serve:prod:ngsw` for a production build with Service Workers and PWA. To just build the service worker build, run `npm run build:prod:ngsw` and then start it with `node dist/server`
 
 Run `npm run build:prod` for a production build. The build artifacts will be stored in the `dist/` directory. To start the server run `node dist/server`.
 
