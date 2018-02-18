@@ -1,8 +1,8 @@
+// Import Core
 import { Injectable, Inject } from '@angular/core'
 import { Routes } from '@angular/router'
 import { ActionReducerMap, MetaReducer, Action } from '@ngrx/store'
 import { omit, merge } from 'lodash'
-import { mergeEffects } from '@ngrx/effects'
 
 // Config Class
 import { NgEngineConfig } from './ng-engine.config'
@@ -10,8 +10,7 @@ import { NgEngineConfig } from './ng-engine.config'
 // Configuration Interface
 import { NgEngineConfiguration } from './ng-engine.interface'
 
-
-// For browsers that don't implement the debug method, log will be used instead.
+// For browsers/terminals that don't implement the debug method, log will be used instead.
 const CONSOLE_DEBUG_METHOD = console['debug'] ? 'debug' : 'log'
 
 @Injectable()
@@ -31,7 +30,7 @@ export class NgEngine {
   private _models: {}
   private _reducers: ActionReducerMap<any>
   private _state: {}
-  private _routes: Routes
+  private _routes // : Routes
 
   constructor(
     @Inject('ENGINE_TOKEN')
@@ -120,7 +119,7 @@ export class NgEngine {
    * @param env
    * @returns {string}
    */
-  public environmentString(env) {
+  public environmentString(env): string {
     let e = 'development'
     if (env && env.production === true) {
       e = 'production'
@@ -138,21 +137,21 @@ export class NgEngine {
    * get if environment is development
    * @returns {boolean}
    */
-  get development() {
+  get development(): boolean {
     return this.environment === 'development'
   }
   /**
    * get if environment is production
    * @returns {boolean}
    */
-  get production() {
+  get production(): boolean {
     return this.environment === 'production'
   }
   /**
    * get if environment is staging
    * @returns {boolean}
    */
-  get staging() {
+  get staging(): boolean {
     return this.environment === 'staging'
   }
 
@@ -160,7 +159,7 @@ export class NgEngine {
    * get if environment is testing
    * @returns {boolean}
    */
-  get testing() {
+  get testing(): boolean {
     return this.environment === 'testing'
   }
 
@@ -168,7 +167,7 @@ export class NgEngine {
    * get actions
    * @returns {boolean}
    */
-  get actions() {
+  get actions(): any {
     return this._actions
   }
 
@@ -176,7 +175,7 @@ export class NgEngine {
    * get effects
    * @returns {boolean}
    */
-  get effects() {
+  get effects(): any {
     return this._effects
   }
 
@@ -184,7 +183,7 @@ export class NgEngine {
    * get metaReducers
    * @returns {boolean}
    */
-  get metaReducers() {
+  get metaReducers(): any {
     return Object.values(this._metaReducers)
   }
 
@@ -192,7 +191,7 @@ export class NgEngine {
    * get models
    * @returns {boolean}
    */
-  get models() {
+  get models(): any {
     return this._models
   }
 
@@ -200,7 +199,7 @@ export class NgEngine {
    * get reducers
    * @returns {boolean}
    */
-  get reducers() {
+  get reducers(): any {
     return this._reducers
   }
 
@@ -208,7 +207,7 @@ export class NgEngine {
    * get routes
    * @returns {boolean}
    */
-  get routes() {
+  get routes(): Routes {
     return this._routes
   }
 
@@ -216,7 +215,7 @@ export class NgEngine {
    * get state
    * @returns {boolean}
    */
-  get state() {
+  get state(): any {
     return this._state
   }
 
@@ -224,7 +223,7 @@ export class NgEngine {
    * Merge a Pack into Engine
    * @param pack
    */
-  private mergePack (pack) {
+  private mergePack (pack): void {
     Object.assign(this._actions, {[pack.id]: pack.actions || {}})
     Object.assign(this._effects, pack.effects.effects || {})
     Object.assign(this._models,  pack.models || {})
@@ -239,7 +238,7 @@ export class NgEngine {
    * @param message
    * @param optionalParams
    */
-  public error(message?: any, ...optionalParams: any[]) {
+  public error(message?: any, ...optionalParams: any[]): void {
     if (!this.production) {
       (<any>console).error.apply(console, arguments)
     }
@@ -250,7 +249,7 @@ export class NgEngine {
    * @param message
    * @param optionalParams
    */
-  public warn(message?: any, ...optionalParams: any[]) {
+  public warn(message?: any, ...optionalParams: any[]): void {
     if (!this.production) {
       (<any>console).warn.apply(console, arguments)
     }
@@ -261,7 +260,7 @@ export class NgEngine {
    * @param message
    * @param optionalParams
    */
-  public info(message?: any, ...optionalParams: any[]) {
+  public info(message?: any, ...optionalParams: any[]): void {
     if (!this.production) {
       (<any>console).info.apply(console, arguments)
     }
@@ -272,7 +271,7 @@ export class NgEngine {
    * @param message
    * @param optionalParams
    */
-  public debug(message?: any, ...optionalParams: any[]) {
+  public debug(message?: any, ...optionalParams: any[]): void {
     if (!this.production) {
       (<any>console)[CONSOLE_DEBUG_METHOD].apply(console, arguments)
     }
@@ -283,7 +282,7 @@ export class NgEngine {
    * @param message
    * @param optionalParams
    */
-  public log(message?: any, ...optionalParams: any[]) {
+  public log(message?: any, ...optionalParams: any[]): void {
     if (!this.production) {
       (<any>console).log.apply(console, arguments)
     }

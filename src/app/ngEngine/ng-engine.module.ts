@@ -15,19 +15,20 @@ export function getEngineFactory(config) {
 }
 
 // Return Root Reducers with Pack Reducers
-export const REDUCER_TOKEN = new InjectionToken<ActionReducerMap<any>>('REDUCER_TOKEN')
-export function getReducersFactory(ngEngine: NgEngine) {
+const REDUCER_TOKEN = new InjectionToken<ActionReducerMap<any>>('REDUCER_TOKEN')
+export function getReducersFactory(ngEngine: NgEngine): any {
   return ngEngine.reducers
 }
 
 // Return Root Meta Reducers with Pack Meta Reducers
+const META_REDUCER_TOKEN = META_REDUCERS
 export function getMetaReducersFactory(ngEngine: NgEngine): MetaReducer<{}>[] {
   return ngEngine.metaReducers
 }
 
 // Return Root Routes
-export const ROUTES_TOKEN: InjectionToken<Routes[]> = new InjectionToken<Routes[]>('ROUTES_TOKEN')
-export function getRoutesFactory(ngEngine: NgEngine) {
+const ROUTES_TOKEN: InjectionToken<Routes[]> = new InjectionToken<Routes[]>('ROUTES_TOKEN')
+export function getRoutesFactory(ngEngine: NgEngine): Routes {
   return ngEngine.routes
 }
 
@@ -76,7 +77,7 @@ export class NgEngineModule {
           useFactory: getReducersFactory
         },
         {
-          provide: META_REDUCERS,
+          provide: META_REDUCER_TOKEN,
           deps: [ NgEngine ],
           useFactory: getMetaReducersFactory
         },
