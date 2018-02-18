@@ -1,6 +1,6 @@
 export const app = {
   API_URL: '/api/v1',
-  title: 'Proxy Engine with Angular',
+  title: 'NgEngine',
   sidenav: {
     mode: 'side',
     opened: 'opened',

@@ -68,7 +68,7 @@ export class NgPack {
    * @returns {string}
    */
   get id() {
-    return this.pkg.name.replace('ngPack-', '').toLowerCase()
+    return this.pkg.name.toLowerCase().replace('ng-pack-', '')
   }
 
   /**
@@ -76,7 +76,7 @@ export class NgPack {
    * @returns {string}
    */
   get name() {
-    return this.pkg.name.replace('ngPack-', '')
+    return this.pkg.name.toLowerCase().replace('ng-pack-', '')
   }
 
   /**
