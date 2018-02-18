@@ -18,10 +18,13 @@
     ],
     "paths": {
       "@app/actions/*": [
-        "./src/app/root/actions/*"
+        "./src/app/root/store/actions/*"
+      ],
+      "@app/effects/*": [
+        "./src/app/root/store/effects/*"
       ],
       "@app/reducers/*": [
-        "./src/app/root/reducers/*"
+        "./src/app/root/store/reducers/*"
       ]
     }
   }

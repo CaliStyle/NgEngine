@@ -1,14 +1,11 @@
 import { Injectable, Inject, forwardRef } from '@angular/core'
 import { NgEngine, NgEngineConfig, NgEngineConfiguration } from './ng-engine'
 import { NgEngineStore } from './ng-engine.store'
-import { Action, ActionReducer } from '@ngrx/store'
 
 @Injectable()
 export class NgEngineService {
   constructor(
-    /// config: NgEngineConfiguration
     @Inject(forwardRef(() => NgEngine)) protected ngEngine: NgEngine,
-    // protected ngEngine: NgEngine,
     protected _store: NgEngineStore
 ) {
     // Log the configuration
@@ -36,14 +33,14 @@ export class NgEngineService {
   /**
    * Get Alias of engine
    */
-  get engine() {
+  get engine(): NgEngine {
     return this.ngEngine
   }
 
   /**
    * Get Engine Config
    */
-  get config() {
+  get config(): NgEngineConfig {
     return this.engine.config
   }
 
@@ -51,50 +48,50 @@ export class NgEngineService {
    * Get Engine Enviroment
    * @returns {any | string}
    */
-  get environment() {
+  get environment(): any {
     return this.engine.environment
   }
 
   /**
    * Get Engine Actions
    */
-  get actions() {
+  get actions(): any {
     return this.ngEngine.actions
   }
 
   /**
    * Get Engine Effects
    */
-  get effects() {
+  get effects(): any {
     return this.ngEngine.effects
   }
 
   /**
    * Get Engine Reducers
    */
-  get reducers() {
+  get reducers(): any {
     return this.ngEngine.reducers
   }
 
   /**
    * Get Engine state
    */
-  get state() {
+  get state(): any {
     return this.ngEngine.state
   }
 
   /**
    * Get Engine Routes
    */
-  // get routes() {
-  //   return this.ngEngine.routes
-  // }
+  get routes(): any {
+    return this.ngEngine.routes
+  }
 
   /**
    * Get Engine NGRX Store
    * @returns {Store<State>}
    */
-  get store() {
+  get store(): any {
     return this._store
   }
 
@@ -103,7 +100,7 @@ export class NgEngineService {
    * @param message
    * @param optionalParams
    */
-  public log(message: any, ...optionalParams: any[]) {
+  public log(message: any, ...optionalParams: any[]): any {
     return this.engine.log(arguments)
   }
 
@@ -115,7 +112,7 @@ export class NgEngineService {
    * @returns {Store<any>}
    */
   // select(state: string|ActionReducer<any, Action>, featureState?: string ) {
-  select(state: any, featureState?: any ) {
+  select(state: any, featureState?: any ): any {
     const fromPackRoot = this.state
     try {
       if (this.engine.rootReducers && this.engine.rootReducers[state]) {
@@ -140,7 +137,7 @@ export class NgEngineService {
    * @param {string} type
    * @param params
    */
-  dispatch(action: any, type?: string, params?: boolean | string | any[] | {[key: string]: any}) {
+  dispatch(action: any, type?: string, params?: boolean | string | any[] | {[key: string]: any}): any {
     if (typeof action === 'object') {
       return this.store.dispatch(action)
     }
