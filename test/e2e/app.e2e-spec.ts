@@ -1,6 +1,6 @@
 import { AppPage } from './app.po'
 
-describe('proxy-engine-ng App', () => {
+describe('ng-engine App', () => {
   let page: AppPage
 
   beforeEach(() => {
@@ -9,7 +9,7 @@ describe('proxy-engine-ng App', () => {
 
   it('should display welcome message', () => {
     page.navigateTo('/')
-    expect(page.getElementText('app-root h1')).toEqual('Welcome to Proxy Engine with Angular!')
+    expect(page.getElementText('app-root h1')).toEqual('Welcome to NgEngine!')
   })
   it('should display 404', () => {
     page.navigateTo('/404')

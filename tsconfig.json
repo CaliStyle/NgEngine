@@ -17,6 +17,9 @@
       "dom"
     ],
     "paths": {
+      "ng-engine": [
+        "./src/app/ngEngine/*"
+      ],
       "@app/actions/*": [
         "./src/app/root/store/actions/*"
       ],
