@@ -2,11 +2,9 @@ import { NgModule } from '@angular/core'
 import { ServerModule, ServerTransferStateModule } from '@angular/platform-server'
 import { RouterModule } from '@angular/router'
 import { ModuleMapLoaderModule } from '@nguniversal/module-map-ngfactory-loader'
-
-// NgEngine Initial State
-import * as ngEngineConfig from './app.ng-engine-config'
+import { APP_BASE_HREF } from '@angular/common'
 // NgEngine for NgPacks
-import { NgEngineModule } from '../ngEngine'
+import { NgEngineModule, ENGINE_CONFIG } from '../ngEngine'
 // Root Module
 import { AppModule } from './app.module'
 // Root Component
@@ -18,10 +16,17 @@ import { SharedModule } from '../shared/shared.module'
 // For Material
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
+// Environment shim from CLI
+import { environment } from '../../environments/environment'
+import * as appConfig from '../../appConfig'
 
-// WORKAROUND HERE FOR AOT
-Object.assign(ngEngineConfig.NG_ENGINE_TOKEN, ngEngineConfig.INITIAL_NG_ENGINE)
-// WORKAROUND HERE FOR AOT
+// Import NGRX
+import { StoreModule } from '@ngrx/store'
+import { EffectsModule } from '@ngrx/effects'
+import { StoreRouterConnectingModule } from '@ngrx/router-store'
+import { StoreDevtoolsModule } from '@ngrx/store-devtools'
+import * as fromRootReducers from './store/reducers'
+import * as fromRootEffects from './store/effects'
 
 @NgModule({
   imports: [
@@ -33,10 +38,23 @@ Object.assign(ngEngineConfig.NG_ENGINE_TOKEN, ngEngineConfig.INITIAL_NG_ENGINE)
     ModuleMapLoaderModule,
     BrowserAnimationsModule,
     SharedModule,
-    NgEngineModule.forRoot(ngEngineConfig.NG_ENGINE_TOKEN)
+    StoreModule.forRoot(fromRootReducers.reducers),
+    EffectsModule.forRoot([]),
+    StoreRouterConnectingModule,
+    NgEngineModule
   ],
   providers: [
-    ngEngineConfig.ngEngineProvider
+    {
+      provide: APP_BASE_HREF,
+      useValue: 'http://localhost:3000'
+    },
+    {
+      provide: ENGINE_CONFIG,
+      useValue: {
+        environment: environment,
+        appConfig: appConfig
+      }
+    }
   ],
   bootstrap: [
     AppComponent

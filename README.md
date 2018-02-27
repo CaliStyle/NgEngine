@@ -22,6 +22,16 @@ From our time spent working on Trails, we've really enjoyed some of the design p
   - actions
   - effects
   - reducers
+  
+  
+# Example
+Let's say you have an app component, and you want to set some environment specific values, and that you also want to be able to share those values between different components, even if they are lazy loaded. Normally you would need to create some sort of service, do a bunch of injection and pray that you did it right.
+
+With NgPacks, you set up your configuration for your component and then you can access it any other component through NgEngineService.
+
+```js
+ngService.config.get('app.title')
+```
 
 # Configuring your Application
 ## Trails

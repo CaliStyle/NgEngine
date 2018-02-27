@@ -1,3 +1,3 @@
-import * as app from './app'
+import * as actions from './app'
 
-export { app }
+export { actions }

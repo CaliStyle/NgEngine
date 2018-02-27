@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core'
+import { Injectable, Optional, Inject } from '@angular/core'
+import { APP_BASE_HREF } from '@angular/common'
 import { HttpClient } from '@angular/common/http'
 import { Action } from '@ngrx/store'
 import { Actions, Effect, ofType } from '@ngrx/effects'
@@ -13,11 +14,17 @@ import { NgEngineService } from '../../../../ngEngine/ng-engine.service'
 
 @Injectable()
 export class HomeEffects {
+
+  private _baseRef
+
   constructor(
     private _ngEngine: NgEngineService,
     private http: HttpClient,
-    private actions$: Actions
-  ) {}
+    private actions$: Actions,
+    @Optional() @Inject(APP_BASE_HREF) origin: string
+  ) {
+    this._baseRef = origin || ''
+  }
   // Dispatch just to let the console know we did
   @Effect({ dispatch: false }) init$: Observable<any> = defer(() => of(null)).pipe(
     tap(() => this._ngEngine.log('HomeEffects.init$', 'Home Effects Initiated')),
@@ -27,11 +34,17 @@ export class HomeEffects {
   @Effect() trails$: Observable<Action> = this.actions$.pipe(
     ofType('[Home] Trails'),
     mergeMap(action =>
-      this.http.get(`${ this._ngEngine.config.get('app.API_URL') }/default/info`).pipe(
+      this.http.get(`${this._baseRef }${ this._ngEngine.config.get('app.API_URL') }/default/info`).pipe(
         // If successful, dispatch success action with result
-        map(data => ({ type: '[Home] Trails Success', payload: data })),
+        map(data => {
+          this._ngEngine.log('TRAILS', data)
+          return {type: '[Home] Trails Success', payload: data}
+        }),
         // If request fails, dispatch failed action
-        catchError((err) => of({ type: '[Home] Trails Failed', payload: err }))
+        catchError((err) => {
+          console.log('TRAILS ERROR', err)
+          return of({ type: '[Home] Trails Failed', payload: err })
+        })// of({ type: '[Home] Trails Failed', payload: err }))
       )
     )
   )
