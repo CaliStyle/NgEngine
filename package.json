@@ -1,8 +1,16 @@
 {
   "name": "ng-engine",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "license": "MIT",
   "repository": "https://github.com/CaliStyle/NgEngine.git",
+  "keywords": [
+    "Angular",
+    "Trails.js",
+    "NgEngine",
+    "Config"
+  ],
+  "author": "scott-wyatt",
+  "homepage": "https://github.com/CaliStyle/ng-engine#readme",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --proxy-config proxy.conf.json",
@@ -36,8 +44,12 @@
     "e2e": "ng e2e",
     "heroku-postbuild": "npm run build:prod"
   },
-  "main": "./dist/server.js",
-  "dependencies": {
+  "main": "./dist/ng-engine.js",
+  "peerDependencies": {
+    "@angular/core": ">=5.0.0 <6.0.0",
+    "@angular/router": ">=5.0.0 <6.0.0"
+  },
+  "devDependencies": {
     "@angular/animations": "^5.2.0",
     "@angular/cdk": "^5.1.1",
     "@angular/common": "^5.2.0",
@@ -68,9 +80,7 @@
     "trailpack-router": "^2.0.0",
     "trails": "^2.0.0",
     "winston": "^2.2",
-    "zone.js": "^0.8.14"
-  },
-  "devDependencies": {
+    "zone.js": "^0.8.14",
     "@angular/cli": "1.6.7",
     "@angular/compiler-cli": "^5.2.0",
     "@angular/language-service": "^5.2.0",
