@@ -2,10 +2,17 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 import { RouterTestingModule } from '@angular/router/testing'
 import { Router } from '@angular/router'
 import { Location } from '@angular/common'
-import { NgEngineModule, NgEngineService } from '../ngEngine'
 
-// NgEngine Initial State
-import * as ngEngineConfig from './app.ng-engine-config'
+// NGRX
+import { StoreModule } from '@ngrx/store'
+import { EffectsModule } from '@ngrx/effects'
+
+import { NgEngineModule, NgEngineService, ENGINE_CONFIG } from '../ngEngine'
+// Environment shim from CLI
+import { environment } from '../../environments/environment'
+// App Config for NgEngine
+import * as appConfig from '../../appConfig'
+
 // Shared Module
 import { SharedModule } from '../shared/shared.module'
 // For Material
@@ -26,11 +33,22 @@ describe('AppComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule.withRoutes([]),
-        NgEngineModule.forRoot(ngEngineConfig.INITIAL_NG_ENGINE),
+        StoreModule.forRoot({}),
+        EffectsModule.forRoot([]),
+        NgEngineModule,
         SharedModule,
         BrowserAnimationsModule
       ],
-      declarations: [ AppComponent ]
+      declarations: [ AppComponent ],
+      providers: [
+        {
+          provide: ENGINE_CONFIG,
+          useValue: {
+            environment: environment,
+            appConfig: appConfig
+          }
+        }
+      ]
     })
       .compileComponents()
   }))
@@ -38,7 +56,6 @@ describe('AppComponent', () => {
   beforeEach(() => {
     router = TestBed.get(Router)
     ngEngineService = TestBed.get(NgEngineService)
-    spyOn(ngEngineService, 'dispatch').and.callThrough()
     location = TestBed.get(Location)
     fixture = TestBed.createComponent(AppComponent)
     component = fixture.componentInstance

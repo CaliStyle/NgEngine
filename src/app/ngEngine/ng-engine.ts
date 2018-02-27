@@ -1,7 +1,5 @@
 // Import Core
-import { Injectable, Inject } from '@angular/core'
-import { Routes } from '@angular/router'
-import { ActionReducerMap, MetaReducer, Action } from '@ngrx/store'
+import { Injectable, Inject, InjectionToken } from '@angular/core'
 import { omit, merge } from 'lodash'
 
 // Config Class
@@ -13,28 +11,21 @@ import { NgEngineConfiguration } from './ng-engine.interface'
 // For browsers/terminals that don't implement the debug method, log will be used instead.
 const CONSOLE_DEBUG_METHOD = console['debug'] ? 'debug' : 'log'
 
+// Injection Token
+export const ENGINE_CONFIG = new InjectionToken<NgEngineConfiguration>('engineConfig')
+
 @Injectable()
 export class NgEngine {
   public config: NgEngineConfig
   public env: Object
   public environment: string
-  public packs: {}
-
-  public rootReducers: any // ActionReducerMap<any>
-  public rootActions: Action[] = []
-  public rootEffects: any
-
-  private _actions: {}
-  private _effects: {}
-  private _metaReducers: MetaReducer<{}>
+  public _packs: {}
   private _models: {}
-  private _reducers: ActionReducerMap<any>
   private _state: {}
-  private _routes // : Routes
 
   constructor(
-    @Inject('ENGINE_TOKEN')
-    private _engine: NgEngineConfiguration
+    @Inject(ENGINE_CONFIG)
+    protected _engine: NgEngineConfiguration
   ) {
     // Injected Environment or default values
     const environment = _engine.environment || {
@@ -43,11 +34,6 @@ export class NgEngine {
       testing: false,
       production: false
     }
-
-    // Injected Reducers, Actions or default values
-    this.rootReducers = _engine.fromRootReducers || {}
-    this.rootActions = _engine.fromRootActions || []
-    this.rootEffects = _engine.fromRootEffects || []
 
     // Set environment string
     this.environment = this.environmentString(environment)
@@ -65,44 +51,26 @@ export class NgEngine {
         value: processEnv
       },
       config: {
-        value: new NgEngineConfig(_engine.appConfig, processEnv),
+        value: new NgEngineConfig(_engine.appConfig || {}, processEnv),
         configurable: true,
         writable: false
       },
-      packs: {
+      _packs: {
         value: { }
-      },
-      _actions: {
-        value: this.rootActions || {}
-      },
-      _effects: {
-        value: this.rootEffects || {}
-      },
-      _metaReducers: {
-        value: this.rootReducers.metaReducers || {}
       },
       _models: {
         value: { }
       },
-      _reducers: {
-        value: this.rootReducers.reducers || {}
-      },
-      _routes: {
-        value: []// this.config.get('routes')
-      },
       _state: {
-        value: {root: omit(this.rootReducers, 'reducers', 'metaReducers')}
+        value: {}
       }
     })
-
-    // Assign routes from config
-    Object.assign(this._routes, this.config.get('routes'))
 
     // Load Packs
     this.config.get('main.packs').forEach(Pack => {
       try {
         const pack = new Pack(this)
-        this.packs[pack.name] = pack
+        this._packs[pack.name] = pack
         this.config.merge(pack.config)
         this.mergePack(pack)
       }
@@ -164,30 +132,6 @@ export class NgEngine {
   }
 
   /**
-   * get actions
-   * @returns {boolean}
-   */
-  get actions(): any {
-    return this._actions
-  }
-
-  /**
-   * get effects
-   * @returns {boolean}
-   */
-  get effects(): any {
-    return this._effects
-  }
-
-  /**
-   * get metaReducers
-   * @returns {boolean}
-   */
-  get metaReducers(): any {
-    return Object.values(this._metaReducers)
-  }
-
-  /**
    * get models
    * @returns {boolean}
    */
@@ -196,24 +140,16 @@ export class NgEngine {
   }
 
   /**
-   * get reducers
+   * get models
    * @returns {boolean}
    */
-  get reducers(): any {
-    return this._reducers
-  }
-
-  /**
-   * get routes
-   * @returns {boolean}
-   */
-  get routes(): Routes {
-    return this._routes
+  get packs(): any {
+    return this._packs
   }
 
   /**
    * get state
-   * @returns {boolean}
+   * @returns any
    */
   get state(): any {
     return this._state
@@ -224,13 +160,7 @@ export class NgEngine {
    * @param pack
    */
   private mergePack (pack): void {
-    Object.assign(this._actions, {[pack.id]: pack.actions || {}})
-    Object.assign(this._effects, pack.effects.effects || {})
-    Object.assign(this._models,  pack.models || {})
-    Object.assign(this._metaReducers,  pack.reducers['metaReducers'] || {})
-    Object.assign(this._reducers,  pack.reducers['reducers'] || {})
-    // Object.assign(this._routes, pack.routes)
-    Object.assign(this._state, {[pack.id]: omit(pack.reducers, ['reducers', 'metaReducers'])})
+    Object.assign(this._state, {[pack.id]: pack})
   }
 
   /**

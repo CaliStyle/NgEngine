@@ -1,21 +1,22 @@
+import { omit } from 'lodash'
 /**
  * Interface for the NgPack base class
  */
 export interface NgPack {
   config: Object
   pkg: { name?: 'string'}
-  actions: any
-  effects: any
-  reducers: any
+  _actions: any
+  _effects: any
+  _reducers: any
 }
 
 /**
  * The NgPack base class
  */
 export class NgPack {
-  public actions
-  public effects
-  public reducers
+  public _actions
+  public _effects
+  public _reducers
 
 /**
  * @constructor
@@ -40,7 +41,7 @@ export class NgPack {
         value: app
       },
       config: {
-        value: config,
+        value: config || {},
         enumerable: false
       },
       pkg: {
@@ -48,17 +49,20 @@ export class NgPack {
         writable: false,
         enumerable: false
       },
-      actions: {
-        value: actions,
-        writable: true
+      _actions: {
+        value: actions || {},
+        writable: true,
+        enumerable: false
       },
-      effects: {
-        value: effects,
-        writable: true
+      _effects: {
+        value: effects || {},
+        writable: true,
+        enumerable: false
       },
-      reducers: {
-        value: reducers,
-        writable: true
+      _reducers: {
+        value: reducers || {},
+        writable: true,
+        enumerable: false
       }
     })
   }
@@ -67,7 +71,7 @@ export class NgPack {
    * Get the ID of the pack
    * @returns {string}
    */
-  get id() {
+  get id(): string {
     return this.pkg.name.toLowerCase().replace('ng-pack-', '')
   }
 
@@ -75,7 +79,7 @@ export class NgPack {
    * Get the name of the pack
    * @returns {string}
    */
-  get name() {
+  get name(): string {
     return this.pkg.name.toLowerCase().replace('ng-pack-', '')
   }
 
@@ -83,7 +87,31 @@ export class NgPack {
    * Get the type of the pack (Not Used Yet)
    * @returns {string}
    */
-  get type () {
+  get type (): string {
     return 'misc'
+  }
+
+  get Actions (): any {
+   return omit(this._actions, 'ActionTypes')
+  }
+
+  get ActionTypes (): any {
+    return this._actions['ActionTypes']
+  }
+
+  get Selectors (): any {
+    return omit(this._reducers, ['reducers', 'metaReducers'])
+  }
+
+  get Reducers (): any {
+    return this._reducers['reducers']
+  }
+
+  get MetaReducers (): any {
+    return this._reducers['metaReducers']
+  }
+
+  get Effects (): any {
+    return this._effects
   }
 }

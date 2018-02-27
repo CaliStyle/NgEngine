@@ -1,9 +1,6 @@
 export interface NgEngineConfiguration {
   environment?: any,
-  appConfig?: any,
-  fromRootReducers?: any,
-  fromRootActions?: any,
-  fromRootEffects?: any
+  appConfig?: any
 }
 
 export const NgEngineConfiguration: NgEngineConfiguration = {
@@ -13,8 +10,5 @@ export const NgEngineConfiguration: NgEngineConfiguration = {
     testing: false,
     production: false
   },
-  appConfig: {},
-  fromRootReducers: {},
-  fromRootActions: [],
-  fromRootEffects: []
+  appConfig: {}
 }

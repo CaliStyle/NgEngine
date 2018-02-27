@@ -1,5 +1,5 @@
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity'
-import { app } from '../actions'
+import { actions as app } from '../actions'
 
 export interface App {
   id: string

@@ -4,6 +4,6 @@ export {
   NgEngineModule,
   NgEngineConfig,
   NgEngineConfiguration,
-  NgEngineStore,
-  NgPack
+  NgPack,
+  ENGINE_CONFIG
 } from './ng-engine.module'
