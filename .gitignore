@@ -2,6 +2,7 @@
 
 # compiled output
 /dist
+/lib
 /tmp
 /out-tsc
 
@@ -32,6 +33,9 @@
 npm-debug.log
 testem.log
 /typings
+
+# ng-packagr
+.ng_pkg_build
 
 # e2e
 /test/e2e/*.js
