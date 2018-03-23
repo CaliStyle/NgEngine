@@ -19,14 +19,6 @@ export class NgPack {
   public _reducers
 
 /**
- * @constructor
- * @param app NgEngine instance
- * @param config The NgPack configuration (config/ folder)
- * @param pkg
- * @param actions
- * @param effects
- * @param reducers
- *
  * Instantiate the ngPack and set some initial properties. All ngPacks
  * should implement their own constructors, and call super(app, pack) with
  * their own pack definitions. Implementing application logic in the ngPack
@@ -69,7 +61,6 @@ export class NgPack {
 
   /**
    * Get the ID of the pack
-   * @returns {string}
    */
   get id(): string {
     return this.pkg.name.toLowerCase().replace('ng-pack-', '')
@@ -77,7 +68,6 @@ export class NgPack {
 
   /**
    * Get the name of the pack
-   * @returns {string}
    */
   get name(): string {
     return this.pkg.name.toLowerCase().replace('ng-pack-', '')
@@ -85,7 +75,6 @@ export class NgPack {
 
   /**
    * Get the type of the pack (Not Used Yet)
-   * @returns {string}
    */
   get type (): string {
     return 'misc'

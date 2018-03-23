@@ -89,11 +89,8 @@ export class NgEngineConfig { // extends Map {
 
   /**
    * set on config (key, value)
-   * @param key
-   * @param value
-   * @returns {Map<any, any>}
    */
-  set (key, value) {
+  set (key: string, value: any): Map<any, any> {
     if (this.immutable === true) {
       // throw new IllegalAccessError('Cannot set properties directly on config. Use .set(key, value) (immutable)')
     }
@@ -102,27 +99,22 @@ export class NgEngineConfig { // extends Map {
 
   /**
    * get from config by key
-   * @param key
-   * @returns {any}
    */
-  get (key) {
+  get (key): any {
     return this.map.get(key)
   }
 
   /**
    * has config key
-   * @param key
-   * @returns {boolean}
    */
-  has(key) {
+  has(key): boolean {
     return this.map.has(key)
   }
 
   /**
    * get entries from config
-   * @returns {IterableIterator<[any , any]>}
    */
-  entries() {
+  entries(): IterableIterator<[any , any]> {
     return this.map.entries()
   }
 
@@ -142,14 +134,14 @@ export class NgEngineConfig { // extends Map {
   /**
    * Prevent changes to the app configuration
    */
-  freeze () {
+  freeze (): void {
     this.immutable = true
   }
 
   /**
    * Allow changes to the app configuration
    */
-  unfreeze () {
+  unfreeze (): void {
     this.immutable = false
   }
 
