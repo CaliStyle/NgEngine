@@ -47,9 +47,8 @@ export class NgEngineService {
 
   /**
    * Get Engine Enviroment
-   * @returns {any | string}
    */
-  get environment(): any {
+  get environment(): any | string {
     return this.engine.environment
   }
 
@@ -70,8 +69,6 @@ export class NgEngineService {
 
   /**
    * Log Items to engine log
-   * @param message
-   * @param optionalParams
    */
   public log(message: any, ...optionalParams: any[]): any {
     return this.engine.log(arguments)

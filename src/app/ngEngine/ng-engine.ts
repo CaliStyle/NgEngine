@@ -84,8 +84,6 @@ export class NgEngine {
 
   /**
    * get Environment as a string
-   * @param env
-   * @returns {string}
    */
   public environmentString(env): string {
     let e = 'development'
@@ -103,21 +101,18 @@ export class NgEngine {
 
   /**
    * get if environment is development
-   * @returns {boolean}
    */
   get development(): boolean {
     return this.environment === 'development'
   }
   /**
    * get if environment is production
-   * @returns {boolean}
    */
   get production(): boolean {
     return this.environment === 'production'
   }
   /**
    * get if environment is staging
-   * @returns {boolean}
    */
   get staging(): boolean {
     return this.environment === 'staging'
@@ -125,7 +120,6 @@ export class NgEngine {
 
   /**
    * get if environment is testing
-   * @returns {boolean}
    */
   get testing(): boolean {
     return this.environment === 'testing'
@@ -133,15 +127,13 @@ export class NgEngine {
 
   /**
    * get models
-   * @returns {boolean}
    */
   get models(): any {
     return this._models
   }
 
   /**
-   * get models
-   * @returns {boolean}
+   * get packs
    */
   get packs(): any {
     return this._packs
@@ -149,7 +141,6 @@ export class NgEngine {
 
   /**
    * get state
-   * @returns any
    */
   get state(): any {
     return this._state
@@ -157,7 +148,6 @@ export class NgEngine {
 
   /**
    * Merge a Pack into Engine
-   * @param pack
    */
   private mergePack (pack): void {
     Object.assign(this._state, {[pack.id]: pack})
@@ -165,8 +155,6 @@ export class NgEngine {
 
   /**
    * Log Error
-   * @param message
-   * @param optionalParams
    */
   public error(message?: any, ...optionalParams: any[]): void {
     if (!this.production) {
@@ -176,8 +164,6 @@ export class NgEngine {
 
   /**
    * Log Error
-   * @param message
-   * @param optionalParams
    */
   public warn(message?: any, ...optionalParams: any[]): void {
     if (!this.production) {
@@ -187,8 +173,6 @@ export class NgEngine {
 
   /**
    * Log Info
-   * @param message
-   * @param optionalParams
    */
   public info(message?: any, ...optionalParams: any[]): void {
     if (!this.production) {
@@ -198,8 +182,6 @@ export class NgEngine {
 
   /**
    * Log Debug
-   * @param message
-   * @param optionalParams
    */
   public debug(message?: any, ...optionalParams: any[]): void {
     if (!this.production) {
@@ -209,8 +191,6 @@ export class NgEngine {
 
   /**
    * Log
-   * @param message
-   * @param optionalParams
    */
   public log(message?: any, ...optionalParams: any[]): void {
     if (!this.production) {
