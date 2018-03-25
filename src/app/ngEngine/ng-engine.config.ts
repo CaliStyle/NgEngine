@@ -1,4 +1,6 @@
-/** Node 6 do not have entries or values and need to be shimmed for NgEngine */
+/**
+ * Node 6 does not have entries or values and need to be shimmed for NgEngine
+ */
 import 'core-js/fn/object/entries'
 import 'core-js/fn/object/values'
 

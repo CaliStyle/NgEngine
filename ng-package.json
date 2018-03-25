@@ -7,7 +7,7 @@
     "entryFile": "public_api.ts",
     "languageLevel": [ "dom", "es2017" ],
     "externals": {
-      "lodash": "./node_modules/lodash/index.js",
+      "lodash": "./node_modules/lodash",
       "core-js": "./node_modules/core-js/index.js"
     },
     "embedded": []

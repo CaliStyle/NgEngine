@@ -47,7 +47,8 @@
   "main": "./dist/ng-engine.js",
   "peerDependencies": {
     "@angular/core": ">=5.0.0 <6.0.0",
-    "@angular/router": ">=5.0.0 <6.0.0"
+    "@angular/router": ">=5.0.0 <6.0.0",
+    "lodash": "^4.11.1"
   },
   "devDependencies": {
     "@angular/animations": "^5.2.9",
