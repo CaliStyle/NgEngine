@@ -22,7 +22,7 @@ import {
 import {
   NgPack
 } from './ng-pack'
-import {DefaultNgEngineConfiguration} from "./ng-engine.interface";
+import { DefaultNgEngineConfiguration } from './ng-engine.interface'
 
 @NgModule({
   imports: [

@@ -6,8 +6,10 @@ import { Location } from '@angular/common'
 // NGRX
 import { StoreModule } from '@ngrx/store'
 import { EffectsModule } from '@ngrx/effects'
-
-import { NgEngineModule, NgEngineService, ENGINE_CONFIG } from '../ngEngine'
+// Ng Engine
+import { NgEngineModule, NgEngineService,
+  ENGINE_CONFIG
+} from '../ngEngine'
 // Environment shim from CLI
 import { environment } from '../../environments/environment'
 // App Config for NgEngine

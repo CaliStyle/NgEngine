@@ -3,7 +3,9 @@ import { RouterTestingModule } from '@angular/router/testing'
 import { StoreModule, combineReducers, Store } from '@ngrx/store'
 
 // NgEngine Module
-import { NgEngineModule, NgEngineService, ENGINE_CONFIG } from '../../ngEngine'
+import { NgEngineModule, NgEngineService,
+  ENGINE_CONFIG
+} from '../../ngEngine'
 // Environment shim from CLI
 import { environment } from '../../../environments/environment'
 // App Config for NgEngine

@@ -4,7 +4,9 @@ import { RouterModule } from '@angular/router'
 import { ModuleMapLoaderModule } from '@nguniversal/module-map-ngfactory-loader'
 import { APP_BASE_HREF } from '@angular/common'
 // NgEngine for NgPacks
-import { NgEngineModule, ENGINE_CONFIG } from '../ngEngine'
+import { NgEngineModule,
+  ENGINE_CONFIG
+} from '../ngEngine'
 // Root Module
 import { AppModule } from './app.module'
 // Root Component
