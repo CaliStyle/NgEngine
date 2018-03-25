@@ -14,7 +14,9 @@ import * as fromRootReducers from './store/reducers'
 import * as fromRootEffects from './store/effects'
 
 // NgEngine for NgPacks
-import { NgEngineModule, ENGINE_CONFIG } from '../ngEngine'
+import { NgEngineModule,
+  ENGINE_CONFIG
+} from '../ngEngine'
 // Routing Module
 import { AppRoutingModule } from './app.routing.module'
 // Root Component

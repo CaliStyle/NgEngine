@@ -22,6 +22,7 @@ import {
 import {
   NgPack
 } from './ng-pack'
+import { DefaultNgEngineConfiguration } from './ng-engine.interface'
 
 @NgModule({
   imports: [
@@ -32,7 +33,10 @@ import {
   exports: [],
   providers: [
     NgEngine,
-    NgEngineService
+    NgEngineService,
+    {
+      provide: ENGINE_CONFIG, useValue: DefaultNgEngineConfiguration
+    }
   ]
 })
 export class NgEngineModule { }

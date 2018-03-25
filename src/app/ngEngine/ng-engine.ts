@@ -6,13 +6,13 @@ import { omit, merge } from 'lodash'
 import { NgEngineConfig } from './ng-engine.config'
 
 // Configuration Interface
-import { NgEngineConfiguration } from './ng-engine.interface'
+import { DefaultNgEngineConfiguration, NgEngineConfiguration } from './ng-engine.interface'
 
 // For browsers/terminals that don't implement the debug method, log will be used instead.
 const CONSOLE_DEBUG_METHOD = console['debug'] ? 'debug' : 'log'
 
 // Injection Token
-export const ENGINE_CONFIG = new InjectionToken<NgEngineConfiguration>('engineConfig')
+export const ENGINE_CONFIG = new InjectionToken<NgEngineConfiguration>('ENGINE_CONFIG')
 
 @Injectable()
 export class NgEngine {
@@ -28,12 +28,7 @@ export class NgEngine {
     protected _engine: NgEngineConfiguration
   ) {
     // Injected Environment or default values
-    const environment = _engine.environment || {
-      development: true,
-      staging: false,
-      testing: false,
-      production: false
-    }
+    const environment = _engine.environment || DefaultNgEngineConfiguration
 
     // Set environment string
     this.environment = this.environmentString(environment)
