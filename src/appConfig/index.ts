@@ -9,7 +9,3 @@ import { routes } from './routes'
  * Export the config
  */
 export { env, main, app, home, routes }
-// export { main }
-// export { app }
-// export { home }
-// export { routes }
