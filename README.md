@@ -5,42 +5,109 @@
 NgEngine is an environment/plugin configuration module that supports NGRX. Checkout the boilerplate [here](https://github.com/calistyle/NgEngine-bolierplate).
 
 ## NgEngine and NgPacks
-From our time spent working on Trails, we've really enjoyed some of the design patters, specifically Trailpacks. We're bringing that to Angular. With NgPacks you can register all of your modular components, reducers, actions, effects and more, even if they are lazy loaded without loosing performance. The other thing that we love about Trails is it's configuration concept.  With NgEngine, you now have environment driven configuration for all your NgPacks.
+From our time spent working on Trails, we've really enjoyed some of the design patters, specifically Trailpacks. We're bringing that to Angular. With NgPacks you can register all of your modular components and more, even if they are lazy loaded without loosing performance. The other thing that we love about Trails is it's configuration concept.  With NgEngine, you now have environment driven configuration for all your NgPacks.
+
+## Configuration
+NgEngine exposes an injection token that can be used to provide configuration.
+
+```ts
+//app.module.ts
+
+providers: [
+  {
+    provide: ENGINE_CONFIG,
+    useValue: {
+      environment: environment,
+      appConfig: appConfig
+    }
+  }
+],
+
+```
 
 ## Anatomy of an NgPack
 - index.ts
 - package.json
 - *.router.ts
 - *.module.ts
-- *.component.ts
-- *.component.scss
+- *.module.spec.ts
+- containers
+  - <container>
+    - *.component.ts
+    - *.component.spec.ts
+    - *.component.scss
+  - components
+    - <component>
+      - *.component.ts
+      - *.component.spec.ts
+      - *.component.scss
+- services
+  - <service>
+    - *.service.ts
+    - *.service.spec.ts
+- guards
+  - <guard>
+    - *.guard.ts
+    - *.guard.spec.ts
 - config
   - index.ts
   - *.ts
 - store
   - index.ts
   - actions
+    - <action>
   - effects
+    - <effect>
   - reducers
-  
+    - <reducer>
+
+## appConfig
+Angular configuration can be very strange at times and this leads to many developers just hard coding variables when they should be configurable. NgEngine solves this by providing an environment driven approach to configuration and uses the Map functionality of ES6.
+
+### index.ts
+The index barrel exports the configuration
+
+### main.ts
+Main exports the packs.
+
+### env
+Exports the environment specific configuration.
   
 # Example
 Let's say you have an app component, and you want to set some environment specific values, and that you also want to be able to share those values between different components, even if they are lazy loaded. Normally you would need to create some sort of service, do a bunch of injection and pray that you did it right.
 
 With NgPacks, you set up your configuration for your component and then you can access it any other component through NgEngineService.
 
-```js
+```ts
 ngService.config.get('app.title')
 ```
 
+Through NgService you have access to the config method.  Using dot syntax, you can ask the service for a value that may or may not exists with ease and confidence. So instead of something like:
+```ts
+// NOT SO GOOD
+if (app && app.metadata && app.metadata.page1 && app.metadata.page1.title)
+```
+
+You can just query the config map:
+```ts
+// GOOD
+if (ngSerice.config.get('app.metadata.page1.title'))
+``` 
+
+In addition, you can set default configs in your Packs and then override them through `appConfig/<pack-name>.ts` and additionally set overrides those based on your environment through `appConifg/env/<environment>/<pack-name>.ts`.
+
 # Configuring your Application
+
+## Boilerplate
+Sometimes it's easier to see how it's done. Checkout [NgEngine-boilerplate](https://github.com/CaliStyle/NgEngine-boilerplate).
+
 ## Trails
 For Trails documentation see the [Trails Website](https://trailsjs.io).  The only difference is that we are extending trails with Typescript and bundling it with webpack. You can configure Trails through `src/apiConfig`.
 
 ## Angular
 For Angular documentation see the [Angular Website](https://angular.io).  You can configure your NgEngine Angular app through `src/appConfig`.
 
-# Running your Application
+# Development
 
 ## Trails server
 run `npm run build && node dist/server.js` for the trails server to start. Navigate to `http://localhost:3000/`
