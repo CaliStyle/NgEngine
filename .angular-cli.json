@@ -26,12 +26,12 @@
       "scripts": [
         "../node_modules/hammerjs/hammer.min.js"
       ],
-      "environmentSource": "environments/environment.ts",
+      "environmentSource": "appConfig/environment.ts",
       "environments": {
-        "dev": "environments/environment.ts",
-        "staging": "environments/environment.staging.ts",
-        "testing": "environments/environment.testing.ts",
-        "prod": "environments/environment.production.ts"
+        "dev": "appConfig/environment.ts",
+        "staging": "appConfig/env/staging/index.ts",
+        "testing": "appConfig/env/testing/index.ts",
+        "prod": "appConfig/env/production/index.ts"
       }
     },
     {
@@ -51,12 +51,12 @@
       "scripts": [
         "../node_modules/hammerjs/hammer.min.js"
       ],
-      "environmentSource": "environments/environment.ts",
+      "environmentSource": "appConfig/environment.ts",
       "environments": {
-        "dev": "environments/environment.ts",
-        "staging": "environments/environment.staging.ts",
-        "testing": "environments/environment.testing.ts",
-        "prod": "environments/environment.production.ts"
+        "dev": "appConfig/environment.ts",
+        "staging": "appConfig/env/staging/index.ts",
+        "testing": "appConfig/env/testing/index.ts",
+        "prod": "appConfig/env/production/index.ts"
       }
     }
   ],
