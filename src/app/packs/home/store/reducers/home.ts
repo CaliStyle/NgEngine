@@ -6,7 +6,7 @@ export interface State {
     app?: string
     libs?: {}
     node?: string
-    trailpacks?: any[]
+    spools?: any[]
   }
   loading: boolean
   error: string | null
