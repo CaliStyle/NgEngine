@@ -9,7 +9,7 @@ module.exports = {
   resolve: {
     extensions: ['.ts', '.js'],
     alias: {
-      'main.server': path.join(__dirname, 'dist', 'server', 'main.bundle.js')
+      'main.server': path.join(__dirname, 'dist', 'server', 'main.js')
     }
   },
   target: 'node',

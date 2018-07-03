@@ -28,7 +28,7 @@ export class NgEngine {
     protected _engine: NgEngineConfiguration
   ) {
     // Injected Environment or default values
-    const environment = _engine.environment || DefaultNgEngineConfiguration
+    const environment = _engine.appConfig.environment || DefaultNgEngineConfiguration
 
     // Set environment string
     this.environment = this.environmentString(environment)

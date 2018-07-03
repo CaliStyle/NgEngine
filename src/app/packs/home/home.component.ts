@@ -24,7 +24,7 @@ export class HomeComponent implements OnInit {
     this.appTitle = this._ngEngine.config.get('app.title')
     const title = this._ngEngine.config.get('home.title')
     this._store.dispatch(new home.HelloWorldAction(title))
-    this._store.dispatch(new home.TrailsAction(null))
+    this._store.dispatch(new home.fabrixAction(null))
     this.homeState$ = this._store.pipe(select(fromHome.getHomeState))
   }
 

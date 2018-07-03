@@ -63,10 +63,11 @@ export class NgEngineConfig { // extends Map {
    * Copy and merge the provided configuration into a new object, decorated with
    * necessary default and environment-specific values.
    */
-  static buildConfig (initialConfig: {env?: Object } = { }, appEnv?) {
+  static buildConfig (initialConfig: {environment?: Object } = { }, appEnv?) {
     // const root = path.resolve(path.dirname(require.main.filename))
     // const temp = path.resolve(root, '.tmp')
-    const envConfig = initialConfig && initialConfig.env && initialConfig.env[appEnv]
+    const envConfig = initialConfig && initialConfig.environment
+      // && initialConfig.environment[appEnv]
 
     const configTemplate = {
       main: {

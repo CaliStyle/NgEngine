@@ -3,11 +3,11 @@ import { RouterTestingModule } from '@angular/router/testing'
 import { StoreModule } from '@ngrx/store'
 
 // NgEngine Module
-import { NgEngineModule, NgEngineService,
+import {
+  NgEngineModule,
+  NgEngineService,
   ENGINE_CONFIG
 } from '../../ngEngine'
-// Environment shim from CLI
-import { environment } from '../../../environments/environment'
 // App Config for NgEngine
 import * as appConfig from '../../../appConfig'
 
@@ -30,7 +30,6 @@ describe('FiveZeroZeroComponent', () => {
         {
           provide: ENGINE_CONFIG,
           useValue: {
-            environment: environment,
             appConfig: appConfig
           }
         }

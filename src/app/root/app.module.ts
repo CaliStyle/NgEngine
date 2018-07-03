@@ -29,8 +29,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 // Service Worker
 import { ServiceWorkerModule } from '@angular/service-worker'
 
-// Environment shim from CLI
-import { environment } from '../../environments/environment'
 // App Config for NgEngine
 import * as appConfig from '../../appConfig'
 
@@ -53,16 +51,15 @@ import * as appConfig from '../../appConfig'
     StoreRouterConnectingModule,
     StoreDevtoolsModule.instrument({
       maxAge: 25,
-      logOnly: environment.production
+      logOnly: appConfig.environment.production
     }),
     NgEngineModule,
-    environment.production ? ServiceWorkerModule.register('/ngsw-worker.js') : []
+    appConfig.environment.production ? ServiceWorkerModule.register('/ngsw-worker.js') : []
   ],
   providers: [
     {
       provide: ENGINE_CONFIG,
       useValue: {
-        environment: environment,
         appConfig: appConfig
       }
     }

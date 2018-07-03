@@ -11,7 +11,7 @@ import { NgEngineModule, NgEngineService,
   ENGINE_CONFIG
 } from '../ngEngine'
 // Environment shim from CLI
-import { environment } from '../../environments/environment'
+import { environment } from '../../appConfig/environment'
 // App Config for NgEngine
 import * as appConfig from '../../appConfig'
 

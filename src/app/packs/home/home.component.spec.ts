@@ -6,8 +6,6 @@ import { StoreModule, combineReducers, Store } from '@ngrx/store'
 import { NgEngineModule, NgEngineService,
   ENGINE_CONFIG
 } from '../../ngEngine'
-// Environment shim from CLI
-import { environment } from '../../../environments/environment'
 // App Config for NgEngine
 import * as appConfig from '../../../appConfig'
 
@@ -36,7 +34,6 @@ describe('HomeComponent', () => {
         {
           provide: ENGINE_CONFIG,
           useValue: {
-            environment: environment,
             appConfig: appConfig
           }
         }

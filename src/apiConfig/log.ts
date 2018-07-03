@@ -2,7 +2,7 @@
  * Logging Configuration
  * (app.config.log)
  *
- * @see http://trailsjs.io/doc/config/log
+ * @see http://fabrixjs.io/doc/config/log
  */
 
 'use strict'

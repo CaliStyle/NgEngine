@@ -19,7 +19,6 @@ import { SharedModule } from '../shared/shared.module'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 // Environment shim from CLI
-import { environment } from '../../environments/environment'
 import * as appConfig from '../../appConfig'
 
 // Import NGRX
@@ -48,12 +47,11 @@ import * as fromRootEffects from './store/effects'
   providers: [
     {
       provide: APP_BASE_HREF,
-      useValue: 'http://localhost:3000'
+      useValue: appConfig.environment.APP_BASE_HREF || 'http://localhost:3000'
     },
     {
       provide: ENGINE_CONFIG,
       useValue: {
-        environment: environment,
         appConfig: appConfig
       }
     }

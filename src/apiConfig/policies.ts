@@ -7,7 +7,7 @@
  * footprints, therefore the request always will directly reach the intended
  * handler.
  *
- * @see http://trailsjs.io/doc/config/policies
+ * @see http://fabrixjs.io/doc/config/policies
  */
 
 'use strict'

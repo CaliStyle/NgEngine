@@ -8,21 +8,35 @@ NgEngine is an environment/plugin configuration module that supports NGRX. Check
 From our time spent working on Trails, we've really enjoyed some of the design patters, specifically Trailpacks. We're bringing that to Angular. With NgPacks you can register all of your modular components and more, even if they are lazy loaded without loosing performance. The other thing that we love about Trails is it's configuration concept.  With NgEngine, you now have environment driven configuration for all your NgPacks.
 
 ## Configuration
+### .angular-cli.json
+You will need to update the cli to use the NgEngine config by modifying your `.angular-cli.json` file.
+```
+...
+"environmentSource": "appConfig/environment.ts",
+"environments": {
+  "dev": "appConfig/environment.ts",
+  "staging": "appConfig/env/staging/index.ts",
+  "testing": "appConfig/env/testing/index.ts",
+  "prod": "appConfig/env/production/index.ts"
+}
+...
+```
+
+Next you will need import the module and add a new provider.
 NgEngine exposes an injection token that can be used to provide configuration.
 
 ```ts
 //app.module.ts
-
+...
 providers: [
   {
     provide: ENGINE_CONFIG,
     useValue: {
-      environment: environment,
       appConfig: appConfig
     }
   }
 ],
-
+...
 ```
 
 ## Anatomy of an NgPack
@@ -70,8 +84,41 @@ The index barrel exports the configuration
 ### main.ts
 Main exports the packs.
 
+### environment.ts 
+```js
+export const environment = {
+  development: true,
+  staging: false,
+  testing: false,
+  production: false,
+  APP_BASE_HREF: 'http://localhost:3000'
+}
+```
+
 ### env
 Exports the environment specific configuration.
+
+Structure:
+ - testing
+   - index.ts
+ - staging
+   - index.ts
+ - production
+   - index
+   
+The index barrel of the any env must specify the environments and whether they are true or false just like the environment.ts file. In addition, you can specify pack overrides!
+
+```js
+// staging/index.ts
+import { app } from './app'
+export const environment = {
+  development: false,
+  staging: true,
+  testing: false,
+  production: false,
+  app: app
+}
+``` 
   
 # Example
 Let's say you have an app component, and you want to set some environment specific values, and that you also want to be able to share those values between different components, even if they are lazy loaded. Normally you would need to create some sort of service, do a bunch of injection and pray that you did it right.

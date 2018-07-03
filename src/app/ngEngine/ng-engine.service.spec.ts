@@ -7,7 +7,7 @@ import { EffectsModule } from '@ngrx/effects'
 // NgEngine
 import { NgEngineModule, NgEngineService, ENGINE_CONFIG } from './'
 // Environment Stub from  angular cli
-import { environment } from '../../environments/environment'
+import { environment } from '../../appConfig/environment'
 // App Config for NgEngine
 import * as appConfig from '../../appConfig'
 
