@@ -8,9 +8,9 @@
   <img width="300" alt="CS Tech Logo" src="/assets/images/icons/apple-icon-precomposed.png">
 </div>
 <div>
-  <h3>Trails Server:</h3>
+  <h3>fabrix Server:</h3>
   <pre *ngIf="!(homeState$ | async)?.error">
-    {{ (homeState$ | async)?.trails | json }}
+    {{ (homeState$ | async)?.fabrix | json }}
   </pre>
   <pre *ngIf="(homeState$ | async)?.error">
     {{ (homeState$ | async)?.error | json }}

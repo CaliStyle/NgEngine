@@ -20,7 +20,7 @@ const DIST_FOLDER = join(process.cwd(), 'dist')
  *
  * Configure the Web Server
  *
- * @see {@link http://trailsjs.io/doc/config/web}
+ * @see {@link http://fabrixjs.io/doc/config/web}
  */
 export const web = {
   express: express,
