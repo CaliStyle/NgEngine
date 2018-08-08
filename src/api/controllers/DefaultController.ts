@@ -5,7 +5,7 @@ import { FabrixController as Controller } from '@fabrix/fabrix/dist/common'
  * @module DefaultController
  *
  * @description Default Controller included with a new fabrix app
- * @see {@link http://fabrixjs.io/doc/api/controllers}
+ * @see {@link https://fabrix.app/doc/api/controllers}
  * @this fabrixApp
  */
 

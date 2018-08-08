@@ -5,6 +5,6 @@ Before you submit an issue, please include:
 - [ ] Angular Version
 - [ ] Angular CLI Version
 - [ ] Node & NPM Version
-- [ ] Trails Version
+- [ ] Fabrix Version
 
 Detailed Description on how to reproduce error:

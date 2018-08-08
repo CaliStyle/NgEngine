@@ -4,7 +4,7 @@
  *
  * Configure how routes map to views and controllers.
  *
- * @see http://fabrixjs.io/doc/config/routes.js
+ * @see https://fabrix.app/doc/config/routes.js
  */
 
 export const routes = {

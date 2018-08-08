@@ -72,6 +72,32 @@
             "outputPath": "dist/server",
             "main": "src/main.server.ts",
             "tsConfig": "src/tsconfig.server.json"
+          },
+          "configurations": {
+            "staging": {
+              "fileReplacements": [
+                {
+                  "replace": "src/appConfig/environment.ts",
+                  "with": "src/appConfig/environment.staging.ts"
+                }
+              ]
+            },
+            "testing": {
+              "fileReplacements": [
+                {
+                  "replace": "src/appConfig/environment.ts",
+                  "with": "src/appConfig/environment.testing.ts"
+                }
+              ]
+            },
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "src/appConfig/environment.ts",
+                  "with": "src/appConfig/environment.prod.ts"
+                }
+              ]
+            }
           }
         },
         "serve": {
