@@ -40,7 +40,7 @@
     "test:e2e": "ng e2e",
     "test:ng:watch": "ng test",
     "test:server": "npm run build && mocha",
-    "lint": "eslint --fix . && ng lint --fix .",
+    "lint": "ng lint --fix .",
     "e2e": "ng e2e",
     "heroku-postbuild": "npm run build:prod",
     "clean": "rm -rf dist"
