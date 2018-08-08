@@ -4,7 +4,7 @@ import { FabrixService as Service } from '@fabrix/fabrix/dist/common'
  * @module DefaultService
  *
  * @description Default Service included with a new fabrix app
- * @see {@link http://fabrixjs.io/doc/api/services}
+ * @see {@link https://fabrix.app/doc/api/services}
  * @this fabrixApp
  */
 export class DefaultService extends Service {

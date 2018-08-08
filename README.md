@@ -5,7 +5,7 @@
 NgEngine is an environment/plugin configuration module that supports NGRX. Checkout the boilerplate [here](https://github.com/calistyle/NgEngine-bolierplate).
 
 ## NgEngine and NgPacks
-From our time spent working on Trails, we've really enjoyed some of the design patters, specifically Trailpacks. We're bringing that to Angular. With NgPacks you can register all of your modular components and more, even if they are lazy loaded without loosing performance. The other thing that we love about Trails is it's configuration concept.  With NgEngine, you now have environment driven configuration for all your NgPacks.
+From our time spent working on Fabrix, we've really enjoyed some of the design patters, specifically Trailpacks. We're bringing that to Angular. With NgPacks you can register all of your modular components and more, even if they are lazy loaded without loosing performance. The other thing that we love about Fabrix is it's configuration concept.  With NgEngine, you now have environment driven configuration for all your NgPacks.
 
 ## Configuration
 ### .angular-cli.json
@@ -148,16 +148,16 @@ In addition, you can set default configs in your Packs and then override them th
 ## Boilerplate
 Sometimes it's easier to see how it's done. Checkout [NgEngine-boilerplate](https://github.com/CaliStyle/NgEngine-boilerplate).
 
-## Trails
-For Trails documentation see the [Trails Website](https://trailsjs.io).  The only difference is that we are extending trails with Typescript and bundling it with webpack. You can configure Trails through `src/apiConfig`.
+## Fabrix
+For Fabrix documentation see the [Fabrix Website](https://fabrixjs.io).  The only difference is that we are extending fabrix with Typescript and bundling it with webpack. You can configure Fabrix through `src/apiConfig`.
 
 ## Angular
 For Angular documentation see the [Angular Website](https://angular.io).  You can configure your NgEngine Angular app through `src/appConfig`.
 
 # Development
 
-## Trails server
-run `npm run build && node dist/server.js` for the trails server to start. Navigate to `http://localhost:3000/`
+## Fabrix server
+run `npm run build && node dist/server.js` for the fabrix server to start. Navigate to `http://localhost:3000/`
 
 ## Development server
 
@@ -195,7 +195,7 @@ Run `ng e2e` or `npm run test:e2e` to execute the end-to-end tests via [Protract
 First you will need to create a Heroku app. The package.json includes a "heroku-postbuild" script that will build the app. The Procfile includes the location to start the node server which will serve the app on Heroku.
 
 ## Known Issues
-The Trails REPL (trailpack-repl) includes some characters that production webpack builds (`webpack -p`) can not parse and fails during the uglify process.  Currently, we use the normal webpack build which is faster but has a larger slug. If you can fix this, we would love a PR!
+The Fabrix REPL (trailpack-repl) includes some characters that production webpack builds (`webpack -p`) can not parse and fails during the uglify process.  Currently, we use the normal webpack build which is faster but has a larger slug. If you can fix this, we would love a PR!
 
 ## Further help
 

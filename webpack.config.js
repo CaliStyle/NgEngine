@@ -15,7 +15,7 @@ module.exports = {
   target: 'node',
   externals: [nodeExternals()],
   output: {
-    library: 'trailsApp',
+    library: 'fabrixApp',
     libraryTarget: 'commonjs2',
     path: path.join(__dirname, 'dist'),
     filename: '[name].js'

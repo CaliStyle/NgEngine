@@ -7,20 +7,19 @@
  * footprints, therefore the request always will directly reach the intended
  * handler.
  *
- * @see http://fabrixjs.io/doc/config/policies
+ * @see https://fabrix.app/doc/config/policies
  */
 
 'use strict'
 
 export const policies = {
-  '*': [
-    // Handles Passport authentication per route
-    // 'Passport.sessionAuth',
-    // Checks ACL for routes
-    // 'CheckPermissions.checkRoute'
-  ],
-  DefaultController: {
-    info: [ ]
-  }
-
+  // '*': [
+  //   // Handles Passport authentication per route
+  //   // 'Passport.sessionAuth',
+  //   // Checks ACL for routes
+  //   // 'CheckPermissions.checkRoute'
+  // ],
+  // DefaultController: {
+  //   info: [ ]
+  // }
 }
