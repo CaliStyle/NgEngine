@@ -1,12 +1,11 @@
 // Import Core
-import { Injectable, Inject, InjectionToken } from '@angular/core'
-import { omit, merge } from 'lodash'
-
+import { Inject, Injectable, InjectionToken } from '@angular/core';
 // Config Class
-import { NgEngineConfig } from './ng-engine.config'
-
+import { NgEngineConfig } from './ng-engine.config';
 // Configuration Interface
-import { DefaultNgEngineConfiguration, NgEngineConfiguration } from './ng-engine.interface'
+import { DefaultNgEngineConfiguration, NgEngineConfiguration } from './ng-engine.interface';
+
+
 
 // For browsers/terminals that don't implement the debug method, log will be used instead.
 const CONSOLE_DEBUG_METHOD = console['debug'] ? 'debug' : 'log'
@@ -51,10 +50,10 @@ export class NgEngine {
         writable: false
       },
       _packs: {
-        value: { }
+        value: {}
       },
       _models: {
-        value: { }
+        value: {}
       },
       _state: {
         value: {}
@@ -144,8 +143,8 @@ export class NgEngine {
   /**
    * Merge a Pack into Engine
    */
-  private mergePack (pack): void {
-    Object.assign(this._state, {[pack.id]: pack})
+  private mergePack(pack): void {
+    Object.assign(this._state, { [pack.id]: pack })
   }
 
   /**
@@ -153,7 +152,7 @@ export class NgEngine {
    */
   public error(message?: any, ...optionalParams: any[]): void {
     if (!this.production) {
-      (<any>console).error.apply(console, arguments)
+      (<any>console).error.apply(console, this._convertArguments(arguments))
     }
   }
 
@@ -162,7 +161,7 @@ export class NgEngine {
    */
   public warn(message?: any, ...optionalParams: any[]): void {
     if (!this.production) {
-      (<any>console).warn.apply(console, arguments)
+      (<any>console).warn.apply(console, this._convertArguments(arguments))
     }
   }
 
@@ -171,7 +170,7 @@ export class NgEngine {
    */
   public info(message?: any, ...optionalParams: any[]): void {
     if (!this.production) {
-      (<any>console).info.apply(console, arguments)
+      (<any>console).info.apply(console, this._convertArguments(arguments))
     }
   }
 
@@ -180,7 +179,7 @@ export class NgEngine {
    */
   public debug(message?: any, ...optionalParams: any[]): void {
     if (!this.production) {
-      (<any>console)[CONSOLE_DEBUG_METHOD].apply(console, arguments)
+      (<any>console)[CONSOLE_DEBUG_METHOD].apply(console, this._convertArguments(arguments))
     }
   }
 
@@ -189,10 +188,26 @@ export class NgEngine {
    */
   public log(message?: any, ...optionalParams: any[]): void {
     if (!this.production) {
-      (<any>console).log.apply(console, arguments)
+      (<any>console).log.apply(console, this._convertArguments(arguments))
     }
+  }
+
+  private _convertArguments(args: any) {
+    return args.map(arg => {
+      if (typeof arg == 'object') {
+        let obj;
+        try {
+          obj = JSON.stringify(arg);
+        } catch (e) {
+          obj = arg;
+        }
+        return obj;
+      }
+      return arg;
+    })
   }
 }
 
 // Export the Config and Interface
-export { NgEngineConfig, NgEngineConfiguration }
+export { NgEngineConfig, NgEngineConfiguration };
+
