@@ -170,7 +170,10 @@ export class NgEngine {
    */
   public info(message?: any, ...optionalParams: any[]): void {
     if (!this.production) {
-      (<any>console).info.apply(console, this._convertArguments(arguments))
+      const args = this._convertArguments(arguments)
+      args.forEach(arg => {
+        (<any>console).info.apply(console, arg)
+      })
     }
   }
 
@@ -179,7 +182,10 @@ export class NgEngine {
    */
   public debug(message?: any, ...optionalParams: any[]): void {
     if (!this.production) {
-      (<any>console)[CONSOLE_DEBUG_METHOD].apply(console, this._convertArguments(arguments))
+      const args = this._convertArguments(arguments)
+      args.forEach(arg => {
+        (<any>console)[CONSOLE_DEBUG_METHOD].log.apply(console, arg)
+      })
     }
   }
 
