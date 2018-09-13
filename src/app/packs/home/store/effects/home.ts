@@ -42,7 +42,7 @@ export class HomeEffects {
         }),
         // If request fails, dispatch failed action
         catchError((err) => {
-          console.log('fabrix ERROR', err)
+          this._ngEngine.log('fabrix ERROR', err)
           return of({ type: '[Home] fabrix Failed', payload: err })
         })// of({ type: '[Home] fabrix Failed', payload: err }))
       )

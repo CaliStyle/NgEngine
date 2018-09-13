@@ -1,11 +1,11 @@
 // Import Core
-import { Inject, Injectable, InjectionToken } from '@angular/core';
+import { Inject, Injectable, InjectionToken } from '@angular/core'
+
 // Config Class
-import { NgEngineConfig } from './ng-engine.config';
+import { NgEngineConfig } from './ng-engine.config'
+
 // Configuration Interface
-import { DefaultNgEngineConfiguration, NgEngineConfiguration } from './ng-engine.interface';
-
-
+import { DefaultNgEngineConfiguration, NgEngineConfiguration } from './ng-engine.interface'
 
 // For browsers/terminals that don't implement the debug method, log will be used instead.
 const CONSOLE_DEBUG_METHOD = console['debug'] ? 'debug' : 'log'
@@ -188,26 +188,42 @@ export class NgEngine {
    */
   public log(message?: any, ...optionalParams: any[]): void {
     if (!this.production) {
-      (<any>console).log.apply(console, this._convertArguments(arguments))
+      const args = this._convertArguments(arguments)
+      args.forEach(arg => {
+        (<any>console).log.apply(console, arg)
+      })
     }
   }
 
-  private _convertArguments(args: any) {
-    return args.map(arg => {
-      if (typeof arg == 'object') {
-        let obj;
+  private _convertArguments(args: any): any[] {
+    if (typeof args === 'object' && args.length) {
+      return Array.from(args).map(arg => {
+        let obj
         try {
-          obj = JSON.stringify(arg);
-        } catch (e) {
-          obj = arg;
+          obj = Object.values(arg) // JSON.stringify(Object.values(arg), 0, 2)
         }
-        return obj;
+        catch (e) {
+          obj = [arg]
+        }
+        return obj
+      })
+    }
+    else if (typeof args === 'object' ) {
+      let obj
+      try {
+        obj = Object.values(args) // JSON.stringify(args, 0, 2)
       }
-      return arg;
-    })
+      catch (e) {
+        obj = [args]
+      }
+      return [obj]
+    }
+    else {
+      return [args]
+    }
   }
 }
 
 // Export the Config and Interface
-export { NgEngineConfig, NgEngineConfiguration };
+export { NgEngineConfig, NgEngineConfiguration }
 
