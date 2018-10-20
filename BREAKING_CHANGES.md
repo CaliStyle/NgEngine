@@ -1,15 +1,23 @@
-# NgEngine and Angular 7.x
+# Angular 7.x
 
-When upgrading from v6 and lower, you must change the import from package.json to a "default import".
+When upgrading from v6 and lower, you must change the module format from `es2015` to `commonjs` in all your tsconfig files.
 
 ## Before
 
-```ts
-import * as PKG from './package.json'
+```json
+{
+    "compilerOptions":{
+        "module": "es2015"
+    }
+}
 ```
 
 ## After
 
-```ts
-import PKG from './package.json'
+```json
+{
+    "compilerOptions":{
+        "module": "commonjs" // if it's already commonjs, you're ok
+    }
+}
 ```
