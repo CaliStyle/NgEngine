@@ -4,7 +4,7 @@
  *
  * Configure how routes map to views and controllers.
  *
- * @see https://fabrix.app/doc/config/routes.js
+ * @see https://fabrix.app/docs/config/routes
  */
 
 export const routes = {
@@ -41,12 +41,4 @@ export const routes = {
     'GET': 'DefaultController.info',
     config: {}
   }
-
-  // Proxy Router
-  // '/api/v1/proxy/*': {
-  //   method: [ 'GET' ],
-  //   path: '/api/v1/proxy/*',
-  //   handler: 'ViewController.proxyRouter',
-  //   config: {}
-  // }
 }
