@@ -1,12 +1,30 @@
-// /**
-//  * Node 6 does not have entries or values and need to be shimmed for NgEngine
-//  */
-// import 'core-js/fn/object/entries'
-// import 'core-js/fn/object/values'
-
+// import * as ES6Map from 'es6-map'
+import 'core-js/es6/map'
 import { IllegalAccessError, ConfigValueError } from './ng-engine.errors'
 import { Core } from './ng-engine.core'
 import { merge, isArray, defaults, union } from 'lodash'
+
+// declare var ES6Map: ES6MapConstructor
+// interface ES6Map<K, V> {
+//   size: number;
+//   [Symbol.toStringTag]: string;
+//   [Symbol.iterator](): IterableIterator<[K, V]>;
+//   clear(): void;
+//   delete(key: K): boolean;
+//   entries(): IterableIterator<[K, V]>;
+//   forEach(callbackfn: (value: V, index: K, map: ES6Map<K, V>) => void, thisArg?: any): void;
+//   get(key: K): V;
+//   has(key: K): boolean;
+//   keys(): IterableIterator<K>;
+//   set(key: K, value?: V): ES6Map<K, V>;
+//   values(): IterableIterator<V>;
+// }
+//
+// interface ES6MapConstructor {
+//   new <K, V>(): ES6Map<K, V>;
+//   new <K, V>(iterable: Iterable<[K, V]>): ES6Map<K, V>;
+//   prototype: ES6Map<any, any>;
+// }
 
 
 // Proxy Handler for get requests to the configuration
