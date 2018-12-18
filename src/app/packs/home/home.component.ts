@@ -16,6 +16,7 @@ import * as fromHome from './store/reducers'
 export class HomeComponent implements OnInit {
   public appTitle
   public homeState$: Observable<any>
+  public all
 
   constructor(
     private _ngEngine: NgEngineService,
@@ -26,6 +27,8 @@ export class HomeComponent implements OnInit {
     this._store.dispatch(new home.HelloWorldAction(title))
     this._store.dispatch(new home.fabrixAction(null))
     this.homeState$ = this._store.pipe(select(fromHome.getHomeState))
+
+    this.all = this._ngEngine.config.dehydrate()
   }
 
   ngOnInit() {}

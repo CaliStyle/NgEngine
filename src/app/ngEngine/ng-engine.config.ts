@@ -1,7 +1,7 @@
 // import * as ES6Map from 'es6-map'
 import 'core-js/es6/map'
-import { IllegalAccessError, ConfigValueError } from './ng-engine.errors'
-import { Core } from './ng-engine.core'
+import { IllegalAccessError } from './ng-engine.errors'
+import { NgEngineCore } from './ng-engine.core'
 import { merge, isArray, defaults, union } from 'lodash'
 
 // declare var ES6Map: ES6MapConstructor
@@ -43,102 +43,13 @@ const ConfigurationProxyHandler: ProxyHandler<NgEngineConfig> = {
 /**
  * Extend map class for getter/setter tuple config
  */
-export class NgEngineConfig extends Map<any, any> {
+export class NgEngineConfig {
   public immutable: boolean
   public env: {}
-
-  // static create (array?: any[]): NgEngineConfig {
-  //   const inst = new Map(array)
-  //   inst['__proto__'] = NgEngineConfig.prototype
-  //   return inst as NgEngineConfig
-  // }
-  //
-  // /**
-  //  * Flattens configuration tree
-  //  * Recursive
-  //  */
-  // static flattenTree (tree = { }) {
-  //   const toReturn: { [key: string]: any } = {}
-  //   // Try to flatten and fail if unable to resolve circular object
-  //   try {
-  //     Object.entries(tree).forEach(([k, v]) => {
-  //       // if (typeof v === 'object' && v !== null) {
-  //       if (
-  //         v !== null
-  //         && v instanceof Object
-  //         && typeof v !== 'function'
-  //       ) {
-  //         // If value is an array, flatten by index and don't try to flatten further
-  //         // Configs with Array will throw a warning in a later version
-  //         if (Array.isArray(v)) {
-  //           v.forEach((val, i) => {
-  //             toReturn[`${k}.${i}`] = val
-  //           })
-  //         }
-  //         else if (!Core.isNotCircular(v)) {
-  //           toReturn[k] = v
-  //         }
-  //         // If the value is a normal object, keep flattening
-  //         else {
-  //           const flatObject = NgEngineConfig.flattenTree(v)
-  //           Object.keys(flatObject).forEach(flatKey => {
-  //             toReturn[`${k}.${flatKey}`] = flatObject[flatKey]
-  //           })
-  //         }
-  //       }
-  //       // Other wise, the value is a function, string, or number etc and should stop flattening
-  //       toReturn[k] = v
-  //     })
-  //
-  //     // Return the consturcted return object
-  //     return toReturn
-  //   }
-  //   catch (err) {
-  //     if (err !== Core.BreakException) {
-  //       throw new RangeError('Tree is circular and can not be resolved, check that there are no circular references in the config')
-  //     }
-  //     return toReturn
-  //   }
-  // }
-  //
-  // /**
-  //  * Defines the initial api resources
-  //  */
-  // static initialResources (tree, resources = []) {
-  //   if (tree.hasOwnProperty('main') && tree.main.hasOwnProperty('resources')) {
-  //     // Configs with Array will throw a warning in v2.0 and an error in v3.0
-  //     if (!isArray(tree.main['resources'])) {
-  //       throw new ConfigValueError('if set, main.resources must be an array')
-  //     }
-  //     return tree.main['resources']
-  //   }
-  //   else {
-  //     return resources
-  //   }
-  // }
-  //
-  // /**
-  //  * Copy and merge the provided configuration into a new object, decorated with
-  //  * necessary default and environment-specific values.
-  //  */
-  // static buildConfig (initialConfig: {env?: {[key: string]: any}} = { }, appEnv?: string) {
-  //   const envConfig = initialConfig.env && initialConfig.env[appEnv] || { }
-  //
-  //   const configTemplate = {
-  //     resources: NgEngineConfig.initialResources(initialConfig),
-  //     lockResources: false,
-  //     main: {
-  //       packs: [ ],
-  //       paths: {
-  //         root: ''
-  //       },
-  //       freezeConfig: true,
-  //       createPaths: true
-  //     }
-  //   }
-  //
-  //   return merge(configTemplate, initialConfig, envConfig, { env: appEnv })
-  // }
+  public map: Map<any, any>
+  // public get: any
+  // public entries: any
+  // public has: any
 
   constructor (
     configTree: {[key: string]: any} = { },
@@ -149,11 +60,12 @@ export class NgEngineConfig extends Map<any, any> {
   ) {
     // Constants for configuration
     // const config = NgEngineConfig.buildConfig(configTree, processEnv['APP_ENV'] || 'development')
-    const config = Core.buildConfig(configTree, processEnv['APP_ENV'] || 'development')
+    const config = NgEngineCore.buildConfig(configTree, processEnv['APP_ENV'] || 'development')
     // const configEntries = Object.entries(NgEngineConfig.flattenTree(config))
-    const configEntries = Object.entries(Core.flattenTree(config))
+    const configEntries = Object.entries(NgEngineCore.flattenTree(config))
     // Add to the map constructor
-    super(configEntries)
+    // super(configEntries)
+    this.map = new Map(configEntries)
 
     // Initial values
     this.immutable = false
@@ -164,10 +76,34 @@ export class NgEngineConfig extends Map<any, any> {
     this.set = this.set.bind(this)
     this.entries = this.entries.bind(this)
     this.has = this.has.bind(this)
+    this.keys = this.keys.bind(this)
+    this.values = this.values.bind(this)
+    this.dehydrate = this.dehydrate.bind(this)
 
     // return this
     // Return Proxy
     return new Proxy(this, ConfigurationProxyHandler)
+  }
+
+  public get(key) {
+    return this.map.get(key)
+  }
+  public entries() {
+    return this.map.entries()
+  }
+  public has(key) {
+    return this.map.has(key)
+  }
+  public values() {
+    return this.map.values()
+  }
+  public keys() {
+    return this.map.keys()
+  }
+  public dehydrate() {
+    const obj = {}
+    this.map.forEach ((v, k) => { obj[k] = v })
+    return obj
   }
 
   /**
@@ -178,14 +114,14 @@ export class NgEngineConfig extends Map<any, any> {
       const decedent = (key).match(/\.([0-9a-z]+)$/)[1]
       const parent = key.replace(/\.[0-9a-z]+$/, '')
       const proto = Array.isArray(value) ? [] : {}
-      const newParentValue = Core.defaultsDeep({[decedent]: value}, this.get(parent) || proto)
-      super.set(key, value)
+      const newParentValue = NgEngineCore.defaultsDeep({[decedent]: value}, this.get(parent) || proto)
+      this.map.set(key, value)
       // Recursively reverse flatten the set back up the tree
       return this._reverseFlattenSet(parent, newParentValue)
     }
     else {
       // This is as high as it goes
-      return super.set(key, value)
+      return this.map.set(key, value)
     }
   }
   /**
@@ -199,10 +135,10 @@ export class NgEngineConfig extends Map<any, any> {
       && !Array.isArray(value)
     ) {
       // Flatten the new value
-      const configEntries = Object.entries(Core.flattenTree({[key]: value}))
+      const configEntries = Object.entries(NgEngineCore.flattenTree({[key]: value}))
       // Set the flat values
       configEntries.forEach(([_key, _value]) => {
-        return super.set(_key, _value)
+        return this.map.set(_key, _value)
       })
     }
     // Reverse flatten up the tree
@@ -223,7 +159,7 @@ export class NgEngineConfig extends Map<any, any> {
    * Merge tree into this configuration if allowed. Return overwritten keys
    */
   merge (configTree: {[key: string]: any}, configAction = 'hold'): { hasKey: boolean, key: any }[] {
-    const configEntries = Object.entries(Core.flattenTree(configTree))
+    const configEntries = Object.entries(NgEngineCore.flattenTree(configTree))
     return configEntries.map(([ key, value ]) => {
       const hasKey = this.has(key)
       // If the key has never been set, it is added to the config
@@ -252,7 +188,7 @@ export class NgEngineConfig extends Map<any, any> {
           // Do Nothing
         }
         else {
-          this.set(key, Core.defaultsDeep(this.get(key), value))
+          this.set(key, NgEngineCore.defaultsDeep(this.get(key), value))
         }
       }
       // If configAction is replaceable, and the key already exists, it's ignored completely
