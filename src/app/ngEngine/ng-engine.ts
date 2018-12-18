@@ -2,7 +2,7 @@
 import { Inject, Injectable, InjectionToken } from '@angular/core'
 
 // Config Class
-import { NgEngineConfig } from './ng-engine.config'
+import { NgEngineConfig } from './ng-engine.config.old'
 
 // Configuration Interface
 import { DefaultNgEngineConfiguration, NgEngineConfiguration } from './ng-engine.interface'

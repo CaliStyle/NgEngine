@@ -16,10 +16,8 @@
       "es2017",
       "dom"
     ],
+    "baseUrl": ".",
     "paths": {
-      "ng-engine": [
-        "./src/app/ngEngine/*"
-      ],
       "@app/actions/*": [
         "./src/app/root/store/actions/*"
       ],
