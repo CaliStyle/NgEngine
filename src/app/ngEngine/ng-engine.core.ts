@@ -1,7 +1,7 @@
 import { merge, union, defaultsDeep, isArray, toArray, mergeWith } from 'lodash'
 import { ConfigValueError } from './ng-engine.errors'
 
-export const Core = {
+export const NgEngineCore = {
   // An Exception convenience
   BreakException: {},
 
@@ -42,7 +42,7 @@ export const Core = {
     let stack = [[]]
 
     try {
-      return !!JSON.stringify(obj, Core.collector.bind(null, stack))
+      return !!JSON.stringify(obj, NgEngineCore.collector.bind(null, stack))
     }
     catch (e) {
       if (e.message.indexOf('circular') !== -1) {
@@ -93,12 +93,12 @@ export const Core = {
               toReturn[`${k}.${i}`] = val
             })
           }
-          else if (!Core.isNotCircular(v)) {
+          else if (!NgEngineCore.isNotCircular(v)) {
             toReturn[k] = v
           }
           // If the value is a normal object, keep flattening
           else {
-            const flatObject = Core.flattenTree(v)
+            const flatObject = NgEngineCore.flattenTree(v)
             Object.keys(flatObject).forEach(flatKey => {
               toReturn[`${k}.${flatKey}`] = flatObject[flatKey]
             })
@@ -112,7 +112,7 @@ export const Core = {
       return toReturn
     }
     catch (err) {
-      if (err !== Core.BreakException) {
+      if (err !== NgEngineCore.BreakException) {
         throw new RangeError('Tree is circular and can not be resolved, check that there are no circular references in the config')
       }
       return toReturn
@@ -127,7 +127,7 @@ export const Core = {
     const envConfig = initialConfig.env && initialConfig.env[appEnv] || { }
 
     const configTemplate = {
-      resources: Core.initialResources(initialConfig),
+      resources: NgEngineCore.initialResources(initialConfig),
       lockResources: false,
       main: {
         packs: [ ],

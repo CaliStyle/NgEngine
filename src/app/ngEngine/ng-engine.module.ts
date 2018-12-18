@@ -1,4 +1,4 @@
-// Angular Core
+// Angular NgEngineCore
 import {
   NgModule
 } from '@angular/core'

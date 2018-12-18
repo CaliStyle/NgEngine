@@ -1,4 +1,4 @@
-// Import Core
+// Import NgEngineCore
 import { Inject, Injectable, InjectionToken } from '@angular/core'
 
 // Config Class
