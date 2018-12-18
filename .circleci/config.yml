@@ -6,7 +6,7 @@
 version: 2
 
 defaults: &defaults
-  working_directory: ~/ng-intercom
+  working_directory: ~/ng-engine
   docker:
     - image: circleci/node:8-browsers
       environment:
@@ -44,19 +44,19 @@ jobs:
       - store_test_results:
           path: test-results.xml
       - persist_to_workspace:
-          root: ~/ng-intercom
+          root: ~/ng-engine
           paths: .
   deploy:
     <<: *defaults
     steps:
       - attach_workspace:
-          at: ~/ng-intercom
+          at: ~/ng-engine
       - run:
           name: Build dist
           command: npm run build:dist
       - run:
           name: Authenticate with registry
-          command: echo "//registry.npmjs.org/:_authToken=$npm_TOKEN" > ~/ng-intercom/.npmrc
+          command: echo "//registry.npmjs.org/:_authToken=$npm_TOKEN" > ~/ng-engine/.npmrc
       - run:
           name: Publish package
           command: npm publish dist
