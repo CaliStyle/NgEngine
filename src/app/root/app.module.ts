@@ -48,7 +48,7 @@ import * as appConfig from '../../appConfig'
     SharedModule,
     StoreModule.forRoot(fromRootReducers.reducers),
     EffectsModule.forRoot([]),
-    StoreRouterConnectingModule,
+    StoreRouterConnectingModule.forRoot(),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: appConfig.environment.production

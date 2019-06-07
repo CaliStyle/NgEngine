@@ -4,7 +4,7 @@ import { omit } from 'lodash'
  */
 export interface NgPack {
   config: Object
-  pkg: { name?: 'string'}
+  pkg: { name?: 'string' }
   _actions: any
   _effects: any
   _reducers: any
@@ -18,14 +18,14 @@ export class NgPack {
   public _effects
   public _reducers
 
-/**
- * Instantiate the ngPack and set some initial properties. All ngPacks
- * should implement their own constructors, and call super(app, pack) with
- * their own pack definitions. Implementing application logic in the ngPack
- * constructor is not recommended.
- */
+  /**
+   * Instantiate the ngPack and set some initial properties. All ngPacks
+   * should implement their own constructors, and call super(app, pack) with
+   * their own pack definitions. Implementing application logic in the ngPack
+   * constructor is not recommended.
+   */
 
-  constructor (app, {config, pkg, actions, effects, reducers}) {
+  constructor(app, { config, pkg, actions, effects, reducers }) {
     Object.defineProperties(this, {
       app: {
         enumberable: false,
@@ -81,7 +81,7 @@ export class NgPack {
   }
 
   get Actions (): any {
-   return omit(this._actions, 'ActionTypes')
+    return omit(this._actions, 'ActionTypes')
   }
 
   get ActionTypes (): any {

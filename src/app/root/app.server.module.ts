@@ -41,7 +41,7 @@ import * as fromRootEffects from './store/effects'
     SharedModule,
     StoreModule.forRoot(fromRootReducers.reducers),
     EffectsModule.forRoot([]),
-    StoreRouterConnectingModule,
+    StoreRouterConnectingModule.forRoot(),
     NgEngineModule
   ],
   providers: [

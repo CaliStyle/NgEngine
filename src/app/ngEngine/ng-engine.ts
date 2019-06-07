@@ -1,11 +1,12 @@
 // Import NgEngineCore
-import { Inject, Injectable, InjectionToken } from '@angular/core'
+import { Inject, Injectable, InjectionToken, Type } from '@angular/core'
 
 // Config Class
 import { NgEngineConfig } from './ng-engine.config'
 
 // Configuration Interface
 import { DefaultNgEngineConfiguration, NgEngineConfiguration } from './ng-engine.interface'
+import { NgPack } from './ng-pack';
 
 // For browsers/terminals that don't implement the debug method, log will be used instead.
 const CONSOLE_DEBUG_METHOD = console['debug'] ? 'debug' : 'log'
@@ -61,7 +62,7 @@ export class NgEngine {
     })
 
     // Load Packs
-    this.config.get('main.packs').forEach(Pack => {
+    this.config.get('main.packs').forEach((Pack: Type<NgPack>) => {
       try {
         const pack = new Pack(this)
         this._packs[pack.name] = pack
@@ -214,7 +215,7 @@ export class NgEngine {
         return obj
       })
     }
-    else if (typeof args === 'object' ) {
+    else if (typeof args === 'object') {
       let obj
       try {
         obj = Object.values(args) // JSON.stringify(args, 0, 2)
